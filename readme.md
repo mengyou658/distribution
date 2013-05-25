@@ -3,7 +3,6 @@
 ## Deploy
 
     #只适用于 Ubuntu server 12.04 LTS
-    
     wget -O - https://raw.github.com/Gwill/distribution/develop/dev_deploy.sh|sudo sh
 
 ## Version

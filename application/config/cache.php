@@ -33,7 +33,7 @@ return array(
 	|
 	*/
 
-	'key' => 'laravel',
+	'key' => 'distribution',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ return array(
 	|
 	*/
 
-	'database' => array('table' => 'laravel_cache'),
+	'database' => array('table' => 'distribution_cache'),
 
 	/*
 	|--------------------------------------------------------------------------

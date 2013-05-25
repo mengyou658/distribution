@@ -10,25 +10,23 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
         <style>
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
             }
         </style>
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/css/main.css">
 
-        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
-        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
-
+        
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -37,22 +35,35 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">统计之都</a>
+                    <a class="brand" href="/">统计之都</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/articles/">Articles</a></li>
+                            <li><a href="/groups/">Groups</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                    
+                    <div class="nav-collapse collapse pull-right">
+                        <ul class="nav">
+                            @if ( Auth::check() )
+                            <li><a href="/user/logout">退出</a></li>    
+                            @else
+                            <li><a href="/user/login">登录</a></li>
+                            <li><a href="/user/register">注册</a></li>
+                            @endif
+                            
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Setting <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
+                                    <li><a href="#">test1</a></li>
+                                    <li><a href="#">test2</a></li>
                                     <li class="divider"></li>
-                                    <li class="nav-header">Nav header</li>
+                                    <!-- <li class="nav-header">Nav header</li>
                                     <li><a href="#">Separated link</a></li>
-                                    <li><a href="#">One more separated link</a></li>
+                                    -->
+                                    <li><a href="#">test3</a></li>
+                                    
                                 </ul>
                             </li>
                         </ul>
@@ -63,36 +74,6 @@
 
         <div class="container">
 @yield('content')
-            <!-- Main hero unit for a primary marketing message or call to action -->
-            <div class="hero-unit">
-                <h1>Hello, world!</h1>
-                <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-            </div>
-
-            <!-- Example row of columns -->
-            <div class="row">
-                <div class="span4">
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn" href="#">View details &raquo;</a></p>
-                </div>
-                <div class="span4">
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn" href="#">View details &raquo;</a></p>
-               </div>
-                <div class="span4">
-                    <h2>Heading</h2>
-                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                    <p><a class="btn" href="#">View details &raquo;</a></p>
-                </div>
-            </div>
-
-            
-
-
-
         </div> <!-- /container -->
         <hr>
         <footer>
@@ -102,9 +83,9 @@
         </footer>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
+        <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+        <script src="/js/vendor/bootstrap.min.js"></script>
+        <script src="/js/main.js"></script>
         <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

@@ -41,7 +41,7 @@ return array(
 	 *		'Settings' => array('settings.site', 'settings.ecommerce', 'settings.social'),
 	 *	)
 	 */
-	'menu' => array(),
+	'menu' => array('users'),
 
 	/**
 	 * The permission option is the highest-level authentication check that lets you define a closure that should return true if the current user

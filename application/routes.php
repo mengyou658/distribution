@@ -5,37 +5,37 @@
 | Application Routes
 |--------------------------------------------------------------------------
 |
-| Simply tell Laravel the HTTP verbs and URIs it should respond to. It is a
-| breeze to setup your application using Laravel's RESTful routing and it
-| is perfectly suited for building large applications and simple APIs.
-|
-| Let's respond to a simple GET request to http://example.com/hello:
-|
-|		Route::get('hello', function()
-|		{
-|			return 'Hello World!';
-|		});
-|
-| You can even respond to more than one URI:
-|
-|		Route::post(array('hello', 'world'), function()
-|		{
-|			return 'Hello World!';
-|		});
-|
-| It's easy to allow URI wildcards using (:num) or (:any):
-|
-|		Route::put('hello/(:any)', function($name)
-|		{
-|			return "Welcome, $name.";
-|		});
 |
 */
 
+// for test
+Route::get('test', function()
+{
+    var_dump(Controller::detect());
+    echo date('Y-m-d H:i:s');
+	//return "test";
+});
+
 Route::get('/', function()
 {
-	return View::make('home.index');
+	return View::make('index');
 });
+
+
+Route::get('/user/(:num)', 'user@detial');
+
+// 文章
+Route::get('articles', 'article@index');
+
+// 群组
+Route::get('groups', 'group@index');
+
+// 用户
+Route::controller('user');
+
+// 数据库维护
+Route::controller('scheme');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -108,5 +108,5 @@ Route::filter('csrf', function()
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::to('login');
+	if (Auth::guest()) return Redirect::to('user/login');
 });

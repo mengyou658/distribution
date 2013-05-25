@@ -34,7 +34,8 @@
 */
 
 return array(
-
-	//'docs' => array('handles' => 'docs'),
-
+    'administrator' => array(
+        'handles' => 'admin', 
+        'auto' => true,
+    ),
 );

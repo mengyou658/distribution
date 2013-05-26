@@ -1,11 +1,11 @@
 @layout('layout')
 @section('content')
 <div>
-@forelse ($posts as $post)
-    {{ $post->title }}
+@forelse ($groups as $group)
+    {{ $group->name }}
     <br />
 @empty
-    No posts!
+    No groups!
 @endforelse
 </div>
 @endsection

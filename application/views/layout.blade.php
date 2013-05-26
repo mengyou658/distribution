@@ -40,7 +40,7 @@
                         <ul class="nav">
                             <li><a href="/">Home</a></li>
                             <li><a href="/articles/">Articles</a></li>
-                            <li><a href="/groups/">Groups</a></li>
+                            <li><a href="/group/">Groups</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                     

@@ -25,6 +25,8 @@ class User_Controller extends Base_Controller {
     
     public function get_detial($id)
 	{
+        // 
+        
         var_dump($id);
 		//return View::make('user.index');
 	}
@@ -117,7 +119,7 @@ class User_Controller extends Base_Controller {
             Auth::logout();
         }
         
-        return Redirect::to('/');
+        return Redirect::to('/')->with('msg','logout success');
     }
 
 }

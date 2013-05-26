@@ -2,6 +2,36 @@
 # Only for Ubuntu server 12.04 LTS
 # Need sudo
 
+# file: sources.list
+#deb http://packages.dotdeb.org wheezy all
+#deb-src http://packages.dotdeb.org wheezy all
+##wget http://www.dotdeb.org/dotdeb.gpg
+##cat dotdeb.gpg | sudo apt-key add -
+#
+#deb http://mirrors.163.com/ubuntu/ precise main restricted universe multiverse
+#deb http://mirrors.163.com/ubuntu/ precise-security main restricted universe multiverse
+#deb http://mirrors.163.com/ubuntu/ precise-updates main restricted universe multiverse
+#deb http://mirrors.163.com/ubuntu/ precise-proposed main restricted universe multiverse
+#deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+#deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiverse
+#deb-src http://mirrors.163.com/ubuntu/ precise-security main restricted universe multiverse
+#deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted universe multiverse
+#deb-src http://mirrors.163.com/ubuntu/ precise-proposed main restricted universe multiverse
+#deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+
+# phpunit walkround
+#apt-get remove phpunit
+## already installed phpunit
+#pear upgrade pear
+#pear channel-discover pear.phpunit.de
+#pear channel-discover pear.symfony-project.com
+#pear channel-discover pear.symfony.com
+#pear channel-discover components.ez.no
+#pear update-channels
+#pear upgrade-all
+#pear install --alldeps phpunit/PHPUnit
+
+
 apt-get update -y
 apt-get install git nginx php5 php5-cli php5-curl php5-fpm php5-mcrypt php5-sqlite php5-mysql -y
 

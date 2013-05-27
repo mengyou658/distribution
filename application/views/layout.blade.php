@@ -72,16 +72,54 @@
             </div>
         </div>
 
+        <header class="container subhead">
+        <div class="row">
+            <div class="span12">
+                <img width="1170" src="http://cos.name/wp-content/uploads/2012/03/cropped-COS_Logo1.png" />
+            </div>
+        </div>
+        
+        
+        
+        <div class="subnav">
+          <ul class="nav nav-pills">
+            <li class="active"><a href="#typography">首页</a></li>
+            <li><a href="#navbar">测试</a></li>
+            <li><a href="#buttons">测试一</a></li>
+            <li><a href="#forms">测试二</a></li>
+          </ul>
+        </div>
+        </header>
+        
         <div class="container">
 @yield('content')
         </div> <!-- /container -->
         <hr>
         <footer>
-        <div class="container">
+        <div class="container tex2jax_ignore">
+        <p>
+        $y^2$
+        </p>
+        <div class="math tex2jax_process">
+        \[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
+\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
+\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \\
+\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0
+\end{vmatrix}  \]
+        </div>
+        
             <p>&copy; COS 2013</p>
         </div>
         </footer>
+        
+        </head>
 
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+            tex2jax: { inlineMath: [['$','$']] },
+          });
+        </script>
+        <script type='text/javascript' src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML'></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
         <script src="/js/vendor/bootstrap.min.js"></script>

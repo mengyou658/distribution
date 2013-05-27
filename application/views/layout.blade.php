@@ -38,9 +38,10 @@
                     <a class="brand" href="/">统计之都</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/articles/">Articles</a></li>
-                            <li><a href="/group/">Groups</a></li>
+                            <li><a href="/">首页</a></li>
+                            <li><a href="/articles/">文章</a></li>
+                            <li><a href="/news/">新闻</a></li>
+                            <li><a href="/group/">群组</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                     
@@ -89,6 +90,12 @@
             <li><a href="#forms">测试二</a></li>
           </ul>
         </div>
+        
+        <div class="span4">
+        <ul class="breadcrumb">
+          <li class="active">Home</li>
+        </ul>
+        </div>
         </header>
         
         <div class="container">
@@ -123,8 +130,26 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
         <script src="/js/vendor/bootstrap.min.js"></script>
+        
+        <!-- editor -->
+        <script src="/js/vendor/pagedown/Markdown.Converter.js"></script>
+        <script src="/js/vendor/pagedown/Markdown.Sanitizer.js"></script>
+        <script src="/js/vendor/pagedown/Markdown.Editor.js"></script>        
+
         <script src="/js/main.js"></script>
         <script>
+            (function () {
+                var my_converter = Markdown.getSanitizingConverter();
+                var my_editor = new Markdown.Editor(my_converter);
+                my_editor.run();
+                
+                // 实时渲染公式
+                var wmd_preview = document.getElementById("wmd-preview");
+                $("#wmd-input").keyup(function(event){  
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, wmd_preview]);
+                });      
+            })();
+            
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';

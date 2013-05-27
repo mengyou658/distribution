@@ -11,9 +11,7 @@
 // for test
 Route::get('test', function()
 {
-    var_dump(Controller::detect());
-    echo date('Y-m-d H:i:s');
-	//return "test";
+    return View::make('editor');
 });
 
 Route::get('/', function()

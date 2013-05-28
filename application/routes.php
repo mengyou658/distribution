@@ -93,6 +93,12 @@ Route::get('user/logout', 'user@logout');
 Route::get('user/register', 'user@register');
 Route::post('user/register', 'user@register');
 
+// TODO: 个人设置 
+Route::get('user/setting', 'user@setting');
+
+// TODO: 通知
+Route::get('user/notice', 'user@notice');
+
 
 // 数据库维护
 Route::controller('scheme');

@@ -46,20 +46,17 @@ class User_Controller extends Base_Controller {
             return Redirect::to('user/');
         }
         
-		//return View::make('user.signin');
-        var_dump(Input::all());
-        
         $credentials = array(
             'username' => Input::get('email'),
             'password' => Input::get('password')
         );
 
-        if (Auth::attempt($credentials)) {
-             return Redirect::to('/')->with('msg', 'login success');
+        if ($this->user_login_auth($credentials)) {
+            return Redirect::to('/')->with('msg', 'login success');
         }
         
         // 验证失败，返回登录页
-        return Redirect::to('user/login')->with('msg', 'login input error');
+        return Redirect::to('user/login')->with('msg', '登录失败');
 	}
     
     public function get_register()
@@ -108,8 +105,11 @@ class User_Controller extends Base_Controller {
         $user = new User($new_user);
         $user->save();
         
+        // TODO: 新用户注册验证码
+        // $verify_code = Str::random(12);
         // 注册session
         Auth::login($user->id);
+        
         return Redirect::to('/')->with('msg','register success');
     }
 
@@ -122,4 +122,14 @@ class User_Controller extends Base_Controller {
         return Redirect::to('/')->with('msg','logout success');
     }
 
+    public function user_login_auth($credentials)
+    {
+        $user = User::where_email($credentials['username'])->first();
+        $hashed_password = $user->password;
+        if ( $user->permission > 0 && Hash::check($credentials['password'], $hashed_password) ) {
+            Auth::login($user->id);
+            return true;
+        }
+        return false;
+    }
 }

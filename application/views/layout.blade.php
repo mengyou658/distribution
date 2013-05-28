@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
         <style>
             body {
                 padding-top: 60px;
@@ -48,14 +49,9 @@
                     <div class="nav-collapse collapse pull-right">
                         <ul class="nav">
                             @if ( Auth::check() )
-                            <li><a href="/user/logout">退出</a></li>    
-                            @else
-                            <li><a href="/user/login">登录</a></li>
-                            <li><a href="/user/register">注册</a></li>
-                            @endif
-                            
+                            <li><a href="/user/logout">退出</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Setting <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white" ></i><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">test1</a></li>
                                     <li><a href="#">test2</a></li>
@@ -67,6 +63,12 @@
                                     
                                 </ul>
                             </li>
+                            @else
+                            <li><a href="/user/login">登录</a></li>
+                            <li><a href="/user/register">注册</a></li>
+                            @endif
+                            
+                            
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -82,20 +84,15 @@
         
         
         
-        <div class="subnav">
+        <!--<div class="subnav">
           <ul class="nav nav-pills">
             <li class="active"><a href="#typography">首页</a></li>
             <li><a href="#navbar">测试</a></li>
-            <li><a href="#buttons">测试一</a></li>
-            <li><a href="#forms">测试二</a></li>
+
           </ul>
         </div>
-        
-        <div class="span4">
-        <ul class="breadcrumb">
-          <li class="active">Home</li>
-        </ul>
-        </div>
+        -->
+
         </header>
         
         <div class="container">
@@ -104,9 +101,6 @@
         <hr>
         <footer>
         <div class="container tex2jax_ignore">
-        <p>
-        $y^2$
-        </p>
         <div class="math tex2jax_process">
         \[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
 \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\

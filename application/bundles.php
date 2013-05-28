@@ -38,4 +38,7 @@ return array(
         'handles' => 'admin', 
         'auto' => true,
     ),
+    'messages' => array(
+        'auto' => true
+    ),
 );

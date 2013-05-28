@@ -24,6 +24,8 @@ Route::get('/', function()
 // # 文章
 Route::get('articles', 'article@index');
 
+// TODO: 文章翻页
+
 // 文章详细
 Route::get('article/(:num)', 'article@detail');
 
@@ -35,7 +37,19 @@ Route::get('article/(:num)/page/(:num)', 'article@detail');
 // ---------------------------------
 // # 新闻
 
+// 新闻首页列表
+Route::get('news', 'news@index');
 
+// TODO: 新闻分页
+Route::get('news/page/(:num)', 'news@index');
+
+// 新闻详细
+Route::get('news/(:num)', 'news@detail');
+
+// 新闻详细分页
+Route::get('news/(:num)/page/(:num)', 'news@detail');
+
+// TODO: 投递
 
 // ---------------------------------
 // # 群组

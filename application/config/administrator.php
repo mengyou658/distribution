@@ -7,7 +7,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'title' => 'Admin',
+	'title' => '管理后台',
 
 	/**
 	 * The path to your model config directory

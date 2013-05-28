@@ -47,17 +47,17 @@ return array(
     'edit_fields' => array(
     
         'title' => array(
-            'title' => 'Username',
+            'title' => 'Title',
             'type' => 'text',
         ),
         
         'content' => array(
             'title' => 'Content',
-            'type' => 'markdown',
+            'type' => 'wysiwyg',
         ),
         
         
         
     ),
-    'form_width' => 700,
+    'form_width' => 1000,
 );

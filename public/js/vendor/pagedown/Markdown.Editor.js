@@ -1379,11 +1379,11 @@
             buttons.ulist = makeButton("wmd-ulist-button", "Bulleted List - Ctrl+U", "icon-list", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, false);
             }), group3);
-            buttons.heading = makeButton("wmd-heading-button", "Heading - Ctrl+H", "icon-header", bindCommand("doHeading"), group3);
-            buttons.hr = makeButton("wmd-hr-button", "Horizontal Rule - Ctrl+R", "icon-hr-line", bindCommand("doHorizontalRule"), group3);
+            buttons.heading = makeButton("wmd-heading-button", "Heading - Ctrl+H", "icon-reorder", bindCommand("doHeading"), group3);
+            buttons.hr = makeButton("wmd-hr-button", "Horizontal Rule - Ctrl+R", "icon-ellipsis-horizontal ", bindCommand("doHorizontalRule"), group3);
             
             group4 = makeGroup(4);
-            buttons.undo = makeButton("wmd-undo-button", "Undo - Ctrl+Z", "icon-undo", null, group4);
+            buttons.undo = makeButton("wmd-undo-button", "Undo - Ctrl+Z", "icon-reply", null, group4);
             buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
             var redoTitle = /win/.test(nav.platform.toLowerCase()) ?

@@ -42,7 +42,7 @@ return array(
 	|
 	*/
 
-	'default' => 'sqlite',
+	'default' => 'mysql',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -70,9 +70,9 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => '127.0.0.1',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
+			'database' => 'distribution',
+			'username' => 'distribution',
+			'password' => 'distribution',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),

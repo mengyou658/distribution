@@ -470,40 +470,11 @@ body .one .bsa_it_p {
   padding: 0;
   width: 100%;
 }
-.icon-globe,
-.icon-quote-left,
-.icon-code,
-.icon-list-ol,
-.icon-list,
-.icon-header,
-.icon-hr-line,
-.icon-undo {
-  background-image: url(../js/vendor/pagedown/Markdown.Editor.Icons.png);
+
+.wmd-panel .btn-toolbar .btn i {
+    color: #2C3E50;
 }
-.icon-globe {
-  background-position: 0      0;
-}
-.icon-quote-left {
-  background-position: -24px 0;
-}
-.icon-code {
-  background-position: -48px 0;
-}
-.icon-list-ol {
-  background-position: -72px 0;
-}
-.icon-list {
-  background-position: -96px 0;
-}
-.icon-header {
-  background-position: -120px 0;
-}
-.icon-hr-line {
-  background-position: -144px 0;
-}
-.icon-undo {
-  background-position: -168px 0;
-}
+
 .wmd-prompt-background {
   background-color: Black;
 }
@@ -527,13 +498,16 @@ body .one .bsa_it_p {
 }
 
 
+
 /* END: */
 
 body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-
+.aritcle-content {
+    line-height: 1.7em;
+}
 
 
 

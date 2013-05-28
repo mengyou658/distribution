@@ -74,7 +74,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'home_page' => '',
+	'home_page' => 'users',
 
 	/**
 	 * The login path is the path where Administrator will send the user if they fail a permission check
@@ -95,6 +95,6 @@ return array(
 	 *
 	 * @type NULL|int
 	 */
-	'global_rows_per_page' => 20,
+	'global_rows_per_page' => 10,
 
 );

@@ -11,7 +11,21 @@
 // for test
 Route::get('test', function()
 {
-    return View::make('comment_editor');
+    //return View::make('comment_editor');
+    
+    return View::make('at_user');
+});
+
+Route::post('test', function()
+{
+    //return View::make('comment_editor');
+    var_dump(Input::get('md_input'));
+    $md_input = Input::get('md_input').' ';
+    preg_match_all("/(@\S{4,12})\s/", $md_input, $matches);
+    var_dump($matches);
+    foreach($matches[1] as $v) {
+        echo ltrim($v,'@');
+    }
 });
 
 Route::get('/', function()

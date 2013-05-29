@@ -16,6 +16,7 @@
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
+                
             }
         </style>
         <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
@@ -97,17 +98,13 @@
         
         <div class="container">
 @yield('content')
+
         </div> <!-- /container -->
         <hr>
         <footer>
         <div class="container tex2jax_ignore">
-        <div class="math tex2jax_process">
-        \[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
-\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
-\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \\
-\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0
-\end{vmatrix}  \]
-        </div>
+            <div class="math tex2jax_process">
+            </div>
         
             <p>&copy; COS 2013</p>
         </div>

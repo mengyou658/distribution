@@ -31,11 +31,10 @@
 #pear upgrade-all
 #pear install --alldeps phpunit/PHPUnit
 
-
 apt-get update -y
 
-debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password root'
-debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password root'
+echo 'mysql-server-5.5 mysql-server/root_password password root' | debconf-set-selections 
+echo 'mysql-server-5.5 mysql-server/root_password_again password root' | debconf-set-selections 
 
 apt-get install git nginx php5 php5-cli php5-curl php5-fpm php5-mcrypt php5-sqlite php5-mysql mysql-server-5.5 samba -y
 

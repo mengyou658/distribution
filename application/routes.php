@@ -11,7 +11,7 @@
 // for test
 Route::get('test', function()
 {
-    return View::make('editor');
+    return View::make('comment_editor');
 });
 
 Route::get('/', function()

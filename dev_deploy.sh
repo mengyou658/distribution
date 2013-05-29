@@ -18,6 +18,17 @@
 #deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted universe multiverse
 #deb-src http://mirrors.163.com/ubuntu/ precise-proposed main restricted universe multiverse
 #deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+## or
+#deb http://mirrors.xmu.edu.cn/ubuntu/archive precise main restricted universe multiverse
+#deb http://mirrors.xmu.edu.cn/ubuntu/archive precise-backports main restricted universe multiverse
+#deb http://mirrors.xmu.edu.cn/ubuntu/archive precise-proposed main restricted universe multiverse
+#deb http://mirrors.xmu.edu.cn/ubuntu/archive precise-security main restricted universe multiverse
+#deb http://mirrors.xmu.edu.cn/ubuntu/archive precise-updates main restricted universe multiverse 
+#deb-src http://mirrors.xmu.edu.cn/ubuntu/archive precise main restricted universe multiverse
+#deb-src http://mirrors.xmu.edu.cn/ubuntu/archive precise-backports main restricted universe multiverse
+#deb-src http://mirrors.xmu.edu.cn/ubuntu/archive precise-proposed main restricted universe multiverse
+#deb-src http://mirrors.xmu.edu.cn/ubuntu/archive precise-security main restricted universe multiverse
+#deb-src http://mirrors.xmu.edu.cn/ubuntu/archive precise-updates main restricted universe multiverse
 
 # phpunit walkround
 #apt-get remove phpunit
@@ -85,12 +96,15 @@ EOF
 
 ln -s /etc/nginx/sites-available/distribution /etc/nginx/sites-enabled/distribution
 
-echo "create user distribution identified by 'distribution';create database distribution;grant all privileges on distribution.* to distribution@'localhost' identified by 'distribution';flush privileges;" | mysql -uroot -proot
+sed -i 's/# Here is entries for some specific programs/default-character-set = utf8\n# Here is entries for some specific programs/' /etc/mysql/my.cnf
+sed -i 's/# Instead of skip-networking/character-set-server = utf8\n# Instead of skip-networking/' /etc/mysql/my.cnf
 
 service mysql restart
 service nginx restart
 service php5-fpm restart
 service smbd restart
+
+echo "create user distribution identified by 'distribution';create database distribution;grant all privileges on distribution.* to distribution@'localhost' identified by 'distribution';flush privileges;" | mysql -uroot -proot
 
 curl http://localhost:9527/scheme/up
 

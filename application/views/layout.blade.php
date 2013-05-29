@@ -132,17 +132,9 @@
 
         <script src="/js/main.js"></script>
         <script>
-            (function () {
-                var my_converter = Markdown.getSanitizingConverter();
-                var my_editor = new Markdown.Editor(my_converter);
-                my_editor.run();
+            // (function () {
                 
-                // 实时渲染公式
-                var wmd_preview = document.getElementById("wmd-preview");
-                $("#wmd-input").keyup(function(event){  
-                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, wmd_preview]);
-                });      
-            })();
+            // })();
             
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

@@ -81,6 +81,9 @@ class Scheme_Controller extends Base_Controller {
             
             // 冗余数据
             // $table->integer('notices_count')->default(0); // 未读通知数量
+            // $table->integer('posts_count')->default(0); // 发帖数量
+            // $table->integer('questions_count')->default(0); // 提问数量
+            // $table->integer('answers_count')->default(0); // 回答数量
             
             $table->timestamps();
             
@@ -118,6 +121,9 @@ class Scheme_Controller extends Base_Controller {
             
             $table->text('abstract');
             $table->text('content');
+            
+            // 缩略图
+            $table->string('thumbnail', 256);
     
             $table->timestamps();
             

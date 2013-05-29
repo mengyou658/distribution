@@ -37,7 +37,7 @@ apt-get update -y
 debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password root'
 debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password root'
 
-apt-get install git nginx php5 php5-cli php5-curl php5-fpm php5-mcrypt php5-sqlite php5-mysql mysql-server-5.5 -y
+apt-get install git nginx php5 php5-cli php5-curl php5-fpm php5-mcrypt php5-sqlite php5-mysql mysql-server-5.5 samba -y
 
 mkdir -p /var/www
 cd /var/www
@@ -47,7 +47,20 @@ cd /var/www/distribution
 git checkout -b develop origin/develop
 
 chown -R www-data:www-data /var/www/distribution
-chmod -R 755 /var/www/distribution
+chmod -R 777 /var/www/distribution
+
+sed -i 's/#   security = user/   security = share/' /etc/samba/smb.conf
+
+cat>>/etc/samba/smb.conf<<EOF
+[distribution]
+  public=yes
+  browseable=yes
+  guest ok=yes
+  writable=yes
+  path=/var/www/distribution
+  create mask=0777
+  directory mask=0777
+EOF
 
 cat>/etc/nginx/sites-available/distribution<<EOF
 server {
@@ -78,6 +91,7 @@ echo "create user distribution identified by 'distribution';create database dist
 service mysql restart
 service nginx restart
 service php5-fpm restart
+service smbd restart
 
 curl http://localhost:9527/scheme/up
 

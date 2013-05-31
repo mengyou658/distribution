@@ -39,10 +39,6 @@ mysql
 
 ## Version
 
-laravel-laravel-v3.2.14-107-g58d6b11
+laravel-v4
 
-Laravel-Administrator-v3.2.0
-
-Laravel-Messages
-
-Bootstrap-v2.3.0
+bootstrap-v2.3.0

@@ -135,17 +135,11 @@
         <!-- end: 全局 -->
         
         <!-- start: editor -->
-        <script src="/js/vendor/pagedown/Markdown.Converter.js"></script>
-        <script src="/js/vendor/pagedown/Markdown.Sanitizer.js"></script>
-        <script src="/js/vendor/pagedown/Markdown.Editor.js"></script>        
-        <script src="/js/vendor/bootstrap-tag.js"></script>        
-
+@yield('js')      
+        <!-- end: editor -->
+        
         <script src="/js/main.js"></script>
         <script>
-            // (function () {
-                
-            // })();
-            
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';

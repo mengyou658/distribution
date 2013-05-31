@@ -29,3 +29,4 @@ $a+b=c$
 
 </div>
 @endsection
+@section('content')

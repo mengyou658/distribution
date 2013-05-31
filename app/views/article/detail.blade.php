@@ -34,9 +34,19 @@
     @endif
     <br />
     
-
-   
+    
+    <div id="comment-reply">
+        <legend>你的评论</legend>
+        <div id="wmd-panel" class="wmd-panel">
+        <div id="wmd-button-bar"></div>
+        <textarea class="wmd-input pull-left" id="wmd-input">
+        </textarea>
+        <div id="wmd-preview" class="wmd-panel wmd-preview well pull-right"></div>
+        </div>
+        <a id="comment-reply-submit" class="btn btn-primary">发布</a>
+    </div>
 </div>
+
 <div class="span4">
 <h3> 最新文章 </h3>
 <ul class="unstyled">
@@ -56,4 +66,11 @@
 </div>
 </div>
 </div>
+@endsection
+
+@section('js')
+<script src="/js/vendor/pagedown/Markdown.Converter.js"></script>
+<script src="/js/vendor/pagedown/Markdown.Sanitizer.js"></script>
+<script src="/js/vendor/pagedown/Markdown.Editor.js"></script>
+<script src="/js/article_comment.js"></script>     
 @endsection

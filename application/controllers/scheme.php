@@ -31,6 +31,10 @@ class Scheme_Controller extends Base_Controller {
         $this->create_posts();
         $this->create_post_comments();
         
+        $this->create_tags();
+        $this->create_article_tag();
+        $this->create_news_tag();
+        $this->create_post_tag();
         
         $this->create_test_data();
         
@@ -53,6 +57,11 @@ class Scheme_Controller extends Base_Controller {
         Schema::drop('groups');
         Schema::drop('posts');
         Schema::drop('post_comments');
+        
+        Schema::drop('tags');
+        Schema::drop('article_tag');
+        Schema::drop('news_tag');
+        Schema::drop('post_tag');
         
         echo "Drop all tables!";
     }
@@ -291,6 +300,68 @@ class Scheme_Controller extends Base_Controller {
         // TODO: 回答评论
     }
     
+    public function create_tags()
+    {
+        
+        Schema::create('tags', function($table) {
+            $table->increments('id');
+            
+            $table->string('tag', 32);
+            
+            // 冗余字段
+            // 引用计数
+            $table->integer('refer_counts')->default(0);
+    
+            $table->timestamps();
+            
+        });
+        echo "Create the tags table!";
+        echo '<br />';
+    }
+    
+    public function create_article_tag()
+    {
+        Schema::create('article_tag', function($table) {
+            $table->increments('id');
+            
+            $table->integer('article_id');
+            $table->integer('tag_id');
+    
+            $table->timestamps();
+        });
+        echo "Create the article_tag table!";
+        echo '<br />';
+    }
+    
+    
+    public function create_news_tag()
+    {
+        Schema::create('news_tag', function($table) {
+            $table->increments('id');
+            
+            $table->integer('news_id');
+            $table->integer('tag_id');
+    
+            $table->timestamps();
+        });
+        echo "Create the news_tag table!";
+        echo '<br />';
+    }
+    
+    public function create_post_tag()
+    {
+        Schema::create('post_tag', function($table) {
+            $table->increments('id');
+            
+            $table->integer('post_id');
+            $table->integer('tag_id');
+    
+            $table->timestamps();
+        });
+        echo "Create the post_tag table!";
+        echo '<br />';
+    }
+    
     public function create_user_verification()
     {
         // TODO: 新用户注册验证
@@ -439,6 +510,7 @@ EOS;
             
             'abstract' => "第六届中国 R 语言会议（北京会场）于 2013 年 5 月 18 日 ~ 19 日在中国人民大学国学馆113、114教室成功召开。会议由中国人民大学应用统计科学研究中心、中国人民大学统计学院、北京大学商务智能研究中心、统计之都（cos.name）主办。在两天的会议时间里，参会者齐聚一堂，就 R 语言在互联网、商业、统计、生物、制药、可视化等诸多方面的应用进行了深入的探讨。",
             'content' => $content_raw,
+            'thumbnail' => "http://cos.name/wp-content/uploads/2013/05/6th-china-r-bj-500x332.jpg",
         ));        
         echo "Insert long test articles !";
         echo '<br />';

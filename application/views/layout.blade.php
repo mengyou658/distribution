@@ -111,21 +111,26 @@
         </footer>
         
         </head>
-
+        
+        <!-- start: 全局 -->
         <script type="text/x-mathjax-config">
           MathJax.Hub.Config({
             tex2jax: { inlineMath: [['$','$']] },
           });
         </script>
         <script type='text/javascript' src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML'></script>
+        
+        
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
         <script src="/js/vendor/bootstrap.min.js"></script>
+        <!-- end: 全局 -->
         
-        <!-- editor -->
+        <!-- start: editor -->
         <script src="/js/vendor/pagedown/Markdown.Converter.js"></script>
         <script src="/js/vendor/pagedown/Markdown.Sanitizer.js"></script>
         <script src="/js/vendor/pagedown/Markdown.Editor.js"></script>        
+        <script src="/js/vendor/bootstrap-tag.js"></script>        
 
         <script src="/js/main.js"></script>
         <script>

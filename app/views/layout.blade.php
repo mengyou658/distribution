@@ -108,9 +108,10 @@
 @yield('content')
 
         </div> <!-- /container -->
-        <hr>
+        
         <footer>
         <div class="container tex2jax_ignore">
+        <hr>
             <div class="math tex2jax_process">
             </div>
         
@@ -118,7 +119,6 @@
         </div>
         </footer>
         
-        </head>
         
         <!-- start: 全局 -->
         <script type="text/x-mathjax-config">

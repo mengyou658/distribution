@@ -58,6 +58,9 @@ $a+b=c$
 </textarea>
 <div id="wmd-preview" class="wmd-panel wmd-preview well pull-right"></div>
 </div>
+<div class="clean-all">
+<input class="input-tag" type="text" name="tags" data-provide="tag">
+</div>
 <a id="submit" class="btn btn-primary">确定</a>
 </div>
 </div>

@@ -29,6 +29,7 @@ class SchemeController extends BaseController {
         $this->create_news();
         $this->create_news_comments();
         $this->create_groups();
+        $this->create_user_group();
         $this->create_posts();
         $this->create_post_comments();
         
@@ -36,6 +37,8 @@ class SchemeController extends BaseController {
         $this->create_article_tag();
         $this->create_news_tag();
         $this->create_post_tag();
+        
+        $this->create_notices();
         
         $this->create_test_data();
 	}
@@ -48,6 +51,7 @@ class SchemeController extends BaseController {
         Schema::dropIfExists('news');
         Schema::dropIfExists('news_comments');
         Schema::dropIfExists('groups');
+        Schema::dropIfExists('user_group');
         Schema::dropIfExists('posts');
         Schema::dropIfExists('post_comments');
         
@@ -55,6 +59,8 @@ class SchemeController extends BaseController {
         Schema::dropIfExists('article_tag');
         Schema::dropIfExists('news_tag');
         Schema::dropIfExists('post_tag');
+        
+        Schema::dropIfExists('notices');
         
         echo "Drop all tables!";
     }
@@ -82,7 +88,7 @@ class SchemeController extends BaseController {
             $table->integer('permission')->default(1);
             
             // 冗余数据
-            // $table->integer('notices_count')->default(0); // 未读通知数量
+            $table->integer('notices_count')->default(0); // 未读通知数量
             // $table->integer('posts_count')->default(0); // 发帖数量
             // $table->integer('questions_count')->default(0); // 提问数量
             // $table->integer('answers_count')->default(0); // 回答数量
@@ -121,8 +127,9 @@ class SchemeController extends BaseController {
             $table->integer('author_id');
             $table->string('author', 32);
             
-            $table->text('abstract');
-            $table->text('content');
+            $table->text('abstract'); // 纯文字
+            $table->text('content'); // html
+            $table->text('markdown'); // html
             
             // 缩略图
             $table->string('thumbnail', 256);
@@ -146,6 +153,7 @@ class SchemeController extends BaseController {
             $table->string('author', 32);
             
             $table->text('content');
+            $table->text('markdown');
             
             // TODO: 楼层
     
@@ -170,7 +178,7 @@ class SchemeController extends BaseController {
             $table->integer('courier_id');
             $table->string('courier', 32);
             
-            $table->text('abstract'); // 摘要
+            $table->text('abstract'); // 摘要 纯文字
             
             // TODO: 评论数
     
@@ -192,6 +200,7 @@ class SchemeController extends BaseController {
             $table->string('author', 32);
             
             $table->text('content');
+            $table->text('markdown');
             
             // TODO: 楼层
     
@@ -208,7 +217,7 @@ class SchemeController extends BaseController {
         Schema::create('groups', function($table) {
             $table->increments('id');
             
-            $table->string('name', 128);
+            $table->string('name', 64);
             $table->string('pic', 256);
             $table->text('description');
             
@@ -224,6 +233,21 @@ class SchemeController extends BaseController {
         
     }
     
+    public function create_user_group()
+    {
+        Schema::create('user_group', function($table) {
+            $table->increments('id');
+            
+            $table->integer('user_id');
+            $table->integer('group_id');
+    
+            $table->timestamps();
+        });
+        echo "Create the user_group table!";
+        echo '<br />';
+    }
+    
+    
     public function create_posts()
     {
         Schema::create('posts', function($table) {
@@ -232,12 +256,15 @@ class SchemeController extends BaseController {
             $table->string('title', 128);
             
             $table->integer('group_id');
+            $table->string('group_name', 64); // 冗余字段
+            
             $table->integer('author_id');
             $table->string('author', 32);
             
             // TODO: 楼层冗余数据
             
             $table->text('content');
+            $table->text('markdown');
     
             $table->timestamps();
             
@@ -260,6 +287,7 @@ class SchemeController extends BaseController {
             $table->string('author', 32);
             
             $table->text('content');
+            $table->text('markdown');
             
             // TODO: 楼层
     
@@ -576,7 +604,7 @@ EOS;
         
         for ($i=1; $i<=5; $i++) {
             DB::table('groups')->insert(array(
-                'name' => '测试小组',
+                'name' => "测试小组$i",
                 'pic' => 'http://img1.guokr.com/thumbnail/I17VQsuxs02tsUqcCcLMLqbDKM7XEh4NDzNZA1gMWHgwAAAAMAAAAEpQ_48x48.jpg',
                 'description' => "测试小组描述<br />换行换行",
                 
@@ -587,11 +615,32 @@ EOS;
             echo '<br />';
         }
         
+        DB::table('user_group')->insert(array(
+            'user_id' => 1,
+            'group_id' => 1,
+            
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ));        
+        echo "Insert test user_group 1 relation !";
+        echo '<br />';
+        
+        DB::table('user_group')->insert(array(
+            'user_id' => 2,
+            'group_id' => 1,
+            
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ));        
+        echo "Insert test user_group 2 relation !";
+        echo '<br />';
+        
         for ($i=1; $i<=10; $i++) {
             DB::table('posts')->insert(array(
                 'title' => "post title $i",
                 
                 'group_id' => 1,
+                'group_name' => '测试小组1',
                 'author_id' => 1,
                 'author' => 'test',
 

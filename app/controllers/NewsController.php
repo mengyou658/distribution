@@ -28,4 +28,6 @@ class NewsController extends BaseController {
                    ->with('news_comments', $news_comments);
 	}
     
+    
+    
 }

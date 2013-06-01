@@ -1,12 +1,6 @@
 @extends('layout')
 @section('content')
 <div>
-@if ( $msg = Session::get('msg', false) )
-<div class="alert alert-info">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <h5>{{ $msg }}</h5>
-</div>
-@endif
 <h3>注册</h3>
 <hr />
 <form class="form-horizontal"  action="/user/register" method="post">
@@ -36,7 +30,7 @@
   </div>
   <div class="control-group">
     <div class="controls">
-      <button type="submit" class="btn">确定</button>
+      <button type="submit" class="btn btn-primary">确定</button>
     </div>
   </div>
 </form>

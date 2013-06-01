@@ -10,6 +10,10 @@ Github issues
 
 Trello
 
+## 设计
+
+https://github.com/cosname/admin/blob/master/CEP/cep-002.md
+
 ## 技术
 
 ### 技术选型
@@ -17,12 +21,6 @@ Trello
 php
 
 mysql
-
-## 组成
-
-文章
-
-讨论组
 
 ## 开发
 

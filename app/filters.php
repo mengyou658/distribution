@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('user/login');
+	if (Auth::guest()) return Redirect::guest('user/login')->with('msg', '请登录后再操作');
 });
 
 

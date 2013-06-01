@@ -8,17 +8,28 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('index');
-});
+Route::get('/', array('uses' => 'HomeController@getIndex', 'as' => 'index'));
+
+// 关于我们
+Route::get('about', array('uses' => 'HomeController@getAbout', 'as' => 'about'));
+// 联系我们
+Route::get('contact', array('uses' => 'HomeController@getContact', 'as' => 'contact'));
+// 免责申明
+Route::get('policy', array('uses' => 'HomeController@getPolicy', 'as' => 'policy'));
+// 帮助中心
+Route::get('help', array('uses' => 'HomeController@getHelp', 'as' => 'help'));
+
 
 // for test
 Route::get('test', function()
 {
     //return View::make('comment_editor');
     
-    return View::make('at_user');
+    //return View::make('at_user');
+    $event = Event::fire('notice', array(1, 'test notice'));
+    
+    var_dump($event);
+    
 });
 
 // ---------------------------------
@@ -40,29 +51,45 @@ Route::get('news', array('uses' => 'NewsController@getIndex', 'as' => 'news'));
 // 新闻详细
 Route::get('news/{id}', array('uses' => 'NewsController@getDetail', 'as' => 'news_detail'))->where('id', '[0-9]+');
 
-// TODO: 投递
+// 新闻投递
+Route::get('news/deliver', array('uses' => 'NewsController@getDeliver', 'as' => 'news_deliver'));
 
-/*
+
 // ---------------------------------
 // # 群组
 
 // 群组首页最新 posts 列表
-Route::get('group', 'group@index');
+Route::get('group', array('uses' => 'GroupController@getAllPosts', 'as' => 'group'));
+Route::get('group/posts', array('uses' => 'GroupController@getAllPosts', 'as' => 'group_posts'));
 
 // 群组列表
-Route::get('groups', 'group@list');
+Route::get('groups', array('uses' => 'GroupController@getIndex', 'as' => 'groups'));
+
+// 申请建立小组
+Route::get('group/apply', array('uses' => 'GroupController@getApply', 'as' => 'group_apply'));
+Route::post('group/apply', array('uses' => 'GroupController@postApply', 'as' => 'group_post_apply'));
 
 // 群组详细
-Route::get('group/(:num)', 'group@detail');
+Route::get('group/{id}', array('uses' => 'GroupController@getDetail', 'as' => 'group_detail'))->where('id', '[0-9]+');
 
-// 群组详细分页
-Route::get('group/(:num)/page/(:num)', 'group@detail');
+// 加入群组
+Route::get('group/{id}/join', array('uses' => 'GroupController@getJoin', 'as' => 'group_join'))->where('id', '[0-9]+');
+
+// 退出群组
+Route::get('group/{id}/quit', array('uses' => 'GroupController@getQuit', 'as' => 'group_quit'))->where('id', '[0-9]+');
+
 
 // 帖子详细
-Route::get('post/(:num)', 'group@post');
+Route::get('group/post/{post_id}', array('uses' => 'GroupController@getPostDetail', 'as' => 'group_post_detail'))->where('post_id', '[0-9]+');
+
+// 发新帖
+Route::get('group/{group_id}/new_post', array('uses' => 'GroupController@getNewPost', 'as' => 'group_new_post'))->where('group_id', '[0-9]+');
+Route::post('group/{group_id}/new_post', array('uses' => 'GroupController@postNewPost', 'as' => 'group_post_new_post'))->where('group_id', '[0-9]+');
+
+/*
 
 // TODO: 帖子发布
-Route::get('group/(:num)/new_post', 'group@new_post');
+
 */
 
 // ---------------------------------

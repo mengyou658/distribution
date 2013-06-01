@@ -53,6 +53,14 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+// handler for 404
+App::missing(function($exception)
+{
+    return "404";
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler
@@ -81,3 +89,8 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+// TODO: View Composers
+
+// custom events
+require app_path().'/events.php';

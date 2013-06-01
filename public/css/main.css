@@ -1,15 +1,16 @@
-
-
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
    
 /* START: from http://bootswatch.com/css/bootswatch.css  */
 /* http://bootswatch.com/flatly/ */
+
+/*
 section {
 	margin-top: 60px;
 	padding-top: 100px;
 }
+*/
 
 /* index */
 
@@ -609,7 +610,9 @@ body {
     text-align: center;
 }
 
-
+legend {
+    font-family: "Microsoft Yahei";
+}
 
 
 

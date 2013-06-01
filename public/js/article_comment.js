@@ -11,17 +11,31 @@
     
     // my_editor.refreshPreview(); // 刷新编辑器预览
     
-    /*
-    $('.cmt_quote').click(function(){
-        var cmt_quote_content = $(this).attr('cmt_quote_content');
+    
+    $('.comment-quote').click(function(){
+        var cmt_quote_content = $(this).attr('comment-quote-content');
         var wmd_input = $('#wmd-input');
-        wmd_input.val(">"+cmt_quote_content);
-        $('body').animate({scrollTop:$('#cmt-reply').offset().top - 60}, 800);
+        wmd_input.val(">"+cmt_quote_content.replace(/\n/g, '\n> ')+'\n');
+        $('body').animate({scrollTop:$('#comment-reply').offset().top - 60}, 800);
         
         my_editor.refreshPreview();
         MathJax.Hub.Queue(['Typeset', MathJax.Hub, wmd_preview]);
     });
     
+    $('.pager li a').each(function(){
+        $(this).attr('href', $(this).attr('href')+'#article-comment'); // TODO: 丑，找更好的方法。
+    });
+    
+    $('#comment-reply-submit').click(function(){
+        if ( $('#wmd-input').val().trim().length < 3 ) {
+            $(this).before('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>内容太短</div>');
+        } else {
+            $('#wmd-preview-content').val($('#wmd-preview').html());
+            $('#comment-reply-form').submit()
+        }
+    });
+    
+    /*
     // for @ 
     $('.cmt_content').each(function(){
         var content = $(this).text().trim() + ' ';
@@ -34,12 +48,6 @@
     });
     
     // for test
-    $('#submit').click(function(){
-        var preview = $('#wmd-preview').html();
-        $.post('/test', {'md_input':preview}, function(result){
-            console.log('success');
-            location.reload();
-        });
-    });
+    
     */
 })();

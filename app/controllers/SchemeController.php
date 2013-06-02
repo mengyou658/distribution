@@ -172,7 +172,7 @@ class SchemeController extends BaseController {
             $table->increments('id');
             
             $table->string('title', 128);
-            $table->string('url', 256);
+            $table->string('link', 256);
             
             
             $table->integer('courier_id');
@@ -180,7 +180,10 @@ class SchemeController extends BaseController {
             
             $table->text('abstract'); // 摘要 纯文字
             
+            $table->integer('status')->default(0); // 状态
+            
             // TODO: 评论数
+            $table->integer('comments_count')->default(0);
     
             $table->timestamps();
             
@@ -223,7 +226,8 @@ class SchemeController extends BaseController {
             
             // TODO:组长，管理员，统计数据（冗余数据），
             
-    
+            $table->integer('status')->default(0);
+            
             $table->timestamps();
             
         });
@@ -331,7 +335,7 @@ class SchemeController extends BaseController {
             
             // 冗余字段
             // 引用计数
-            $table->integer('refer_counts')->default(0);
+            $table->integer('refer_counts')->default(1);
     
             $table->timestamps();
             
@@ -572,7 +576,7 @@ EOS;
         for ($i=1; $i<=5; $i++) {
             DB::table('news')->insert(array(
                 'title' => "news title $i",
-                'url' => "http://news_url",
+                'link' => "http://news_url",
                 
                 'courier_id' => 1,
                 'courier' => 'test',
@@ -608,6 +612,7 @@ EOS;
                 'pic' => 'http://img1.guokr.com/thumbnail/I17VQsuxs02tsUqcCcLMLqbDKM7XEh4NDzNZA1gMWHgwAAAAMAAAAEpQ_48x48.jpg',
                 'description' => "测试小组描述<br />换行换行",
                 
+                'status' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ));        
@@ -669,6 +674,16 @@ EOS;
             echo '<br />';
         }
         
+        for ($i=1; $i<=5; $i++) {
+            DB::table('tags')->insert(array(
+                'tag' => "测试标签$i",
+
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert test tag $i!";
+            echo '<br />';
+        }
         
     }
     

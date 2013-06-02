@@ -9,6 +9,11 @@ class NewsController extends BaseController {
 	|
 	|
 	*/
+    
+    public function __construct()
+    {
+        $this->beforeFilter('auth', array('only' => array('getDeliver', 'postDeliver')));
+    }
 
 	public function getIndex()
 	{
@@ -28,6 +33,37 @@ class NewsController extends BaseController {
                    ->with('news_comments', $news_comments);
 	}
     
+    public function getDeliver()
+    {
+        return View::make('news.deliver');
+    }
+    
+    public function postDeliver()
+    {
+        $input = array(
+            'title' => Input::get('title'),
+            'link' => Input::get('link'),
+            'abstract' => Input::get('abstract'),
+        );
+
+        $rules = array(
+            'title' => 'required',
+            'link' => 'required|url',
+            'abstract' => 'required',
+        );
+        
+        $v = Validator::make($input, $rules);
+        if ($v->fails()) {
+            return Redirect::to('news/deliver')->with('msg', '填写信息错误');
+        }
+        
+        $user = Auth::user();
+        $input['courier_id'] = $user->id;
+        $input['courier'] = $user->username;
+
+        News::create($input);
+        return Redirect::to('news')->with('msg', '投递成功，审核中...');
+    }
     
     
 }

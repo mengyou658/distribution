@@ -26,12 +26,12 @@
         $(this).attr('href', $(this).attr('href')+'#article-comment'); // TODO: 丑，找更好的方法。
     });
     
-    $('#comment-reply-submit').click(function(){
+    $('#wmd-submit').click(function(){
         if ( $('#wmd-input').val().trim().length < 3 ) {
             $(this).before('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>内容太短</div>');
         } else {
             $('#wmd-preview-content').val($('#wmd-preview').html());
-            $('#comment-reply-form').submit()
+            $('#wmd-form').submit()
         }
     });
     

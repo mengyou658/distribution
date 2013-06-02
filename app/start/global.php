@@ -59,7 +59,14 @@ App::missing(function($exception)
     return "404";
 });
 
-
+// check SQL
+// DB::listen(function($sql, $bindings, $time)
+// {   
+    // echo "<hr />";
+    // var_dump($sql);
+    // var_dump($bindings);
+    // var_dump($time);
+// });
 
 /*
 |--------------------------------------------------------------------------

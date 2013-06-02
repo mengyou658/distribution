@@ -9,14 +9,14 @@
     ?>
     <div class="span6">
         @for ($i = 0; $i < ceil($group_count/2); $i++)
-        <h5>{{ $groups[$i]->name }}{{ $groups[$i]->id }}</h5>
+        <h5><a href="/group/{{ $groups[$i]->id }}">{{ $groups[$i]->name }}</a></h5>
         <p>{{ $groups[$i]->description }}</p>
         <hr />
         @endfor
     </div>
     <div class="span6">
         @for ($i = ceil($group_count/2); $i < $group_count ; $i++)
-        <h5>{{ $groups[$i]->name }}{{ $groups[$i]->id }}</h5>
+        <h5><a href="/group/{{ $groups[$i]->id }}">{{ $groups[$i]->name }}</a></h5>
         <p>{{ $groups[$i]->description }}</p>
         <hr />
         @endfor

@@ -18,15 +18,13 @@
             <a href="/group/{{ $group->id }}/quit">退出小组</a>
             @endif
         </div>
-        
+        <hr />
         <div>
             @if(!empty($posts))
                 <ul>
                     @foreach ($posts as $post)
                         <li>
-                            {{ $post->id }}
-                            <br />
-                            {{ $post->content }}
+                            <a href="/group/{{ $post->group_id }}/post/{{ $post->id }}">{{ $post->title }}</a>
                         </li>
                     @endforeach
                 </ul>

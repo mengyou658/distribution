@@ -12,7 +12,7 @@ class GroupController extends BaseController {
     
     public function __construct()
     {
-        $this->beforeFilter('auth', array('only' => array('getApply', 'postApply', 'getJoin', 'getQuit', 'getNewPost', 'postNewPost')));
+        $this->beforeFilter('auth', array('only' => array('getApply', 'postApply', 'getJoin', 'getQuit', 'getNewPost', 'postNewPost', 'postPostComment')));
     }
 
 	public function getIndex()
@@ -99,49 +99,81 @@ class GroupController extends BaseController {
     
     public function postNewPost($group_id)
     {
-        $input = array(
+        $markdown = App::make('markdown');
+        
+        $user = Auth::user();
+        $group = Group::find($group_id);
+
+        $new_post = array(
             'title' => Input::get('title'),
             'markdown' => Input::get('markdown'), // TODO: 上传图片，保存图片，保存图片url
-            'content' => Input::get('content'),
+            'content' => $markdown->transform(Input::get('markdown')),
         );
         
         $rules = array(
             'title' => 'required',
             'markdown' => 'required',
-            'content' => 'required',
         );
         
-        $v = Validator::make($input, $rules);
+        $v = Validator::make($new_post, $rules);
         if ($v->fails()) {
             return Redirect::to("group/$group_id/new_post")->with('msg', '填写信息错误');
         }
         
-        $group = Group::find($group_id);
-        $user = Auth::user();
+        $new_post['group_id'] = $group_id;
+        $new_post['group_name'] = $group->name;
+        $new_post['author_id'] = $user->id;
+        $new_post['author'] = $user->username;
         
-        $input['group_id'] = $group_id;
-        $input['group_name'] = $group->name;
-        $input['author_id'] = $user->id;
-        $input['author'] = $user->username;
-        
-        
-        Post::create($input);
+        Post::create($new_post);
         return Redirect::to("group/$group_id")->with('msg', '发帖成功');
     }
     
     public function getPostDetail($group_id, $post_id)
     {
-        // TODO:
-        var_dump($group_id);
-        var_dump($post_id);
-        //return View::make('group.post.detail');
+        $per_page_num = 3;
+        Config::set('view.pagination', 'pagination::simple');
+        
+        $user = Auth::user();
+        $users = Group::find($group_id)->users;
+        $is_member = $user?$users->contains($user->id):false;
+        
+        $post = Post::find($post_id);
+        $post_comments = PostComment::wherePost_id($post_id)->orderBy('created_at', 'desc')->paginate($per_page_num);
+        return View::make('group.post.detail')
+                   ->with('post', $post)
+                   ->with('post_comments', $post_comments)
+                   ->with('is_member', $is_member);
     }
     
     
     public function postPostComment($group_id, $post_id)
     {
-        // TODO: post comment
-        echo "post comment";
+        $markdown = App::make('markdown');
+        $user = Auth::user();
+        
+        $new_post_comment = array(
+            'markdown' => Input::get('markdown'),
+            'content' => $markdown->transform(Input::get('markdown')),
+            'post_id' => $post_id,
+            'author_id' => $user->id,
+            'author' => $user->username,
+        );
+        
+        $rules = array(
+            'markdown' => 'required',
+        );
+        
+        $v = Validator::make($new_post_comment, $rules);
+        if ($v->fails()) {
+            return Redirect::to("group/$group_id/post/$post_id")->with('msg', '没有评论内容');
+        }
+        
+        $post_comment = PostComment::create($new_post_comment);
+        
+        // TODO: event fire user messages with @
+        
+        return Redirect::to("group/$group_id/post/$post_id#news-comment");
     }
     
     public function getTest()

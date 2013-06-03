@@ -18,25 +18,27 @@ class ArticleController extends BaseController {
                    ->with('articles', $articles);
 	}
     
-    public function getDetail($id)
+    public function getDetail($article_id)
 	{
         $per_page_num = 3;
         Config::set('view.pagination', 'pagination::simple');
         
-        $article = Article::find($id);
-        $article_comments = ArticleComment::whereArticle_id($id)->orderBy('created_at', 'desc')->paginate($per_page_num);
+        $article = Article::find($article_id);
+        $article_comments = ArticleComment::whereArticle_id($article_id)->orderBy('created_at', 'desc')->paginate($per_page_num);
 		return View::make('article.detail')
                    ->with('article', $article)
                    ->with('article_comments', $article_comments);
 	}
     
-    public function postComment($id)
+    public function postComment($article_id)
     {
+        $markdown = App::make('markdown');
+        
         $user = Auth::user();
         $new_article_comment = array(
             'markdown' => Input::get('markdown'),
-            'content' => Input::get('content'),
-            'article_id' => $id,
+            'content' => $markdown->transform(Input::get('markdown')),
+            'article_id' => $article_id,
             'author_id' => $user->id,
             'author' => $user->username,
         );
@@ -47,7 +49,7 @@ class ArticleController extends BaseController {
         
         // TODO: event fire user messages with @
         
-        return Redirect::to("article/$id#article-comment");
+        return Redirect::to("article/$article_id#article-comment");
     }
 
     public function makeNoticeContent($article_id, $article_comment_id)

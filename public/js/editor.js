@@ -15,7 +15,7 @@
     $('.comment-quote').click(function(){
         var cmt_quote_content = $(this).attr('comment-quote-content');
         var wmd_input = $('#wmd-input');
-        wmd_input.val(">"+cmt_quote_content.replace(/\n/g, '\n> ')+'\n');
+        wmd_input.val("> "+cmt_quote_content.replace(/\n/g, '\n> ')+'\n');
         $('body').animate({scrollTop:$('#comment-reply').offset().top - 60}, 800);
         
         my_editor.refreshPreview();
@@ -30,7 +30,7 @@
         if ( $('#wmd-input').val().trim().length < 3 ) {
             $(this).before('<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>内容太短</div>');
         } else {
-            $('#wmd-preview-content').val($('#wmd-preview').html());
+            //$('#wmd-preview-content').val($('#wmd-preview').html());
             $('#wmd-form').submit()
         }
     });

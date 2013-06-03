@@ -56,7 +56,7 @@ App::error(function(Exception $exception, $code)
 // handler for 404
 App::missing(function($exception)
 {
-    return "404";
+    return "// TODO: 待完成";
 });
 
 // check SQL

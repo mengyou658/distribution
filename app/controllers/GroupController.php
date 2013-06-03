@@ -76,20 +76,20 @@ class GroupController extends BaseController {
         return Redirect::to('groups')->with('msg', '申请成功，审核中...');
     }
     
-    public function getJoin($id)
+    public function getJoin($group_id)
     {
-        $group = Group::find($id);
+        $group = Group::find($group_id);
         $user = Auth::user();
         $group->users()->attach($user->id);
-        return Redirect::to("group/$id")->with('msg', '加入成功');
+        return Redirect::to("group/$group_id")->with('msg', '加入成功');
     }
     
-    public function getQuit($id)
+    public function getQuit($group_id)
     {
-        $group = Group::find($id);
+        $group = Group::find($group_id);
         $user = Auth::user();
         $group->users()->detach($user->id);
-        return Redirect::to("group/$id")->with('msg', '退出成功');
+        return Redirect::to("group/$group_id")->with('msg', '退出成功');
     }
     
     public function getNewPost($group_id)

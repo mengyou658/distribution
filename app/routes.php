@@ -79,7 +79,6 @@ Route::get(
         'as' => 'articles')
 );
 
-
 // 文章详细
 Route::get('
     article/{article_id}',
@@ -137,29 +136,68 @@ Route::post(
         'as' => 'news_post_deliver')
 );
 
-
 // ---------------------------------
 // # 群组
 
 // 群组首页最新 posts 列表
-Route::get('group', array('uses' => 'GroupController@getAllPosts', 'as' => 'group'));
-Route::get('group/posts', array('uses' => 'GroupController@getAllPosts', 'as' => 'group_posts'));
+Route::get(
+    'group',
+    array(
+        'uses' => 'GroupController@getAllPosts',
+        'as' => 'group')
+);
+Route::get(
+    'group/posts',
+    array(
+        'uses' => 'GroupController@getAllPosts',
+        'as' => 'group_posts')
+);
 
 // 群组列表
-Route::get('groups', array('uses' => 'GroupController@getIndex', 'as' => 'groups'));
+Route::get(
+    'groups',
+    array(
+        'uses' => 'GroupController@getIndex',
+        'as' => 'groups')
+);
 
 // 申请建立小组
-Route::get('group/apply', array('uses' => 'GroupController@getApply', 'as' => 'group_apply'));
-Route::post('group/apply', array('uses' => 'GroupController@postApply', 'as' => 'group_post_apply'));
+Route::get(
+    'group/apply',
+    array(
+        'uses' => 'GroupController@getApply',
+        'as' => 'group_apply')
+);
+Route::post(
+    'group/apply',
+    array(
+        'uses' => 'GroupController@postApply',
+        'as' => 'group_post_apply')
+);
 
 // 群组详细
-Route::get('group/{group_id}', array('uses' => 'GroupController@getDetail', 'as' => 'group_detail'))->where('group_id', '[0-9]+');
+Route::get(
+    'group/{group_id}',
+    array(
+        'uses' => 'GroupController@getDetail',
+        'as' => 'group_detail')
+)->where('group_id', '[0-9]+');
 
 // 加入群组
-Route::get('group/{id}/join', array('uses' => 'GroupController@getJoin', 'as' => 'group_join'))->where('id', '[0-9]+');
+Route::get(
+    'group/{group_id}/join',
+    array(
+        'uses' => 'GroupController@getJoin',
+        'as' => 'group_join')
+)->where('group_id', '[0-9]+');
 
 // 退出群组
-Route::get('group/{id}/quit', array('uses' => 'GroupController@getQuit', 'as' => 'group_quit'))->where('id', '[0-9]+');
+Route::get(
+    'group/{group_id}/quit',
+    array(
+        'uses' => 'GroupController@getQuit',
+        'as' => 'group_quit')
+)->where('group_id', '[0-9]+');
 
 
 // 帖子详细
@@ -234,8 +272,6 @@ Route::get(
         'uses' => 'TagController@getDetail',
         'as' => 'tag_detail')
 );
-
-
 
 
 // 数据库维护

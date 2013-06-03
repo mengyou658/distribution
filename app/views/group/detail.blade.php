@@ -20,6 +20,7 @@
         </div>
         <hr />
         <div>
+            帖子列表
             @if(!empty($posts))
                 <ul>
                     @foreach ($posts as $post)
@@ -55,11 +56,4 @@
     </div>
 </div>
 
-@endsection
-
-@section('js')
-<script src="/js/vendor/pagedown/Markdown.Converter.js"></script>
-<script src="/js/vendor/pagedown/Markdown.Sanitizer.js"></script>
-<script src="/js/vendor/pagedown/Markdown.Editor.js"></script>
-<script src="/js/article_comment.js"></script>     
 @endsection

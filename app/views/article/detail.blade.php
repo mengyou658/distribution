@@ -43,7 +43,6 @@
                 <textarea id="wmd-input" class="wmd-input pull-left" name="markdown"></textarea>
                 <div id="wmd-preview" class="wmd-panel wmd-preview well pull-right"></div>
                 </div>
-                <input id="wmd-preview-content" type="hidden" name="content"/>
                 <a id="wmd-submit" class="btn btn-primary">发布</a>
             <form>
             </div>

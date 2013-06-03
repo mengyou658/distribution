@@ -7,7 +7,7 @@
 @foreach ($posts as $post)
     <h5><a href="/group/{{ $post->group_id }}/post/{{ $post->id }}">{{ $post->title }}</a></h5>
     <p>{{ $post->content }}</p>
-    <p>{{ $post->group_name }}</p>
+    <p><a href="/group/{{ $post->group_id }}">{{ $post->group_name }}</a></p>
     <hr />
 @endforeach
 {{ $posts->links() }}

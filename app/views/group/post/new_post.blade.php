@@ -15,13 +15,10 @@
     <div class="controls">
       <div id="wmd-panel" class="wmd-panel">
       <div id="wmd-button-bar"></div>
-
           <div class="clearfix">
           <textarea id="wmd-input" class="wmd-input pull-left" name="markdown"></textarea>
           <div id="wmd-preview" class="wmd-panel wmd-preview well pull-right"></div>
           </div>
-          <input id="wmd-preview-content" type="hidden" name="content"/>
-          
       </div>
     </div>
   </div>

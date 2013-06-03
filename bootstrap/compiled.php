@@ -290,7 +290,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirect;
 class Application extends Container implements HttpKernelInterface, ResponsePreparerInterface
 {
-    const VERSION = '4.0.0';
+    const VERSION = '4.0.1';
     protected $booted = false;
     protected $bootingCallbacks = array();
     protected $bootedCallbacks = array();
@@ -334,7 +334,7 @@ class Application extends Container implements HttpKernelInterface, ResponsePrep
     }
     public static function getBootstrapFile()
     {
-        return '/var/www/laravel/vendor/laravel/framework/src/Illuminate/Foundation' . '/start.php';
+        return '/home/g_will/Works/distribution/vendor/laravel/framework/src/Illuminate/Foundation' . '/start.php';
     }
     public function startExceptionHandling()
     {
@@ -3359,8 +3359,9 @@ class Str
         if ($pattern == $value) {
             return true;
         }
+        $pattern = preg_quote($pattern, '#');
         if ($pattern !== '/') {
-            $pattern = str_replace('*', '(.*)', $pattern) . '\\z';
+            $pattern = str_replace('\\*', '.*', $pattern) . '\\z';
         } else {
             $pattern = '/$';
         }
@@ -3463,6 +3464,7 @@ class Str
 namespace Symfony\Component\Debug;
 
 use Symfony\Component\Debug\Exception\FatalErrorException;
+use Symfony\Component\Debug\Exception\ContextErrorException;
 use Psr\Log\LoggerInterface;
 class ErrorHandler
 {
@@ -3495,7 +3497,7 @@ class ErrorHandler
     {
         self::$loggers[$channel] = $logger;
     }
-    public function handle($level, $message, $file, $line, $context)
+    public function handle($level, $message, $file = 'unknown', $line = 0, $context = array())
     {
         if (0 === $this->level) {
             return false;
@@ -3515,7 +3517,7 @@ class ErrorHandler
             return true;
         }
         if ($this->displayErrors && error_reporting() & $level && $this->level & $level) {
-            throw new \ErrorException(sprintf('%s: %s in %s line %d', isset($this->levels[$level]) ? $this->levels[$level] : $level, $message, $file, $line), 0, $level, $file, $line);
+            throw new ContextErrorException(sprintf('%s: %s in %s line %d', isset($this->levels[$level]) ? $this->levels[$level] : $level, $message, $file, $line), 0, $level, $file, $line, $context);
         }
         return false;
     }
@@ -5369,7 +5371,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
         $model->save();
         return $model;
     }
-    public static function on($connection)
+    public static function on($connection = null)
     {
         $instance = new static();
         $instance->setConnection($connection);
@@ -6696,8 +6698,7 @@ class Encrypter
     {
         $iv = mcrypt_create_iv($this->getIvSize(), $this->getRandomizer());
         $value = base64_encode($this->padAndMcrypt($value, $iv));
-        $iv = base64_encode($iv);
-        $mac = $this->hash($value);
+        $mac = $this->hash($iv = base64_encode($iv), $value);
         return base64_encode(json_encode(compact('iv', 'value', 'mac')));
     }
     protected function padAndMcrypt($value, $iv)
@@ -6720,16 +6721,16 @@ class Encrypter
     {
         $payload = json_decode(base64_decode($payload), true);
         if (!$payload or $this->invalidPayload($payload)) {
-            throw new DecryptException('Invalid data passed to encrypter.');
+            throw new DecryptException('Invalid data.');
         }
-        if ($payload['mac'] != $this->hash($payload['value'])) {
-            throw new DecryptException('MAC for payload is invalid.');
+        if ($payload['mac'] !== $this->hash($payload['iv'], $payload['value'])) {
+            throw new DecryptException('MAC is invalid.');
         }
         return $payload;
     }
-    protected function hash($value)
+    protected function hash($iv, $value)
     {
-        return hash_hmac('sha256', $value, $this->key);
+        return hash_hmac('sha256', $iv . $value, $this->key);
     }
     protected function addPadding($value)
     {
@@ -9926,7 +9927,7 @@ class PrettyPageHandler extends Handler
             return Handler::DONE;
         }
         if (!($resources = $this->getResourcesPath())) {
-            $resources = '/var/www/laravel/vendor/filp/whoops/src/Whoops/Handler' . '/../Resources';
+            $resources = '/home/g_will/Works/distribution/vendor/filp/whoops/src/Whoops/Handler' . '/../Resources';
         }
         $templateFile = "{$resources}/pretty-template.php";
         $cssFile = "{$resources}/pretty-page.css";

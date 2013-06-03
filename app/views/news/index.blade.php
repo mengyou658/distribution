@@ -5,8 +5,9 @@
 <h3>最新新闻</h3>
 
 @foreach ($news as $news_item)
-    <h5>{{ $news_item->title }}</h5>
+    <h5><a href="{{ $news_item->link }}" target="_blank">{{ $news_item->title }}</a></h5>
     <p>{{ $news_item->abstract }}</p>
+    <p><a href="/news/{{ $news_item->id }}">评论</a></p>
     <hr />
 @endforeach
 {{ $news->links() }}

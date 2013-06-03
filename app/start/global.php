@@ -56,10 +56,17 @@ App::error(function(Exception $exception, $code)
 // handler for 404
 App::missing(function($exception)
 {
-    return "404";
+    return "// TODO: 待完成";
 });
 
-
+// check SQL
+// DB::listen(function($sql, $bindings, $time)
+// {   
+    // echo "<hr />";
+    // var_dump($sql);
+    // var_dump($bindings);
+    // var_dump($time);
+// });
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +83,16 @@ App::down(function()
 {
 	return Response::make("Be right back!", 503);
 });
+
+/*
+|--------------------------------------------------------------------------
+| IoC Container
+|--------------------------------------------------------------------------
+| 
+|
+*/
+
+require app_path().'/iocs.php';
 
 /*
 |--------------------------------------------------------------------------

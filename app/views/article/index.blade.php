@@ -5,7 +5,7 @@
 <h3>文章列表</h3>
 
 @foreach ($articles as $article)
-    <h5>{{ $article->title }}</h5>
+    <h5><a href="/article/{{ $article->id }}">{{ $article->title }}</a></h5>
     <img src="{{ $article->thumbnail }}" />
     <p>{{ $article->abstract }}</p>
     <hr />

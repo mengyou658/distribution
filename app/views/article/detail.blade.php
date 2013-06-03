@@ -18,14 +18,14 @@
         </div>
     </div>
     <hr />
-    <div id="article-comment">
+    <div id="article-comment" class="">
         <legend>全部评论</legend>
         
         
         @if(!empty($article_comments))
             <ul id="article-comment-list">
             @foreach ($article_comments as $article_comment)
-                <li id="article-comment-{{ $article_comment->id }}">{{ $article_comment->content }}<a class="comment-quote" comment-quote-content="{{ $article_comment->markdown }}">回复</a></li>
+                <li id="article-comment-{{ $article_comment->id }}" class="">{{ $article_comment->content }}<a class="comment-quote" comment-quote-content="{{ $article_comment->markdown }}">回复</a></li>
             @endforeach
             </ul>
             <div>{{ $article_comments->links() }}</div>
@@ -38,13 +38,12 @@
             <legend>你的评论</legend>
             <div id="wmd-panel" class="wmd-panel">
             <div id="wmd-button-bar"></div>
-            <form id="comment-reply-form" action="/article/{{ $article->id }}/comment" method="post" >
+            <form id="wmd-form" action="/article/{{ $article->id }}/comment" method="post" >
                 <div class="clearfix">
                 <textarea id="wmd-input" class="wmd-input pull-left" name="markdown"></textarea>
                 <div id="wmd-preview" class="wmd-panel wmd-preview well pull-right"></div>
                 </div>
-                <input id="wmd-preview-content" type="hidden" name="content"/>
-                <a id="comment-reply-submit" class="btn btn-primary">发布</a>
+                <a id="wmd-submit" class="btn btn-primary">发布</a>
             <form>
             </div>
         </div>
@@ -78,6 +77,6 @@
 @section('js')
 <script src="/js/vendor/pagedown/Markdown.Converter.js"></script>
 <script src="/js/vendor/pagedown/Markdown.Sanitizer.js"></script>
-<script src="/js/vendor/pagedown/Markdown.Editor.js"></script>
-<script src="/js/article_comment.js"></script>     
+<script src="/js/vendor/pagedown/Markdown.Editor.js"></script>  
+<script src="/js/editor.js"></script>
 @endsection

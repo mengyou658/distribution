@@ -19,7 +19,7 @@
   <div class="control-group">
     <div class="controls">
       <button type="submit" class="btn btn-primary">确定</button>
-      <a class="btn btn-info" href="/user/register">注册</a>
+      <a class="btn btn-info" href="/user/register">注册</a><a style="margin-left:15px;" href="/user/forgot_password">忘记密码？</a>
     </div>
   </div>
 </form>

@@ -24,6 +24,7 @@ class SchemeController extends BaseController {
 	public function getUp()
 	{
         $this->create_users();
+        $this->create_password_reminders();
         $this->create_articles();
         $this->create_article_comments();
         $this->create_news();
@@ -46,6 +47,7 @@ class SchemeController extends BaseController {
     public function getDown()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('password_reminders');
         Schema::dropIfExists('articles');
         Schema::dropIfExists('article_comments');
         Schema::dropIfExists('news');
@@ -76,6 +78,11 @@ class SchemeController extends BaseController {
             $table->string('email', 64); // need
             $table->string('password', 64);
             $table->string('username', 32);
+            $table->string('title', 64);
+            $table->string('avatar', 256);
+            
+            $table->text('intro');
+
 
             // TODO: 旧密码
             // 兼容旧系统
@@ -95,10 +102,23 @@ class SchemeController extends BaseController {
             
             $table->timestamps();
             
-            $table->index('email');
-            $table->index('username');
+            // 索引
+            $table->unique('email');
+            $table->unique('username');
         });
         echo "Create the users table!";
+        echo '<br />';
+    }
+    
+    public function create_password_reminders()
+    {
+        Schema::create('password_reminders', function($table)
+		{
+			$table->string('email');
+			$table->string('token');
+			$table->timestamp('created_at');
+		});
+        echo "Create the password_reminders table!";
         echo '<br />';
     }
     
@@ -405,6 +425,7 @@ class SchemeController extends BaseController {
         DB::table('users')->insert(array(
             'email' => 'test@test.com',
             'username' => 'test',
+            'avatar' => 'http://www.gravatar.com/avatar/'.md5('test@test.com'),
             'password' => Hash::make('test'),
             'permission' => 90,
             

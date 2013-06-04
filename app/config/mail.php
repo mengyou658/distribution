@@ -27,8 +27,9 @@ return array(
 	| the Postmark mail service, which will provide reliable delivery.
 	|
 	*/
-
-	'host' => 'smtp.mailgun.org',
+    
+    // TODO: smtp server
+	'host' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -53,8 +54,9 @@ return array(
 	| used globally for all e-mails that are sent by your application.
 	|
 	*/
-
-	'from' => array('address' => null, 'name' => null),
+    
+    // TODO: 需要填写，否则无法寄送
+	'from' => array('address' => '', 'name' => ''),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +82,8 @@ return array(
 	|
 	*/
 
-	'username' => null,
+    // TODO:
+	'username' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +96,8 @@ return array(
 	|
 	*/
 
-	'password' => null,
+    // TODO:
+	'password' => '',
 
 	/*
 	|--------------------------------------------------------------------------

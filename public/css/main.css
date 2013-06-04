@@ -292,7 +292,7 @@ body .one .bsa_it_p {
 }
 
 .subhead > div:first-child {
-	min-height: 200px;
+	min-height: 150px;
 }
 
 /* subnav */
@@ -600,6 +600,16 @@ body .one .bsa_it_p {
 
 body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}
+
+legend {
+    font-family: "Microsoft Yahei";
+}
+
+#logo-banner {
+    display: block;
+    margin: 0 auto;
 }
 
 .aritcle-content {
@@ -610,13 +620,8 @@ body {
     text-align: center;
 }
 
-legend {
-    font-family: "Microsoft Yahei";
+.subnav {
+    margin-bottom: 30px;
 }
-
-
-
-
-
 
 

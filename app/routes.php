@@ -70,6 +70,15 @@ Route::get(
         'as' => 'help')
 );
 
+// 项目
+Route::get(
+    'projects',
+    array(
+        'uses' => 'HomeController@getProjects',
+        'as' => 'projects')
+);
+
+
 // ---------------------------------
 // # 文章
 Route::get(
@@ -234,29 +243,165 @@ Route::post(
  ->where('post_id', '[0-9]+');
 
 // ---------------------------------
+// # 活动
+// event
+ 
+
+// ---------------------------------
+// # 翻译
+// translation
+
+// ---------------------------------
 // # 用户
 // 应该使用指向方法的，路由表，不能使用类暴露。
 
 // 用户个人信息展示管理
 
-Route::get('user', array('uses' => 'UserController@getIndex', 'as' => 'user'));
+Route::get(
+    'user',
+    array(
+        'uses' => 'UserController@getIndex',
+        'as' => 'user')
+);
 
 // 他人信息展示
-Route::get('user/{id}', array('uses' => 'UserController@getDetail', 'as' => 'user_detail'))->where('id', '[0-9]+');
+Route::get(
+    'user/{user_id}',
+    array(
+        'uses' => 'UserController@getDetail',
+        'as' => 'user_detail')
+)->where('user_id', '[0-9]+');
 
 // 登录
-Route::get('user/login', array('uses' => 'UserController@getLogin', 'as' => 'user_login'));
-Route::post('user/login', array('uses' => 'UserController@postLogin', 'as' => 'user_post_login'));
+Route::get(
+    'user/login',
+    array(
+        'uses' => 'UserController@getLogin',
+        'as' => 'user_login')
+);
+Route::post(
+    'user/login',
+    array(
+        'uses' => 'UserController@postLogin',
+        'as' => 'user_post_login')
+);
+
+// 忘记密码
+Route::get(
+    'user/forgot_password',
+    array(
+        'uses' => 'UserController@getForgotPassword',
+        'as' => 'user_forgot_password')
+);
+Route::post(
+    'user/forgot_password',
+    array(
+        'uses' => 'UserController@postForgotPassword',
+        'as' => 'user_post_forgot_password')
+);
+
+// 重置密码
+Route::get(
+    'user/reset_password/{token}',
+    array(
+        'uses' => 'UserController@getResetPassword',
+        'as' => 'user_reset_password')
+);
+Route::post(
+    'user/reset_password/{token}',
+    array(
+        'uses' => 'UserController@postResetPassword',
+        'as' => 'user_post_reset_password')
+);
+
 
 // 退出
-Route::get('user/logout', array('uses' => 'UserController@getLogout', 'as' => 'user_logout'));
+Route::get(
+    'user/logout',
+    array(
+        'uses' => 'UserController@getLogout',
+        'as' => 'user_logout')
+);
 
 // 注册
-Route::get('user/register', array('uses' => 'UserController@getRegister', 'as' => 'user_register'));
-Route::post('user/register', array('uses' => 'UserController@postRegister', 'as' => 'user_post_register'));
+Route::get(
+    'user/register',
+    array(
+        'uses' => 'UserController@getRegister',
+        'as' => 'user_register')
+);
+Route::post(
+    'user/register',
+    array(
+        'uses' => 'UserController@postRegister',
+        'as' => 'user_post_register')
+);
 
-// TODO: 个人设置 
-Route::get('user/setting', array('uses' => 'UserController@getSetting', 'as' => 'user_setting'));
+// 个人设置 
+Route::get(
+    'user/setting',
+    array(
+        'uses' => 'UserController@getSetting',
+        'as' => 'user_setting')
+);
+
+// 个人资料
+Route::get(
+    'user/setting/profile',
+    array(
+        'uses' => 'UserController@getSettingProfile',
+        'as' => 'user_setting_profile')
+);
+Route::post(
+    'user/setting/profile',
+    array(
+        'uses' => 'UserController@postSettingProfile',
+        'as' => 'user_post_setting_profile')
+);
+
+// 头像
+Route::get(
+    'user/setting/avatar',
+    array(
+        'uses' => 'UserController@getSettingAvatar',
+        'as' => 'user_setting_avatar')
+);
+Route::post(
+    'user/setting/avatar',
+    array(
+        'uses' => 'UserController@postSettingAvatar',
+        'as' => 'user_post_setting_avatar')
+);
+
+// 修改密码
+Route::get(
+    'user/setting/security',
+    array(
+        'uses' => 'UserController@getSettingSecurity',
+        'as' => 'user_setting_security')
+);
+Route::post(
+    'user/setting/security',
+    array(
+        'uses' => 'UserController@postSettingSecurity',
+        'as' => 'user_post_setting_security')
+);
+
+// 第三方账号
+Route::get(
+    'user/setting/account',
+    array(
+        'uses' => 'UserController@getSettingAccount',
+        'as' => 'user_setting_account')
+);
+Route::post(
+    'user/setting/account',
+    array(
+        'uses' => 'UserController@postSettingAccount',
+        'as' => 'user_post_setting_account')
+);
+
+// TODO: 第三方的验证信息独立库，独立 controller 。
 
 // TODO: 通知
 Route::get(

@@ -17,7 +17,7 @@
     <hr />
     <div id="post-comment" class="">
         <legend>全部评论</legend>
-        @if(count($post_comments) > 0)
+        @if(!$post_comments->isEmpty())
             <ul id="post-comment-list">
             @foreach ($post_comments as $post_comment)
                 <li id="post-comment-{{ $post_comment->id }}" class="">{{ $post_comment->content }}<a class="comment-quote" comment-quote-content="{{ $post_comment->markdown }}">回复</a></li>

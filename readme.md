@@ -28,6 +28,8 @@ mysql
 
 所有的开发工作都在 develop 分支上展开， master 分支每个点都是发布版本。
 
+修改， autoload class 如 controllers类，独立目录的 viewcomposers 类（在项目 composer.json 中） 以后，执行 php composer.phar update 会更新 classmap ，也会升级所有依赖。
+
 ### 开发环境搭建
 
     #只适用于 Ubuntu server 12.04 LTS

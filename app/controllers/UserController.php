@@ -167,22 +167,47 @@ class UserController extends BaseController {
     
     public function getSettingProfile()
     {
-        return View::make('user.setting.profile');
+        $user = Auth::user();
+        return View::make('user.setting.profile')
+                   ->with('user', $user);
     }
     
     public function postSettingProfile()
     {
-        // TODO:
+        $user = Auth::user();
+        $user->title = Input::get('title');
+        $user->intro = Input::get('intro');
+        $user->save();
+        return Redirect::to('user/setting/profile')->with('msg','修改成功');
     }
     
     public function getSettingAvatar()
     {
-        return View::make('user.setting.avatar');
+        $user = Auth::user();
+        return View::make('user.setting.avatar')
+                   ->with('user', $user);
     }
     
     public function postSettingAvatar()
     {
-        // TODO:
+
+
+        $input = array(
+            'avatar' => Input::file('avatar')
+        );
+        
+        $rules = array(
+            'avatar' => 'image'
+        );
+        
+        $v = Validator::make($input, $rules);
+        
+        if ( $v->fails() ) {
+            return Redirect::to('user/setting/avatar')->with('msg', '错误');
+        }
+        
+        // TODO: 保存到公共目录 public_path(); ，再 update 用户数据
+        
     }
     
     public function getSettingSecurity()
@@ -192,7 +217,33 @@ class UserController extends BaseController {
     
     public function postSettingSecurity()
     {
-        // TODO:
+        $user = Auth::user();
+        $old_password = Input::get('old_password');
+        $new_password = Input::get('new_password');
+        
+        $input = array(
+            'new_password' => $new_password,
+            'new_password_again' => Input::get('new_password_again'),
+        );
+        $rules = array(
+            'new_password' => 'required|min:4|max:32',
+            'new_password_again' => 'same:new_password',
+        );
+        
+        $v = Validator::make($input, $rules);
+        
+        if ( $v->fails() ) {
+            return Redirect::to('user/setting/security')->with('msg', '两次输入新密码不相同');
+        }
+        
+        if (Hash::check($old_password, $user->password)) {
+            $user->password = Hash::make($new_password);
+            $user->save();
+            Auth::logout();
+            return Redirect::to('/')->with('msg', '修改成功，请重新登录');
+        } else {
+            return Redirect::to('user/setting/security')->with('msg', '旧密码错误');
+        }
     }
 
     public function getSettingAccount()
@@ -203,6 +254,20 @@ class UserController extends BaseController {
     public function postSettingAccount()
     {
         // TODO:
+    }
+    
+    public function getNotices()
+    {
+        $per_page_num = 3;
+        
+        $user = Auth::user();
+        
+        $user->notices_count = 0;
+        $user->save();
+
+        $notices = Notice::whereUser_id($user->id)->orderBy('created_at', 'desc')->paginate($per_page_num);
+        return View::make('user.notices')
+                   ->with('notices', $notices);
     }
     
     // custom

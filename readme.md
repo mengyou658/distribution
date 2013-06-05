@@ -37,8 +37,16 @@ mysql
 
 稍等片刻，访问 http://127.0.0.1:9527/ 即可。
 
+## 致谢
+
+感谢 加藤乐 @Willerce 同学作为人肉 js 文档的鼎力帮助。
+
 ## Version
 
 laravel-v4
 
 bootstrap-v2.3.0
+
+## License 
+
+GPL v3 ( http://www.gnu.org/licenses/gpl-3.0.html )

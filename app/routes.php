@@ -405,10 +405,21 @@ Route::post(
 
 // TODO: 通知
 Route::get(
-    'user/notice',
+    'user/notices',
     array(
-        'uses' => 'UserController@getNotice',
-        'as' => 'user_notice')
+        'uses' => 'UserController@getNotices',
+        'as' => 'user_notices')
+);
+
+// ---------------------------------
+// # 标签
+// 
+
+Route::get(
+    'tags',
+    array(
+        'uses' => 'TagController@getIndex',
+        'as' => 'tags')
 );
 
 Route::get(

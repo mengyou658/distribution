@@ -12,12 +12,15 @@ class TagController extends BaseController {
 
 	public function getIndex()
 	{
-		return View::make('tag.index');
+        $tags = Tag::all();
+		return View::make('tag.index')
+                   ->with('tags', $tags);
 	}
     
     public function getDetail($tag)
 	{
-        echo $tag;
-		//return View::make('tag.detail');
+        $tag = Tag::whereTag($tag)->first();
+		return View::make('tag.detail')
+                   ->with('tag', $tag);
 	}
 }

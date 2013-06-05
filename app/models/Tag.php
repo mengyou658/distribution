@@ -6,6 +6,22 @@ class Tag extends Eloquent {
     
     protected $fillable = array('tag');
     
+    // relations
+    public function articles()
+    {
+        return $this->belongsToMany('Article', 'article_tag', 'tag_id', 'article_id');
+    }
+    
+    public function news()
+    {
+        return $this->belongsToMany('News', 'news_tag', 'tag_id', 'news_id');
+    }
+    
+    public function posts()
+    {
+        return $this->belongsToMany('Post', 'post_tag', 'tag_id', 'post_id');
+    }
+    
     // TODO: 标记标签
     static function markTag($tag)
     {
@@ -18,6 +34,5 @@ class Tag extends Eloquent {
             return Tag::create(array('tag'=>$tag));
         }
     }
-    
     
 }

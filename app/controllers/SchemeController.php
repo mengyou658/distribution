@@ -133,7 +133,7 @@ class SchemeController extends BaseController {
     
             $table->timestamps();
         });
-        echo "Create the articles table!";
+        echo "Create the notices table!";
         echo '<br />';
     }
     
@@ -703,6 +703,51 @@ EOS;
                 'updated_at' => date('Y-m-d H:i:s'),
             ));        
             echo "Insert test tag $i!";
+            echo '<br />';
+        }
+        
+        
+        DB::table('article_tag')->insert(array(
+            'article_id' => 1,
+            'tag_id' => 1,
+
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ));        
+        echo "Insert test article_tag !";
+        echo '<br />';
+        
+        DB::table('news_tag')->insert(array(
+            'news_id' => 1,
+            'tag_id' => 1,
+
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ));        
+        echo "Insert test news_tag !";
+        echo '<br />';
+        
+        DB::table('post_tag')->insert(array(
+            'post_id' => 1,
+            'tag_id' => 1,
+
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ));        
+        echo "Insert test post_tag !";
+        echo '<br />';
+        
+        
+        
+        for ($i=1; $i<=5; $i++) {
+            DB::table('notices')->insert(array(
+                'user_id' => 1,
+                'content' => "test notice $i",
+
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert test notice $i!";
             echo '<br />';
         }
         

@@ -13,7 +13,7 @@
         <legend>全部评论</legend>
         
         
-        @if(!empty($news_comments))
+        @if(!$news_comments->isEmpty())
             <ul id="news-comment-list">
             @foreach ($news_comments as $news_comment)
                 <li id="news-comment-{{ $news_comment->id }}" class="">{{ $news_comment->content }}<a class="comment-quote" comment-quote-content="{{ $news_comment->markdown }}">回复</a></li>

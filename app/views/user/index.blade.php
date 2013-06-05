@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
 <div>
-hello index
+废弃
 </div>
 @endsection

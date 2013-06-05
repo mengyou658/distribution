@@ -39,10 +39,12 @@
                     <a class="brand" href="/">统计之都</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
+                            <!--
                             <li><a href="/">首页</a></li>
                             <li><a href="/articles">文章</a></li>
                             <li><a href="/news">新闻</a></li>
                             <li><a href="/group">群组</a></li>
+                            -->
                         </ul>
                     </div><!--/.nav-collapse -->
                     
@@ -53,6 +55,7 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->username }} ({{ Auth::user()->notices_count }}) <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="/user">个人中心</a></li>
                                     <li><a href="/user/setting">设置</a></li>
                                     <li><a href="/user/notices">提醒 ({{ Auth::user()->notices_count }}) </a></li>
                                     <li class="divider"></li>
@@ -76,19 +79,14 @@
         </div>
 
         <header class="container subhead">
-            <div class="row">
+        
+            <div class="row-fluid">
+                
                 <div class="span12">
-                    <img width="1170" src="http://cos.name/wp-content/uploads/2012/03/cropped-COS_Logo1.png" />
+                    <img id="logo-banner" src="/img/cos_logo.png" />
                 </div>
+               
             </div>
-            @if ( $msg = Session::get('msg', false) )
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ $msg }}
-            </div>
-            @endif
-        
-        
             <!--<div class="subnav">
               <ul class="nav nav-pills">
                 <li class="active"><a href="#typography">首页</a></li>
@@ -105,6 +103,12 @@
                   <li @if(Request::is('group*')) class="active" @endif><a href="/group">群组</a></li>
                 </ul>
             </div>
+            @if ( $msg = Session::get('msg', false) )
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ $msg }}
+            </div>
+            @endif
         </header>
         
         <div class="container">

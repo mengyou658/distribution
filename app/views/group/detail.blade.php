@@ -21,7 +21,7 @@
         <hr />
         <div>
             帖子列表
-            @if(!empty($posts))
+            @if(!$posts->isEmpty())
                 <ul>
                     @foreach ($posts as $post)
                         <li>

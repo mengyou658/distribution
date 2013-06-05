@@ -11,20 +11,33 @@ class UserController extends BaseController {
 	*/
     public function __construct()
     {
-        $this->beforeFilter('auth', array('only' => array('getIndex')));
+        $this->beforeFilter('auth', array('only' => array(
+            'getIndex',
+            'getSetting',
+            'getSettingProfile',
+            'postSettingProfile',
+            'getSettingAvatar',
+            'postSettingAvatar',
+            'getSettingSecurity',
+            'postSettingSecurity',
+            'getSettingAccount',
+            'postSettingAccount'
+        )));
     }
 
 	public function getIndex()
 	{
-		return View::make('user.index');
+        $user = Auth::user();
+        
+		return View::make('user.detail')
+                   ->with('user', $user);
 	}
     
-    public function getDetail($id)
-	{
-        // TODO: 如果当是自己时，跳转 getIndex
-        
-        // TODO: 取到用户数据，渲染
-		return View::make('user.detail');
+    public function getDetail($user_id)
+    {
+        $user = User::find($user_id);
+		return View::make('user.detail')
+                   ->with('user', $user);
 	}
     
     public function getLogin()
@@ -54,6 +67,34 @@ class UserController extends BaseController {
         // 验证失败，返回登录页
         return Redirect::to('user/login')->with('msg', '登录失败');
 	}
+    
+    public function getForgotPassword()
+    {
+        return View::make('user.forgot_password');
+    }
+    
+    public function postForgotPassword()
+    {
+        $credentials = array('email' => Input::get('email'));
+        return Password::remind($credentials, function($message, $user){
+            $message->subject('统计之都账号密码重置');
+        });
+    }
+    
+    public function getResetPassword($token)
+    {
+        return View::make('user.reset_password')->with('token', $token);
+    }
+    
+    public function postResetPassword()
+    {
+        $credentials = array('email' => Input::get('email'));
+        return Password::reset($credentials, function($user, $password){
+            $user->password = Hash::make($password);
+            $user->save();
+            return Redirect::to('/')->with('msg', '密码重置成功');
+        });
+    }
     
     public function getRegister()
     {
@@ -119,6 +160,117 @@ class UserController extends BaseController {
         return Redirect::to('/')->with('msg','logout success');
     }
     
+    public function getSetting()
+    {
+        return Redirect::to('user/setting/profile');
+    }
+    
+    public function getSettingProfile()
+    {
+        $user = Auth::user();
+        return View::make('user.setting.profile')
+                   ->with('user', $user);
+    }
+    
+    public function postSettingProfile()
+    {
+        $user = Auth::user();
+        $user->title = Input::get('title');
+        $user->intro = Input::get('intro');
+        $user->save();
+        return Redirect::to('user/setting/profile')->with('msg','修改成功');
+    }
+    
+    public function getSettingAvatar()
+    {
+        $user = Auth::user();
+        return View::make('user.setting.avatar')
+                   ->with('user', $user);
+    }
+    
+    public function postSettingAvatar()
+    {
+
+
+        $input = array(
+            'avatar' => Input::file('avatar')
+        );
+        
+        $rules = array(
+            'avatar' => 'image'
+        );
+        
+        $v = Validator::make($input, $rules);
+        
+        if ( $v->fails() ) {
+            return Redirect::to('user/setting/avatar')->with('msg', '错误');
+        }
+        
+        // TODO: 保存到公共目录 public_path(); ，再 update 用户数据
+        
+    }
+    
+    public function getSettingSecurity()
+    {
+        return View::make('user.setting.security');
+    }
+    
+    public function postSettingSecurity()
+    {
+        $user = Auth::user();
+        $old_password = Input::get('old_password');
+        $new_password = Input::get('new_password');
+        
+        $input = array(
+            'new_password' => $new_password,
+            'new_password_again' => Input::get('new_password_again'),
+        );
+        $rules = array(
+            'new_password' => 'required|min:4|max:32',
+            'new_password_again' => 'same:new_password',
+        );
+        
+        $v = Validator::make($input, $rules);
+        
+        if ( $v->fails() ) {
+            return Redirect::to('user/setting/security')->with('msg', '两次输入新密码不相同');
+        }
+        
+        if (Hash::check($old_password, $user->password)) {
+            $user->password = Hash::make($new_password);
+            $user->save();
+            Auth::logout();
+            return Redirect::to('/')->with('msg', '修改成功，请重新登录');
+        } else {
+            return Redirect::to('user/setting/security')->with('msg', '旧密码错误');
+        }
+    }
+
+    public function getSettingAccount()
+    {
+        return View::make('user.setting.account');
+    }
+    
+    public function postSettingAccount()
+    {
+        // TODO:
+    }
+    
+    public function getNotices()
+    {
+        $per_page_num = 3;
+        
+        $user = Auth::user();
+        
+        $user->notices_count = 0;
+        $user->save();
+
+        $notices = Notice::whereUser_id($user->id)->orderBy('created_at', 'desc')->paginate($per_page_num);
+        return View::make('user.notices')
+                   ->with('notices', $notices);
+    }
+    
+    // custom
     public function user_login_auth($credentials)
     {
         $user = User::whereEmail($credentials['email'])->first();

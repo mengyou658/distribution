@@ -22,7 +22,7 @@
         <legend>全部评论</legend>
         
         
-        @if(!empty($article_comments))
+        @if(!$article_comments->isEmpty())
             <ul id="article-comment-list">
             @foreach ($article_comments as $article_comment)
                 <li id="article-comment-{{ $article_comment->id }}" class="">{{ $article_comment->content }}<a class="comment-quote" comment-quote-content="{{ $article_comment->markdown }}">回复</a></li>

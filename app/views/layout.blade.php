@@ -101,6 +101,9 @@
                   <li @if(Request::is('article*')) class="active" @endif><a href="/articles">文章</a></li>
                   <li @if(Request::is('news*')) class="active" @endif><a href="/news">新闻</a></li>
                   <li @if(Request::is('group*')) class="active" @endif><a href="/group">群组</a></li>
+                  <li @if(Request::is('ask*')) class="active" @endif><a href="/ask">问答</a></li>
+                  <li @if(Request::is('translation*')) class="active" @endif><a href="/translations">翻译</a></li>
+                  <li @if(Request::is('event*')) class="active" @endif><a href="/events">活动</a></li>
                 </ul>
             </div>
             @if ( $msg = Session::get('msg', false) )
@@ -117,7 +120,7 @@
         
         <footer>
             <div class="container">
-            <hr>
+            <hr />
                 <div class="">
                     <ul class="nav nav-pills pull-left">
                         <li><a href="/about">关于我们</a></li>

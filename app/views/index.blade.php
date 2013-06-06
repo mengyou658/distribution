@@ -2,19 +2,41 @@
 @section('content')
 <div class="row-fluid">
   <div class="span8">
-  // TODO: 硬编码测试数据，需调整
-  <br />
-  // TODO: 样式等功能完善后调整
     <div>
         <legend>最新文章</legend>
-        
-        <?php $articles = Article::orderBy('created_at', 'desc')->take(5)->get() ?>
-        <ul class="unstyled">
-            @foreach ($articles as $article)
-                <li><a href="{{ URL::route('article_detail', array($article->id)) }}">{{ $article->title }}</a></li>
-            @endforeach
-        </ul>
-        
+        <?php $articles = Article::orderBy('created_at', 'desc')->take(3)->get() ?>
+        <div>
+            <div class="headline row-fluid">
+                <div class="span4">
+                    <img src="{{ $articles[0]->thumbnail }}" />
+                </div>
+                
+                <div class="span8">
+                    <h4>{{ $articles[0]->title }}</h4>
+                    <p>{{ $articles[0]->abstract }}</p>
+                    <p><a href="/article/{{ $articles[0]->id }}">阅读全文</a></p>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                <div class="span6">
+                    <ul class="unstyled">
+                    @foreach ($articles as $article)
+                        <li><a href="{{ URL::route('article_detail', array($article->id)) }}">{{ $article->title }}</a></li>
+                    @endforeach
+                    </ul>
+                </div>
+                <div class="span6">
+                    <ul class="unstyled">
+                    @foreach ($articles as $article)
+                        <li><a href="{{ URL::route('article_detail', array($article->id)) }}">{{ $article->title }}</a></li>
+                    @endforeach
+                    </ul>
+                </div>
+               
+                
+            </div>
+        </div>    
         <hr />
     </div>
     
@@ -47,13 +69,13 @@
   <div class="span4">
     <div>
         <legend>标签</legend>
-        <?php $tags = Tag::orderBy('refer_counts', 'desc')->take(10)->get() ?>
+        <?php $tags = Tag::orderBy('refer_counts', 'desc')->take(3)->get() ?>
         @if(!empty($tags))
-        <ul class="unstyled">
+        
             @foreach ($tags as $tag)
-                <li><a href="{{ URL::route('tag_detail', array($tag->tag)) }}">{{ $tag->tag }}</a></li>
+            <a href="{{ URL::route('tag_detail', array($tag->tag)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
             @endforeach
-        </ul>  
+        
         @endif
     </div>
     

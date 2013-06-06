@@ -12,7 +12,15 @@ class GroupController extends BaseController {
     
     public function __construct()
     {
-        $this->beforeFilter('auth', array('only' => array('getApply', 'postApply', 'getJoin', 'getQuit', 'getNewPost', 'postNewPost', 'postPostComment')));
+        $this->beforeFilter('auth', array('only' => array(
+            'getApply',
+            'postApply',
+            'getJoin',
+            'getQuit',
+            'getNewPost',
+            'postNewPost',
+            'postPostComment'
+        )));
     }
 
 	public function getIndex()

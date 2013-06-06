@@ -241,15 +241,75 @@ Route::post(
         'as' => 'group_post_comment')
 )->where('group_id', '[0-9]+')
  ->where('post_id', '[0-9]+');
+ 
+// ---------------------------------
+// # 问答
+// ask
+
+// 问答首页
+Route::get(
+    'ask',
+    array(
+        'uses' => 'AskController@getIndex',
+        'as' => 'ask')
+);
+
+// 问题列表
+Route::get(
+    'ask/questions',
+    array(
+        'uses' => 'AskController@getIndex',
+        'as' => 'ask_questions')
+);
+
+// 提问
+Route::get(
+    'ask/new_question',
+    array(
+        'uses' => 'AskController@getNewQuestion',
+        'as' => 'ask_new_question')
+);
+Route::post(
+    'ask/new_question',
+    array(
+        'uses' => 'AskController@postNewQuestion',
+        'as' => 'ask_post_new_question')
+);
+
+// 问题详细
+Route::get(
+    'ask/question/{question_id}',
+    array(
+        'uses' => 'AskController@getDetail',
+        'as' => 'ask_detail')
+)->where('question_id', '[0-9]+');
+
+// 回答问题
+Route::post(
+    'ask/question/{question_id}/answer',
+    array(
+        'uses' => 'AskController@postAnswer',
+        'as' => 'ask_post_answer')
+)->where('question_id', '[0-9]+');
+
+// 答案评论
+Route::get(
+    'ask/answer/{answer_id}/comments',
+    array(
+        'uses' => 'AskController@getAnswerComments',
+        'as' => 'ask_answer_comments')
+)->where('answer_id', '[0-9]+');
+
+
+
+// ---------------------------------
+// # 翻译
+// translation
 
 // ---------------------------------
 // # 活动
 // event
  
-
-// ---------------------------------
-// # 翻译
-// translation
 
 // ---------------------------------
 // # 用户

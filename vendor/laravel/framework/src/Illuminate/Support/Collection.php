@@ -330,6 +330,53 @@ class Collection implements ArrayAccess, ArrayableInterface, Countable, Iterator
 	}
 
 	/**
+	 * Get an array with the values of a given key.
+	 *
+	 * @param  string  $value
+	 * @param  string  $key
+	 * @return array
+	 */
+	public function lists($value, $key = null)
+	{
+		$results = array();
+
+		foreach ($this->items as $item)
+		{
+			$itemValue = is_object($item) ? $item->{$value} : $item[$value];
+
+			// If the key is "null", we will just append the value to the array and keep
+			// looping. Otherwise we will key the array using the value of the key we
+			// received from the developer. Then we'll return the final array form.
+			if (is_null($key))
+			{
+				$results[] = $itemValue;
+			}
+			else
+			{
+				$itemKey = is_object($item) ? $item->{$key} : $item[$key];
+
+				$results[$itemKey] = $itemValue;
+			}
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Concatenate values of a given key as a string.
+	 *
+	 * @param  string  $value
+	 * @param  string  $glue
+	 * @return string
+	 */
+	public function implode($value, $glue = null)
+	{
+		if (is_null($glue)) return implode($this->lists($value));
+
+		return implode($glue, $this->lists($value));
+	}
+
+	/**
 	 * Determine if the collection is empty or not.
 	 *
 	 * @return bool

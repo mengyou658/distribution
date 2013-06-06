@@ -662,12 +662,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d1d294fb5790ac85483c352c86baa3c7d7ee528e"
+                "reference": "9bc9b860929e9ba1267dc6cbe57ee84e7edd81b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d1d294fb5790ac85483c352c86baa3c7d7ee528e",
-                "reference": "d1d294fb5790ac85483c352c86baa3c7d7ee528e",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9bc9b860929e9ba1267dc6cbe57ee84e7edd81b8",
+                "reference": "9bc9b860929e9ba1267dc6cbe57ee84e7edd81b8",
                 "shasum": ""
             },
             "require": {
@@ -764,7 +764,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2013-06-05 21:46:01"
+            "time": "2013-06-06 03:07:40"
         },
         {
             "name": "michelf/php-markdown",

@@ -33,11 +33,15 @@ class SchemeController extends BaseController {
         $this->create_user_group();
         $this->create_posts();
         $this->create_post_comments();
+        $this->create_questions();
+        $this->create_answers();
+        $this->create_answer_comments();
         
         $this->create_tags();
         $this->create_article_tag();
         $this->create_news_tag();
         $this->create_post_tag();
+        $this->create_question_tag();
         
         $this->create_notices();
         
@@ -56,11 +60,15 @@ class SchemeController extends BaseController {
         Schema::dropIfExists('user_group');
         Schema::dropIfExists('posts');
         Schema::dropIfExists('post_comments');
+        Schema::dropIfExists('questions');
+        Schema::dropIfExists('answers');
+        Schema::dropIfExists('answer_comments');
         
         Schema::dropIfExists('tags');
         Schema::dropIfExists('article_tag');
         Schema::dropIfExists('news_tag');
         Schema::dropIfExists('post_tag');
+        Schema::dropIfExists('question_tag');
         
         Schema::dropIfExists('notices');
         
@@ -327,22 +335,67 @@ class SchemeController extends BaseController {
     
     public function create_questions()
     {
-        // TODO: 问题数据结构
-        
+        Schema::create('questions', function($table) {
+            $table->increments('id');
+            
+            $table->string('title', 256);
+            
+            $table->integer('asker_id');
+            $table->string('asker', 32);
+            
+            // TODO: 冗余数据，回答数目
+    
+            $table->timestamps();
+            
+        });
+        echo "Create the questions table!";
+        echo '<br />';
     
     }
     
     
     public function create_answers()
     {
-        // TODO: 问题回答数据库结构
-        
+        Schema::create('answers', function($table) {
+            $table->increments('id');
+            
+            $table->integer('question_id');
+            
+            $table->integer('author_id');
+            $table->string('author', 32);
+            
+            $table->text('content');
+            $table->text('markdown');
+            
+            // TODO: 楼层 Oppose Support
+            // $table->integer('digg')->default(0);
+            $table->integer('comments_count')->default(0);
+    
+            $table->timestamps();
+            
+        });
+        echo "Create the answers table!";
+        echo '<br />';
     
     }
     
     public function create_answer_comments()
     {
         // TODO: 回答评论
+        Schema::create('answer_comments', function($table) {
+            $table->increments('id');
+            
+            $table->integer('answer_id');
+            
+            $table->integer('author_id');
+            $table->string('author', 32);
+            
+            $table->string('content', 512); // 只有纯文本
+            
+            $table->timestamps();
+        });
+        echo "Create the answer_comments table!";
+        echo '<br />';
     }
     
     public function create_tags()
@@ -404,6 +457,20 @@ class SchemeController extends BaseController {
             $table->timestamps();
         });
         echo "Create the post_tag table!";
+        echo '<br />';
+    }
+    
+    public function create_question_tag()
+    {
+        Schema::create('question_tag', function($table) {
+            $table->increments('id');
+            
+            $table->integer('question_id');
+            $table->integer('tag_id');
+    
+            $table->timestamps();
+        });
+        echo "Create the question_tag table!";
         echo '<br />';
     }
     
@@ -695,6 +762,55 @@ EOS;
             echo '<br />';
         }
         
+        // questions
+        for ($i=1; $i<=10; $i++) {
+            DB::table('questions')->insert(array(
+                'title' => "question title $i",
+                
+                'asker_id' => 1,
+                'asker' => 'test',
+                
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert question $i!";
+            echo '<br />';
+        }
+        
+        for ($i=1; $i<=10; $i++) {
+            DB::table('answers')->insert(array(
+                'question_id' => 1,
+                
+                'author_id' => 1,
+                'author' => 'test',
+                
+                'content'=>"answer content $i",
+                
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert answer $i!";
+            echo '<br />';
+        }
+        
+        for ($i=1; $i<=10; $i++) {
+            DB::table('answer_comments')->insert(array(
+                'answer_id' => 1,
+                
+                'author_id' => 1,
+                'author' => 'test',
+                
+                'content'=>"answer answer_comment $i",
+                
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert answer_comment $i!";
+            echo '<br />';
+        }
+        
+        
+        
         for ($i=1; $i<=5; $i++) {
             DB::table('tags')->insert(array(
                 'tag' => "测试标签$i",
@@ -737,6 +853,15 @@ EOS;
         echo "Insert test post_tag !";
         echo '<br />';
         
+        DB::table('question_tag')->insert(array(
+            'question_id' => 1,
+            'tag_id' => 1,
+
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ));        
+        echo "Insert test question_tag !";
+        echo '<br />';
         
         
         for ($i=1; $i<=5; $i++) {

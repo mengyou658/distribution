@@ -80,6 +80,7 @@ return array(
 
 	'providers' => array(
 
+		'Frozennode\Administrator\AdministratorServiceProvider',
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',

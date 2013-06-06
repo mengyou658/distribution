@@ -45,6 +45,8 @@ mysql
 
 laravel-v4
 
+laravel-administrator-v4.0.0
+
 bootstrap-v2.3.0
 
 ## License 

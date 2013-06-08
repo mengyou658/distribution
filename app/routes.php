@@ -22,13 +22,13 @@ Route::get('test', function()
     // var_dump($tag);
     
     
-    $markdown = App::make('markdown');
+    // $markdown = App::make('markdown');
     
-    $my_text="# abc\n\n* 123\n* 456\n\n<script></script>\n";
-    $my_html = $markdown->transform($my_text);
-    return $my_html;
+    // $my_text="# abc\n\n* 123\n* 456\n\n<script></script>\n";
+    // $my_html = $markdown->transform($my_text);
+    // return $my_html;
     
-    
+    echo Str::random();
 });
 
 Route::get(
@@ -121,6 +121,14 @@ Route::get(
     array(
         'uses' => 'NewsController@getDetail',
         'as' => 'news_detail')
+)->where('news_id', '[0-9]+');
+
+// TODO: 新闻，顶
+Route::get(
+    'news/{news_id}/digg',
+    array(
+        'uses' => 'NewsController@getDigg',
+        'as' => 'news_digg')
 )->where('news_id', '[0-9]+');
 
 // 新闻评论发布
@@ -292,6 +300,22 @@ Route::post(
         'as' => 'ask_post_answer')
 )->where('question_id', '[0-9]+');
 
+// 赞同答案
+Route::get(
+    'ask/answer/{answer_id}/approve',
+    array(
+        'uses' => 'AskController@getAnswerApprove',
+        'as' => 'ask_answer_approve')
+)->where('answer_id', '[0-9]+');
+
+// 反对答案
+Route::get(
+    'ask/answer/{answer_id}/oppose',
+    array(
+        'uses' => 'AskController@getAnswerOppose',
+        'as' => 'ask_answer_oppose')
+)->where('answer_id', '[0-9]+');
+
 // 答案评论
 Route::get(
     'ask/answer/{answer_id}/comments',
@@ -306,10 +330,23 @@ Route::get(
 // # 翻译
 // translation
 
+Route::get(
+    'translations',
+    array(
+        'uses' => 'TranslationController@getIndex',
+        'as' => 'translations')
+);
+
 // ---------------------------------
 // # 活动
 // event
- 
+
+Route::get(
+    'events',
+    array(
+        'uses' => 'EventController@getIndex',
+        'as' => 'events')
+);
 
 // ---------------------------------
 // # 用户
@@ -387,13 +424,15 @@ Route::get(
 Route::get(
     'user/register',
     array(
-        'uses' => 'UserController@getRegister',
+        //'uses' => 'UserController@getRegister',
+        'uses' => 'UserController@getRegisterWithMailAuth',
         'as' => 'user_register')
 );
 Route::post(
     'user/register',
     array(
-        'uses' => 'UserController@postRegister',
+        //'uses' => 'UserController@postRegister',
+        'uses' => 'UserController@postRegisterWithMailAuth',
         'as' => 'user_post_register')
 );
 

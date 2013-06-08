@@ -735,7 +735,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 
 		if ($this->softDelete)
 		{
-			$query->update(array(static::DELETED_AT => new DateTime));
+			$query->update(array(static::DELETED_AT => $this->freshTimestamp()));
 		}
 		else
 		{
@@ -2164,6 +2164,16 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 		}
 
 		return $dirty;
+	}
+
+	/**
+	 * Get all the loaded relations for the instance.
+	 * 
+	 * @return array
+	 */
+	public function getRelations()
+	{
+		return $this->relations;
 	}
 
 	/**

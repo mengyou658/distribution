@@ -38,12 +38,16 @@ class SchemeController extends BaseController {
         $this->create_answers();
         $this->create_answer_comments();
         $this->create_answer_attitude();
+        $this->create_sources();
+        $this->create_originals();
+        $this->create_translations();
         
         $this->create_tags();
         $this->create_article_tag();
         $this->create_news_tag();
         $this->create_post_tag();
         $this->create_question_tag();
+        $this->create_source_tag();
         
         $this->create_notices();
         
@@ -67,12 +71,16 @@ class SchemeController extends BaseController {
         Schema::dropIfExists('answers');
         Schema::dropIfExists('answer_comments');
         Schema::dropIfExists('answer_attitude');
+        Schema::dropIfExists('sources');
+        Schema::dropIfExists('originals');
+        Schema::dropIfExists('translations');
         
         Schema::dropIfExists('tags');
         Schema::dropIfExists('article_tag');
         Schema::dropIfExists('news_tag');
         Schema::dropIfExists('post_tag');
         Schema::dropIfExists('question_tag');
+        Schema::dropIfExists('source_tag');
         
         Schema::dropIfExists('notices');
         
@@ -96,9 +104,10 @@ class SchemeController extends BaseController {
             $table->string('intro', 1024);
 
 
-            // TODO: 旧密码
+            // TODO: 旧密码, 分开表
             // 兼容旧系统
-            $table->string('old_password', 64);
+            //
+            // $table->string('old_password', 64);
             
             
             // 权限等级
@@ -107,10 +116,10 @@ class SchemeController extends BaseController {
             $table->integer('permission')->default(1);
             
             // 冗余数据
-            $table->integer('notices_count')->default(0); // 未读通知数量
-            $table->integer('posts_count')->default(0); // 发帖数量
-            $table->integer('questions_count')->default(0); // 提问数量
-            $table->integer('answers_count')->default(0); // 回答数量
+            $table->integer('notice_count')->default(0); // 未读通知数量
+            $table->integer('post_count')->default(0); // 发帖数量
+            $table->integer('question_count')->default(0); // 提问数量
+            $table->integer('answer_count')->default(0); // 回答数量
             
             // 翻译与任务
             
@@ -219,7 +228,7 @@ class SchemeController extends BaseController {
             $table->integer('status')->default(0); // 状态
             
             // TODO: 评论数
-            $table->integer('comments_count')->default(0);
+            $table->integer('comment_count')->default(0);
             $table->integer('digg_count')->default(0);
     
             $table->timestamps();
@@ -396,7 +405,7 @@ class SchemeController extends BaseController {
             
             // TODO: 楼层 Oppose Support
             // $table->integer('digg')->default(0);
-            $table->integer('comments_count')->default(0);
+            $table->integer('comment_count')->default(0);
             
             // 态度
             $table->integer('attitude')->default(0);
@@ -446,6 +455,70 @@ class SchemeController extends BaseController {
         echo '<br />';
     }
     
+    public function create_sources()
+    {
+        Schema::create('sources', function($table) {
+            $table->increments('id');
+            
+            $table->string('orig_title', 256);
+            $table->string('tran_title', 256);
+            
+            $table->string('orig_link', 256);
+
+            $table->integer('para_count');
+            $table->integer('tran_count');
+            
+            $table->integer('courier_id');
+            $table->string('courier', 32);
+            
+            $table->integer('comment_count')->default(0);
+
+            $table->timestamps();
+        });
+        echo "Create the sources table!";
+        echo '<br />';
+    }
+    
+    public function create_originals()
+    {
+        Schema::create('originals', function($table) {
+            $table->increments('id');
+            
+            $table->integer('source_id');
+            
+            $table->text('content');
+            $table->text('markdown');
+
+            $table->integer('order');
+            $table->integer('tran_count')->default(0);
+
+            $table->timestamps();
+        });
+        echo "Create the originals table!";
+        echo '<br />';
+    }
+    
+    public function create_translations()
+    {
+        Schema::create('translations', function($table) {
+            $table->increments('id');
+            
+            $table->integer('original_id');
+            
+            $table->text('content');
+            $table->text('markdown');
+            
+            $table->integer('author_id');
+            $table->string('author', 32);
+
+            $table->integer('digg_count')->default(0);
+
+            $table->timestamps();
+        });
+        echo "Create the translations table!";
+        echo '<br />';
+    }
+    
     public function create_tags()
     {
         
@@ -456,7 +529,7 @@ class SchemeController extends BaseController {
             
             // 冗余字段
             // 引用计数
-            $table->integer('refer_counts')->default(1);
+            $table->integer('refer_count')->default(1);
     
             $table->timestamps();
             
@@ -522,8 +595,23 @@ class SchemeController extends BaseController {
         echo '<br />';
     }
     
+    public function create_source_tag()
+    {
+        Schema::create('source_tag', function($table) {
+            $table->increments('id');
+            
+            $table->integer('source_id');
+            $table->integer('tag_id');
+    
+            $table->timestamps();
+        });
+        echo "Create the source_tag table!";
+        echo '<br />';
+    }
+    
     public function create_user_verification()
     {
+        // DROPED
         // TODO: 新用户注册验证
         // Verify code
         
@@ -679,7 +767,7 @@ EOS;
         echo "Insert long test articles !";
         echo '<br />';
         
-        for ($i=1; $i<=5; $i++) {
+        for ($i=1; $i<=10; $i++) {
             DB::table('articles')->insert(array(
                 'title' => "title $i",
                 
@@ -867,6 +955,55 @@ EOS;
             echo '<br />';
         }
         
+        for ($i=1; $i<=6; $i++) {
+            DB::table('sources')->insert(array(
+
+                'orig_title' => "test source",
+                'tran_title' => "测试源",
+                'orig_link' => "orig-url",
+                
+                'para_count' => 3,
+                'tran_count' => 1,
+                'courier_id' => 1,
+                'courier' => 'test',
+
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert sources $i!";
+            echo '<br />';
+        }
+        
+        for ($i=1; $i<=3; $i++) {
+            DB::table('originals')->insert(array(
+                'source_id' => 1,
+                
+                'order' => $i,
+                
+                'content'=>"original $i",
+                
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert originals $i!";
+            echo '<br />';
+        }
+        
+        for ($i=1; $i<=3; $i++) {
+            DB::table('translations')->insert(array(
+                'original_id' => 1,
+                
+                'author_id' => 1,
+                'author' => 'test',
+                
+                'content'=>"translations $i",
+                
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert translations $i!";
+            echo '<br />';
+        }
         
         
         for ($i=1; $i<=5; $i++) {
@@ -919,6 +1056,16 @@ EOS;
             'updated_at' => date('Y-m-d H:i:s'),
         ));        
         echo "Insert test question_tag !";
+        echo '<br />';
+        
+        DB::table('source_tag')->insert(array(
+            'source_id' => 1,
+            'tag_id' => 1,
+
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ));        
+        echo "Insert test source_tag !";
         echo '<br />';
         
         

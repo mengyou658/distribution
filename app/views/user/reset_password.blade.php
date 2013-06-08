@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 <div>
-<h3>重置密码</h3>
+<h3>设置密码</h3>
 <hr />
 
 @if (Session::has('error'))

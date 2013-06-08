@@ -27,6 +27,14 @@ class NewsController extends BaseController {
                    ->with('news', $news);
 	}
     
+    public function getHottest()
+    {
+        $per_page_num = 3;
+		$news = News::orderBy('digg_count', 'desc')->paginate($per_page_num);
+		return View::make('news.index')
+                   ->with('news', $news);
+    }
+    
     public function getDetail($news_id)
 	{
         $per_page_num = 3;
@@ -48,9 +56,14 @@ class NewsController extends BaseController {
                 'news_id' => $news_id,
                 'user_id' => $user->id
             ));
-            return 0;
+            
+            $news = News::find($news_id);
+            $news->digg_count += 1;
+            $news->save();
+            
+            return 0; // 成功
         }
-        return 1;
+        return 1; // 异常
     }
     
     public function postComment($news_id)
@@ -76,6 +89,10 @@ class NewsController extends BaseController {
         }
         
         $news_comment = NewsComment::create($new_news_comment);
+        
+        $news = News::find($news_id);
+        $news->comments_count += 1;
+        $news->save();
         
         // TODO: event fire user messages with @
         

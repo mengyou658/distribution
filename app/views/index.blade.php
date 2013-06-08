@@ -57,7 +57,7 @@
   <div class="span4">
     <div>
         <legend>标签</legend>
-        <?php $tags = Tag::orderBy('refer_counts', 'desc')->take(3)->get() ?>
+        <?php $tags = Tag::orderBy('refer_count', 'desc')->take(3)->get() ?>
         @if(!empty($tags))
         
             @foreach ($tags as $tag)

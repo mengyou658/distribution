@@ -2,8 +2,11 @@
 @section('content')
 <div class="row-fluid">
 <div class="span8">
-<legend>最新新闻</legend>
-
+<legend>新闻</legend>
+    <ul class="nav nav-tabs">
+    <li @if(Request::is('news')) class="active" @endif><a href="/news" >最新</a></li>
+    <li @if(Request::is('news/hottest*')) class="active" @endif><a href="/news/hottest" >最热</a></li>
+    </ul>
 @foreach ($news as $news_item)
     <div class="media">
       <a class="pull-left btn btn-primary" href="#">

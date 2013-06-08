@@ -12,4 +12,9 @@ class News extends Eloquent {
         return $query->where('status', '=', 1);
     }
     
+    public function tags()
+    {
+        return $this->belongsToMany('Tag', 'news_tag', 'news_id', 'tag_id');
+    }
+    
 }

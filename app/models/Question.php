@@ -12,4 +12,9 @@ class Question extends Eloquent {
         return $query->where('status', '=', 1);
     }
     
+    public function tags()
+    {
+        return $this->belongsToMany('Tag', 'question_tag', 'question_id', 'tag_id');
+    }
+    
 }

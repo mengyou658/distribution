@@ -47,15 +47,20 @@ return array(
     'edit_fields' => array(
     
         'title' => array(
-            'title' => 'Title',
+            'title' => '标题',
             'type' => 'text',
         ),
         
         'content' => array(
-            'title' => 'Content',
+            'title' => '内容',
             'type' => 'wysiwyg',
         ),
         
+        'tags' => array(
+            'title' => '标签',
+            'type' => 'relationship',
+            'name_field' => 'tag',
+        ),
         
         
     ),

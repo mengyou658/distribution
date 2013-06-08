@@ -115,6 +115,14 @@ Route::get(
         'as' => 'news')
 );
 
+// 新闻首页最热列表
+Route::get(
+    'news/hottest',
+    array(
+        'uses' => 'NewsController@getHottest',
+        'as' => 'news_hottest')
+);
+
 // 新闻详细
 Route::get(
     'news/{news_id}',

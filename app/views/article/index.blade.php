@@ -2,13 +2,21 @@
 @section('content')
 <div class="row-fluid">
 <div class="span8">
-<h3>文章列表</h3>
+<legend>文章列表</legend>
 
 @foreach ($articles as $article)
-    <h5><a href="/article/{{ $article->id }}">{{ $article->title }}</a></h5>
-    <img src="{{ $article->thumbnail }}" />
-    <p>{{ $article->abstract }}</p>
-    <hr />
+    <div class="media">
+      <a class="pull-left" href="/article/{{ $article->id }}">
+        <img src="{{ $article->thumbnail }}" width="166">
+        <br />
+        // TODO: css 标宽度
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">{{ $article->title }}</h4>
+        {{ $article->abstract }}
+        <p><a href="/article/{{ $article->id }}">阅读全文</a> 发表于 {{ $article->created_at->format('Y-m-d h:i'); }}</p>
+      </div>
+    </div>
 @endforeach
 {{ $articles->links() }}
 </div>

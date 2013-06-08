@@ -10,16 +10,29 @@
         
         
         @if(!$answers->isEmpty())
-            <ul id="answer-list">
+            <div id="answer-list">
             @foreach ($answers as $answer)
-                {{ $answer->content }}
-                <br />
-                <a class="review-comments" href="javascript:;" answer_id="{{ $answer->id }}">查看评论</a>
-                
-                <div class="answer-comments hide">评论</div>
-                <br />
+                <div class="media">
+                  <div class="pull-left">
+                      <a class="btn btn-small btn-primary" href="#">
+                        <i class="icon-thumbs-up"></i> 
+                      </a>
+                      <br />0
+                      <br />
+                      <a class="btn btn-small btn-primary" href="#">
+                        <i class="icon-thumbs-down"></i>
+                      </a>
+                  </div>
+                  <div class="media-body">
+                    {{ $answer->content }}
+                    <br/>
+                    <a class="review-comments" href="javascript:;" answer_id="{{ $answer->id }}">查看评论</a>
+                    <div class="answer-comments hide">评论</div>
+                  </div>
+                  
+                </div>
             @endforeach
-            </ul>
+            </div>
             <div>{{ $answers->links() }}</div>
         @else
             No answers!
@@ -78,6 +91,7 @@
         _this.next().toggle();
         
         if(!_this.next().hasClass('loaded')) {
+            // 菊花
             _this.before('<span><i class="icon-spinner icon-spin icon-large"></i><span>');
             var answer_id = _this.attr('answer_id');
             $.get('/ask/answer/'+answer_id+'/comments', function(data){

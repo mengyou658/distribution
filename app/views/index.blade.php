@@ -2,44 +2,34 @@
 @section('content')
 <div class="row-fluid">
   <div class="span8">
-    <div>
-        <legend>最新文章</legend>
-        <?php $articles = Article::orderBy('created_at', 'desc')->take(3)->get() ?>
-        <div>
-            <div class="headline row-fluid">
-                <div class="span4">
-                    <img src="{{ $articles[0]->thumbnail }}" />
-                </div>
-                
-                <div class="span8">
-                    <h4>{{ $articles[0]->title }}</h4>
-                    <p>{{ $articles[0]->abstract }}</p>
-                    <p><a href="/article/{{ $articles[0]->id }}">阅读全文</a></p>
-                </div>
+    <h3>文章</h3>
+        <?php $articles = Article::orderBy('created_at', 'desc')->take(7)->get() ?>
+    <div calss="home-article"> 
+        <div class="headline">
+            <h4><a href="/article/{{ $articles[0]->id }}">{{ $articles[0]->title }}</a></h4>
+            <img class="pull-left" src="{{ $articles[0]->thumbnail }}" width="166" />
+            <p>{{ $articles[0]->abstract }}</p>
+            <p><a href="/article/{{ $articles[0]->id }}">阅读全文</a> 发表于 {{ $articles[0]->created_at->format('Y-m-d h:i'); }} </p>
+        </div>
+        
+        <div class="row-fluid">
+            <div class="span6">
+                <ul class="unstyled">
+                @for ($i = 1; $i < 4; $i ++)
+                    <li><a href="{{ URL::route('article_detail', array($articles[$i]->id)) }}">{{ $articles[$i]->title }}</a></li>
+                @endfor
+                </ul>
             </div>
-            
-            <div class="row-fluid">
-                <div class="span6">
-                    <ul class="unstyled">
-                    @foreach ($articles as $article)
-                        <li><a href="{{ URL::route('article_detail', array($article->id)) }}">{{ $article->title }}</a></li>
-                    @endforeach
-                    </ul>
-                </div>
-                <div class="span6">
-                    <ul class="unstyled">
-                    @foreach ($articles as $article)
-                        <li><a href="{{ URL::route('article_detail', array($article->id)) }}">{{ $article->title }}</a></li>
-                    @endforeach
-                    </ul>
-                </div>
-               
-                
+            <div class="span6">
+                <ul class="unstyled">
+                @for ($i = 4; $i < 7; $i ++)
+                    <li><a href="{{ URL::route('article_detail', array($articles[$i]->id)) }}">{{ $articles[$i]->title }}</a></li>
+                @endfor
+                </ul>
             </div>
-        </div>    
-        <hr />
+        </div>
     </div>
-    
+    <hr />
     <!-- TODO: 
     <div>
         <legend>热门问答</legend>
@@ -54,7 +44,7 @@
     </div>
     -->
     
-    <div>
+    <div class="home-group">
         <legend>群组热帖</legend>
         <?php $posts = Post::orderBy('created_at', 'desc')->take(5)->get() ?>
         <ul class="unstyled">
@@ -62,8 +52,6 @@
                 <li><a href="{{ URL::route('group_post_detail', array($post->group_id, $post->id)) }}">{{ $post->title }}</a></li>
             @endforeach
         </ul>
-        
-        <hr />
     </div>
   </div>
   <div class="span4">

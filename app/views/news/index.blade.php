@@ -2,14 +2,22 @@
 @section('content')
 <div class="row-fluid">
 <div class="span8">
-<h3>最新新闻</h3>
+<legend>最新新闻</legend>
 
 @foreach ($news as $news_item)
-    <h5><a href="{{ $news_item->link }}" target="_blank">{{ $news_item->title }}</a></h5>
-    <p>{{ $news_item->abstract }}</p>
-    <p><a href="/news/{{ $news_item->id }}">评论</a></p>
-    <hr />
+    <div class="media">
+      <a class="pull-left btn btn-primary" href="#">
+        <i class="icon-thumbs-up"></i>顶
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading"><a href="{{ $news_item->link }}">{{ $news_item->title }}</a></h4>
+        {{ $news_item->abstract }}
+        <p><a href="/news/{{ $news_item->id }}">评论</a></p>
+      </div>
+    </div>
 @endforeach
+
+
 {{ $news->links() }}
 </div>
 <div class="span4">

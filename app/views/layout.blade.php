@@ -104,6 +104,7 @@
                   <li @if(Request::is('ask*')) class="active" @endif><a href="/ask">问答</a></li>
                   <li @if(Request::is('translation*')) class="active" @endif><a href="/translations">翻译</a></li>
                   <li @if(Request::is('event*')) class="active" @endif><a href="/events">活动</a></li>
+                  <li @if(Request::is('project*')) class="active" @endif><a href="/projects">项目</a></li>
                 </ul>
             </div>
             @if ( $msg = Session::get('msg', false) )

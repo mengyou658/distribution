@@ -29,6 +29,7 @@ class SchemeController extends BaseController {
         $this->create_article_comments();
         $this->create_news();
         $this->create_news_comments();
+        $this->create_news_digg();
         $this->create_groups();
         $this->create_user_group();
         $this->create_posts();
@@ -36,6 +37,7 @@ class SchemeController extends BaseController {
         $this->create_questions();
         $this->create_answers();
         $this->create_answer_comments();
+        $this->create_answer_attitude();
         
         $this->create_tags();
         $this->create_article_tag();
@@ -56,6 +58,7 @@ class SchemeController extends BaseController {
         Schema::dropIfExists('article_comments');
         Schema::dropIfExists('news');
         Schema::dropIfExists('news_comments');
+        Schema::dropIfExists('news_digg');
         Schema::dropIfExists('groups');
         Schema::dropIfExists('user_group');
         Schema::dropIfExists('posts');
@@ -63,6 +66,7 @@ class SchemeController extends BaseController {
         Schema::dropIfExists('questions');
         Schema::dropIfExists('answers');
         Schema::dropIfExists('answer_comments');
+        Schema::dropIfExists('answer_attitude');
         
         Schema::dropIfExists('tags');
         Schema::dropIfExists('article_tag');
@@ -89,7 +93,7 @@ class SchemeController extends BaseController {
             $table->string('title', 64);
             $table->string('avatar', 256);
             
-            $table->text('intro');
+            $table->string('intro', 1024);
 
 
             // TODO: 旧密码
@@ -104,9 +108,11 @@ class SchemeController extends BaseController {
             
             // 冗余数据
             $table->integer('notices_count')->default(0); // 未读通知数量
-            // $table->integer('posts_count')->default(0); // 发帖数量
-            // $table->integer('questions_count')->default(0); // 提问数量
-            // $table->integer('answers_count')->default(0); // 回答数量
+            $table->integer('posts_count')->default(0); // 发帖数量
+            $table->integer('questions_count')->default(0); // 提问数量
+            $table->integer('answers_count')->default(0); // 回答数量
+            
+            // 翻译与任务
             
             $table->timestamps();
             
@@ -157,10 +163,12 @@ class SchemeController extends BaseController {
             
             $table->text('abstract'); // 纯文字
             $table->text('content'); // html
-            $table->text('markdown'); // html
+            $table->text('markdown'); // markdown
             
             // 缩略图
             $table->string('thumbnail', 256);
+            
+            $table->integer('status')->default(0); // 状态
     
             $table->timestamps();
             
@@ -212,6 +220,7 @@ class SchemeController extends BaseController {
             
             // TODO: 评论数
             $table->integer('comments_count')->default(0);
+            $table->integer('digg_count')->default(0);
     
             $table->timestamps();
             
@@ -239,6 +248,21 @@ class SchemeController extends BaseController {
             
         });
         echo "Create the news_comments table!";
+        echo '<br />';
+    }
+    
+    public function create_news_digg()
+    {
+        Schema::create('news_digg', function($table) {
+            $table->increments('id');
+            
+            $table->integer('news_id');
+            $table->integer('user_id');
+
+            $table->timestamps();
+            
+        });
+        echo "Create the news_digg table!";
         echo '<br />';
     }
     
@@ -297,9 +321,10 @@ class SchemeController extends BaseController {
             
             $table->text('content');
             $table->text('markdown');
+            
+            $table->integer('status')->default(0); // 状态
     
             $table->timestamps();
-            
         });
         echo "Create the posts table!";
         echo '<br />';
@@ -345,6 +370,8 @@ class SchemeController extends BaseController {
             
             // TODO: 冗余数据，回答数目
     
+            $table->integer('status')->default(0); // 状态
+            
             $table->timestamps();
             
         });
@@ -370,6 +397,11 @@ class SchemeController extends BaseController {
             // TODO: 楼层 Oppose Support
             // $table->integer('digg')->default(0);
             $table->integer('comments_count')->default(0);
+            
+            // 态度
+            $table->integer('attitude')->default(0);
+            
+            $table->integer('status')->default(0); // 状态
     
             $table->timestamps();
             
@@ -395,6 +427,22 @@ class SchemeController extends BaseController {
             $table->timestamps();
         });
         echo "Create the answer_comments table!";
+        echo '<br />';
+    }
+    
+    public function create_answer_attitude()
+    {
+        Schema::create('answer_attitude', function($table) {
+            $table->increments('id');
+            
+            $table->integer('answer_id');
+            $table->integer('user_id');
+            
+            $table->integer('type'); // 1: 赞同 2: 反对  
+            
+            $table->timestamps();
+        });
+        echo "Create the answer_attitude table!";
         echo '<br />';
     }
     
@@ -677,6 +725,16 @@ EOS;
             echo "Insert test news $i!";
             echo '<br />';
         }
+        
+        DB::table('news_digg')->insert(array(
+            'news_id' => 1,
+            'user_id' => 1,
+
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ));        
+        echo "Insert test news_digg !";
+        echo '<br />';
         
         for ($i=1; $i<=5; $i++) {
             DB::table('news_comments')->insert(array(

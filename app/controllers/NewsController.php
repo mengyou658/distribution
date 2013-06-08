@@ -12,7 +12,11 @@ class NewsController extends BaseController {
     
     public function __construct()
     {
-        $this->beforeFilter('auth', array('only' => array('getDeliver', 'postDeliver')));
+        $this->beforeFilter('auth', array('only' => array(
+            'getDeliver',
+            'postDeliver',
+            'getDigg',
+        )));
     }
 
 	public function getIndex()
@@ -34,6 +38,20 @@ class NewsController extends BaseController {
                    ->with('news_item', $news_item)
                    ->with('news_comments', $news_comments);
 	}
+    
+    public function getDigg($news_id)
+    {
+        $user = Auth::user();
+        $digg = NewsDigg::whereNews_id($news_id)->whereUser_id($user->id)->first();
+        if (!$digg) {
+            NewsDigg::create(array(
+                'news_id' => $news_id,
+                'user_id' => $user->id
+            ));
+            return 0;
+        }
+        return 1;
+    }
     
     public function postComment($news_id)
     {

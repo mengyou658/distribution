@@ -1,5 +1,9 @@
 ## Changelog
 
+### 4.0.1
+- Bugfix: "languages" array from L3 replaced by administrator config's "locales"
+- New language: Chinese (zh-CN)
+
 ### 4.0.0
 - Updated to Laravel 4 / Composer
 

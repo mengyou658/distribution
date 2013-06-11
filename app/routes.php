@@ -357,6 +357,17 @@ Route::get(
 );
 
 // ---------------------------------
+// # 任务
+// task
+
+Route::get(
+    'tasks',
+    array(
+        'uses' => 'TaskController@getIndex',
+        'as' => 'tasks')
+);
+
+// ---------------------------------
 // # 用户
 // 应该使用指向方法的，路由表，不能使用类暴露。
 
@@ -538,4 +549,4 @@ Route::get(
 
 
 // 数据库维护
-Route::controller('scheme', 'SchemeController');
+Route::controller('schema', 'SchemaController');

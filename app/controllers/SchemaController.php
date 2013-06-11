@@ -1,18 +1,18 @@
 <?php
 
-class SchemeController extends BaseController {
+class SchemaController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Scheme Controller
+	| Schema Controller
 	|--------------------------------------------------------------------------
 	|
 	| 目标部署环境为虚拟主机空间，所以考虑使用简单的数据库创建方式。
 	|
 	| 本类的作用是直接通过 GET 请求，创建数据库 
 	|
-	| 创建所有表，以及测试数据 GET /scheme/up 
-	| 销毁所有表 GET /scheme/down
+	| 创建所有表，以及测试数据 GET /schema/up 
+	| 销毁所有表 GET /schema/down
 	|
 	*/
     
@@ -41,6 +41,9 @@ class SchemeController extends BaseController {
         $this->create_sources();
         $this->create_originals();
         $this->create_translations();
+        $this->create_series();
+        $this->create_events();
+        $this->create_event_user();
         
         $this->create_tags();
         $this->create_article_tag();
@@ -48,6 +51,7 @@ class SchemeController extends BaseController {
         $this->create_post_tag();
         $this->create_question_tag();
         $this->create_source_tag();
+        $this->create_event_tag();
         
         $this->create_notices();
         
@@ -74,6 +78,9 @@ class SchemeController extends BaseController {
         Schema::dropIfExists('sources');
         Schema::dropIfExists('originals');
         Schema::dropIfExists('translations');
+        Schema::dropIfExists('series');
+        Schema::dropIfExists('events');
+        Schema::dropIfExists('event_user');
         
         Schema::dropIfExists('tags');
         Schema::dropIfExists('article_tag');
@@ -81,6 +88,7 @@ class SchemeController extends BaseController {
         Schema::dropIfExists('post_tag');
         Schema::dropIfExists('question_tag');
         Schema::dropIfExists('source_tag');
+        Schema::dropIfExists('event_tag');
         
         Schema::dropIfExists('notices');
         
@@ -178,6 +186,8 @@ class SchemeController extends BaseController {
             $table->string('thumbnail', 256);
             
             $table->integer('status')->default(0); // 状态
+            
+            $table->integer('comment_count')->default(0); // 评论数
     
             $table->timestamps();
             
@@ -283,11 +293,12 @@ class SchemeController extends BaseController {
             
             $table->string('name', 64);
             $table->string('pic', 256);
-            $table->text('description');
+            $table->text('descr');
             
             // TODO:组长，管理员，统计数据（冗余数据），
             
             $table->integer('status')->default(0);
+            $table->integer('member_count')->default(0); // 成员人数
             
             $table->timestamps();
             
@@ -332,6 +343,7 @@ class SchemeController extends BaseController {
             $table->text('markdown');
             
             $table->integer('status')->default(0); // 状态
+            $table->integer('comment_count')->default(0); // 评论数
     
             $table->timestamps();
         });
@@ -519,6 +531,63 @@ class SchemeController extends BaseController {
         echo '<br />';
     }
     
+    public function create_series()
+    {
+        
+        Schema::create('series', function($table) {
+            $table->increments('id');
+            
+            $table->string('name', 32);
+            $table->string('pic', 256);
+            $table->text('descr');
+
+            $table->integer('event_count')->default(0);
+            $table->timestamps();
+        });
+        echo "Create the series table!";
+        echo '<br />';
+    }
+    
+    public function create_events()
+    {
+        Schema::create('events', function($table) {
+            $table->increments('id');
+            
+            $table->integer('serie_id');
+            
+            $table->string('title', 256);
+            $table->string('organizer', 128);
+            
+            $table->timestamp('start_at');
+            $table->timestamp('end_at');
+
+            $table->string('location', 128);
+            
+            $table->text('descr'); // 描述
+            
+            // 冗余字段
+            $table->integer('comment_count')->default(0);
+    
+            $table->timestamps();
+        });
+        echo "Create the events table!";
+        echo '<br />';
+    }
+    
+    public function create_event_user()
+    {
+        Schema::create('event_user', function($table) {
+            $table->increments('id');
+            
+            $table->integer('event_id');
+            $table->integer('user_id');
+    
+            $table->timestamps();
+        });
+        echo "Create the event_user table!";
+        echo '<br />';
+    }
+    
     public function create_tags()
     {
         
@@ -606,6 +675,20 @@ class SchemeController extends BaseController {
             $table->timestamps();
         });
         echo "Create the source_tag table!";
+        echo '<br />';
+    }
+    
+    public function create_event_tag()
+    {
+        Schema::create('event_tag', function($table) {
+            $table->increments('id');
+            
+            $table->integer('event_id');
+            $table->integer('tag_id');
+    
+            $table->timestamps();
+        });
+        echo "Create the event_tag table!";
         echo '<br />';
     }
     
@@ -797,7 +880,7 @@ EOS;
             echo '<br />';
         }
         
-        for ($i=1; $i<=5; $i++) {
+        for ($i=1; $i<=10; $i++) {
             DB::table('news')->insert(array(
                 'title' => "news title $i",
                 'link' => "http://news_url",
@@ -843,8 +926,8 @@ EOS;
         for ($i=1; $i<=5; $i++) {
             DB::table('groups')->insert(array(
                 'name' => "测试小组$i",
-                'pic' => 'http://img1.guokr.com/thumbnail/I17VQsuxs02tsUqcCcLMLqbDKM7XEh4NDzNZA1gMWHgwAAAAMAAAAEpQ_48x48.jpg',
-                'description' => "测试小组描述<br />换行换行",
+                'pic' => '/img/test_group_pic.jpg',
+                'descr' => "测试小组描述<br />换行换行",
                 
                 'status' => 1,
                 'created_at' => date('Y-m-d H:i:s'),

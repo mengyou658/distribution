@@ -8,7 +8,7 @@ class Group extends Eloquent {
     
     public function users()
     {
-        return $this->belongsToMany('User', 'user_group', 'group_id', 'user_id');
+        return $this->belongsToMany('User', 'group_user', 'group_id', 'user_id');
     }
     
     public function scopeValid($query)

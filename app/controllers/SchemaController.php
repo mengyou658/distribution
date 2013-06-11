@@ -31,7 +31,7 @@ class SchemaController extends BaseController {
         $this->create_news_comments();
         $this->create_news_digg();
         $this->create_groups();
-        $this->create_user_group();
+        $this->create_group_user();
         $this->create_posts();
         $this->create_post_comments();
         $this->create_questions();
@@ -44,6 +44,8 @@ class SchemaController extends BaseController {
         $this->create_series();
         $this->create_events();
         $this->create_event_user();
+        $this->create_tasks();
+        $this->create_task_user();
         
         $this->create_tags();
         $this->create_article_tag();
@@ -52,6 +54,7 @@ class SchemaController extends BaseController {
         $this->create_question_tag();
         $this->create_source_tag();
         $this->create_event_tag();
+        $this->create_task_tag();
         
         $this->create_notices();
         
@@ -68,7 +71,7 @@ class SchemaController extends BaseController {
         Schema::dropIfExists('news_comments');
         Schema::dropIfExists('news_digg');
         Schema::dropIfExists('groups');
-        Schema::dropIfExists('user_group');
+        Schema::dropIfExists('group_user');
         Schema::dropIfExists('posts');
         Schema::dropIfExists('post_comments');
         Schema::dropIfExists('questions');
@@ -81,6 +84,8 @@ class SchemaController extends BaseController {
         Schema::dropIfExists('series');
         Schema::dropIfExists('events');
         Schema::dropIfExists('event_user');
+        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('task_user');
         
         Schema::dropIfExists('tags');
         Schema::dropIfExists('article_tag');
@@ -89,6 +94,7 @@ class SchemaController extends BaseController {
         Schema::dropIfExists('question_tag');
         Schema::dropIfExists('source_tag');
         Schema::dropIfExists('event_tag');
+        Schema::dropIfExists('task_tag');
         
         Schema::dropIfExists('notices');
         
@@ -309,17 +315,17 @@ class SchemaController extends BaseController {
         
     }
     
-    public function create_user_group()
+    public function create_group_user()
     {
-        Schema::create('user_group', function($table) {
+        Schema::create('group_user', function($table) {
             $table->increments('id');
             
-            $table->integer('user_id');
             $table->integer('group_id');
+            $table->integer('user_id');
     
             $table->timestamps();
         });
-        echo "Create the user_group table!";
+        echo "Create the group_user table!";
         echo '<br />';
     }
     
@@ -484,6 +490,7 @@ class SchemaController extends BaseController {
             $table->string('courier', 32);
             
             $table->integer('comment_count')->default(0);
+            $table->integer('status')->default(0);
 
             $table->timestamps();
         });
@@ -567,6 +574,8 @@ class SchemaController extends BaseController {
             
             // 冗余字段
             $table->integer('comment_count')->default(0);
+            $table->integer('status')->default(0);
+
     
             $table->timestamps();
         });
@@ -585,6 +594,50 @@ class SchemaController extends BaseController {
             $table->timestamps();
         });
         echo "Create the event_user table!";
+        echo '<br />';
+    }
+    
+    public function create_tasks()
+    {
+        Schema::create('tasks', function($table) {
+            $table->increments('id');
+            
+            $table->string('title', 256);
+            
+            $table->text('descr'); // 描述
+            $table->text('hidden'); // 描述
+            
+            $table->timestamp('start_at');
+            $table->timestamp('end_at');
+            
+            $table->integer('publisher_id');
+            $table->string('publisher', 32);
+            
+            //$table->integer('executor_id');
+            //$table->string('executor', 32);
+            
+            
+            $table->integer('status')->default(0);
+    
+            $table->timestamps();
+        });
+        echo "Create the tasks table!";
+        echo '<br />';
+    }
+    
+    public function create_task_user()
+    {
+        Schema::create('task_user', function($table) {
+            $table->increments('id');
+
+            $table->integer('task_id');
+            $table->integer('user_id');
+            
+            $table->integer('type')->default(0); // 0: 申请 1: 承接
+    
+            $table->timestamps();
+        });
+        echo "Create the task_user table!";
         echo '<br />';
     }
     
@@ -689,6 +742,20 @@ class SchemaController extends BaseController {
             $table->timestamps();
         });
         echo "Create the event_tag table!";
+        echo '<br />';
+    }
+    
+    public function create_task_tag()
+    {
+        Schema::create('task_tag', function($table) {
+            $table->increments('id');
+            
+            $table->integer('task_id');
+            $table->integer('tag_id');
+    
+            $table->timestamps();
+        });
+        echo "Create the task_tag table!";
         echo '<br />';
     }
     
@@ -937,24 +1004,24 @@ EOS;
             echo '<br />';
         }
         
-        DB::table('user_group')->insert(array(
+        DB::table('group_user')->insert(array(
             'user_id' => 1,
             'group_id' => 1,
             
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ));        
-        echo "Insert test user_group 1 relation !";
+        echo "Insert test group_user 1 relation !";
         echo '<br />';
         
-        DB::table('user_group')->insert(array(
+        DB::table('group_user')->insert(array(
             'user_id' => 2,
             'group_id' => 1,
             
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ));        
-        echo "Insert test user_group 2 relation !";
+        echo "Insert test group_user 2 relation !";
         echo '<br />';
         
         for ($i=1; $i<=10; $i++) {

@@ -2,7 +2,7 @@
 @section('content')
 <div class="row-fluid">
 <div class="span8">
-<h3>最新问答</h3>
+<legend>问答</legend>
 
 @foreach ($questions as $question)
     <h5><a href="/ask/question/{{ $question->id }}">{{ $question->title }}</a></h5>

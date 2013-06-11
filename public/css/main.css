@@ -450,17 +450,15 @@ body .one .bsa_it_p {
   width: 100%;
 }
 .wmd-input {
-
-  height: 300px;
-  width: 49%;
+  width: 100%;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
 }
 .wmd-preview {
-    height: 300px;
-  width: 49%;
+  height: auto;
+  width: 100%;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -612,6 +610,11 @@ body {
     font-size: 14px;
 }
 
+legend {
+    font-size: 23px;
+    font-weight: bold;
+}
+
 #logo-banner {
     display: block;
     margin: 0 auto;
@@ -671,6 +674,11 @@ body {
     height: 48px;
 }
 
+.sidebar-ul li img.article {
+    width: 72px;
+    height: 48px;
+}
+
 .sidebar-ul li a {
     margin-right: 20px;
 }
@@ -679,6 +687,116 @@ body {
     margin-top: 5px;
 }
 
+.media {
+    margin-bottom: 28px;
+}
+
+
+.media img {
+    width: 180px;
+    height: 126px;
+    margin-right: 15px;
+}
+
+.media .media-body .media-heading {
+    margin-bottom: 14px;
+    font-size: 21px;
+}
+
+.media .media-body a {
+    margin-right: 15px;
+}
+
+.media .media-body span {
+    margin-right: 30px;
+}
+
+.media a.btn {
+    margin: 15px 15px 0 0;
+}
+
+
+#article-content h2 {
+    font-size: 24px;
+}
+
+#article-content .info {
+}
+
+#article-content .info span{
+    border-left: 1px solid #ededed;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+
+#article-content .content h2 {
+    font-size: 18px;
+}
+
+#article-content .content h3 {
+    font-size: 16px;
+}
+
+#article-content .content p {
+    line-height: 1.62em;
+}
+
+#article-content .content blockquote p {
+    font-size: 14px;
+    line-height: 1.62em;
+}
+
+#news-content h2 {
+    font-size: 24px;
+}
+
+#news-content .info span{
+    border-left: 1px solid #ededed;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+
+#post-content h2 {
+    font-size: 24px;
+}
+
+#post-content .info span{
+    border-left: 1px solid #ededed;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+
+#comment-list {
+    margin-left: 0;
+}
+
+#comment-list li {
+    margin-top: 15px;
+}
+
+#comment-list li .avatar {
+    margin-right: 20px;
+}
+
+#comment-list li .content {
+    margin-left: 68px;
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 30px;
+}
+
+#comment-list li .content .info span {
+    float: right;
+    margin-right: 15px;
+}
+
+#comment-list li .content p {
+    margin-bottom: 5px;
+}
+
+#comment-list li .content .comment-quote {
+    float: right;
+    margin-right: 100px;
+}
 
 /* END: */
 

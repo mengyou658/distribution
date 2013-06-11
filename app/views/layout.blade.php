@@ -53,11 +53,11 @@
                             @if ( Auth::check() )
                             
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->username }} ({{ Auth::user()->notices_count }}) <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->username }} ({{ Auth::user()->notice_count }}) <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user">个人中心</a></li>
                                     <li><a href="/user/setting">设置</a></li>
-                                    <li><a href="/user/notices">提醒 ({{ Auth::user()->notices_count }}) </a></li>
+                                    <li><a href="/user/notices">提醒 ({{ Auth::user()->notice_count }}) </a></li>
                                     <li class="divider"></li>
                                     <!-- <li class="nav-header">Nav header</li>
                                     <li><a href="#">Separated link</a></li>

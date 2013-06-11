@@ -10,7 +10,7 @@
         <div>
             {{ $group->name }}
             <br />
-            {{ $group->description }}
+            {{ $group->descr }}
             <br />
             @if(!$is_member)
             <a href="/group/{{ $group->id }}/join">加入小组</a>

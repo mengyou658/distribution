@@ -2,26 +2,26 @@
 @section('content')
 <div class="row-fluid">
   <div class="span8">
-    <h3>文章</h3>
-        <?php $articles = Article::orderBy('created_at', 'desc')->take(7)->get() ?>
-    <div calss="home-article"> 
+    <legend>最新文章</legend>
+    <?php $articles = Article::orderBy('created_at', 'desc')->take(7)->get() ?>
+    <div class="home-plate"> 
         <div class="headline">
             <h4><a href="/article/{{ $articles[0]->id }}">{{ $articles[0]->title }}</a></h4>
-            <img class="pull-left" src="{{ $articles[0]->thumbnail }}" width="166" />
+            <img class="pull-left" src="{{ $articles[0]->thumbnail }}" />
             <p>{{ $articles[0]->abstract }}</p>
-            <p><a href="/article/{{ $articles[0]->id }}">阅读全文</a> 发表于 {{ $articles[0]->created_at->format('Y-m-d h:i'); }} </p>
+            <p><a href="/article/{{ $articles[0]->id }}">阅读全文</a> <a href="/article/{{ $articles[0]->id }}#article-comment">评论({{ $articles[0]->comment_count }})</a> <span class="pull-right">发表于 {{ $articles[0]->created_at->format('Y-m-d h:i'); }} </span></p>
         </div>
         
         <div class="row-fluid">
             <div class="span6">
-                <ul class="unstyled">
+                <ul class="">
                 @for ($i = 1; $i < 4; $i ++)
                     <li><a href="{{ URL::route('article_detail', array($articles[$i]->id)) }}">{{ $articles[$i]->title }}</a></li>
                 @endfor
                 </ul>
             </div>
             <div class="span6">
-                <ul class="unstyled">
+                <ul class="">
                 @for ($i = 4; $i < 7; $i ++)
                     <li><a href="{{ URL::route('article_detail', array($articles[$i]->id)) }}">{{ $articles[$i]->title }}</a></li>
                 @endfor
@@ -30,35 +30,91 @@
         </div>
     </div>
     <hr />
-    <!-- TODO: 
-    <div>
-        <legend>热门问答</legend>
+    <?php $news = News::orderBy('created_at', 'desc')->take(7)->get() ?>
+    <div class="home-plate">
+        <legend>最新新闻</legend>
+        <div class="headline">
+            <h4><a href="/news/{{ $news[0]->id }}">{{ $news[0]->title }}</a></h4>
+            <p>{{ $news[0]->abstract }}</p>
+            <p><a href="{{ $news[0]->link }}">阅读原文</a> <a href="/news/{{ $news[0]->id }}#news-comment">评论({{ $news[0]->comment_count }})</a> <span class="pull-right">发表于 {{ $news[0]->created_at->format('Y-m-d h:i'); }} </span></p>
+        </div>
         
-        
-        <hr />
+        <div class="row-fluid">
+            <div class="span6">
+                <ul class="">
+                @for ($i = 1; $i < 4; $i ++)
+                    <li><a href="{{ URL::route('news_detail', array($news[$i]->id)) }}">{{ $articles[$i]->title }}</a></li>
+                @endfor
+                </ul>
+            </div>
+            <div class="span6">
+                <ul class="">
+                @for ($i = 4; $i < 7; $i ++)
+                    <li><a href="{{ URL::route('news_detail', array($news[$i]->id)) }}">{{ $articles[$i]->title }}</a></li>
+                @endfor
+                </ul>
+            </div>
+        </div>
     </div>
-    
+    <hr />
+    <!-- TODO: 
     <div>
         <legend>近期活动</legend>
         <hr />
     </div>
     -->
     
-    <div class="home-group">
+    <?php $posts = Post::orderBy('created_at', 'desc')->take(7)->get() ?>
+    <div class="home-plate">
         <legend>群组热帖</legend>
-        <?php $posts = Post::orderBy('created_at', 'desc')->take(5)->get() ?>
-        <ul class="unstyled">
-            @foreach ($posts as $post)
-                <li><a href="{{ URL::route('group_post_detail', array($post->group_id, $post->id)) }}">{{ $post->title }}</a></li>
-            @endforeach
-        </ul>
+        <div class="headline">
+            <h4><a href="/group/{{ $posts[0]->group_id }}/post/{{ $posts[0]->id }}">{{ $posts[0]->title }}</a></h4>
+            <p>{{ $posts[0]->content }}</p>
+            <p>发表在<a href="/group/{{ $posts[0]->group_id }}">{{ $posts[0]->group_name }}</a>  <a href="/group/{{ $posts[0]->group_id }}/post/{{ $posts[0]->id }}">阅读帖子</a> <a href="/group/{{ $posts[0]->group_id }}/post/{{ $posts[0]->id }}#post-comment">评论({{ $posts[0]->comment_count }})</a> <span class="pull-right">发表于 {{ $posts[0]->created_at->format('Y-m-d h:i'); }} </span></p>
+        </div>
+        
+        <div class="row-fluid">
+            <div class="span6">
+                <ul class="">
+                @for ($i = 1; $i < 4; $i ++)
+                    <li><a href="{{ URL::route('group_post_detail', array($posts[$i]->group_id, $posts[$i]->id)) }}">{{ $posts[$i]->title }}</a></li>
+                @endfor
+                </ul>
+            </div>
+            <div class="span6">
+                <ul class="">
+                @for ($i = 4; $i < 7; $i ++)
+                    <li><a href="{{ URL::route('group_post_detail', array($posts[$i]->group_id, $posts[$i]->id)) }}">{{ $posts[$i]->title }}</a></li>
+                @endfor
+                </ul>
+            </div>
+        </div>
     </div>
   </div>
-  <div class="span4">
-    <div>
-        <legend>标签</legend>
-        <?php $tags = Tag::orderBy('refer_count', 'desc')->take(3)->get() ?>
-        @if(!empty($tags))
+  
+  
+  <div class="span4 sidebar">
+    <div class="sidebar-plate">
+        <legend>推荐小组</legend>
+        <?php $groups = Group::orderBy('created_at', 'desc')->take(3)->get(); ?>
+        @if(!$groups->isEmpty())
+        <ul class="sidebar-ul unstyled">
+            @foreach ($groups as $group)
+            <li>
+                <a class="pull-left" href="/group/{{$group->id}}"><img src="{{$group->pic}}" /></a>
+                <div class="sidebar-ul-body">
+                    <a href="/group/{{$group->id}}">{{$group->name}}</a><span>{{ $group->member_count }}人加入</span>
+                    <p>{{ Str::limit($group->descr, 10) }}</p>
+                </div>
+            </li>
+            @endforeach
+        </ul>
+        @endif
+    </div>
+    <div class="sidebar-plate">
+        <legend>热门标签</legend>
+        <?php $tags = Tag::orderBy('refer_count', 'desc')->take(7)->get() ?>
+        @if(!$tags->isEmpty())
         
             @foreach ($tags as $tag)
             <a href="{{ URL::route('tag_detail', array($tag->tag)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
@@ -67,17 +123,49 @@
         @endif
     </div>
     
-    <div>
-        <legend>推荐小组</legend>
-        <a href="/group/1">测试小组1</a>
-    </div>
-    
-    <div>
-        <legend>功能区域</legend>
+    <div class="sidebar-plate">
+        <legend>近期活动</legend>
+        <ul class="sidebar-ul unstyled">
+            <li>
+                <div class="sidebar-ul-body">
+                    <a href="">R沙龙</a><span>15人参加</span>
+                    <p>本期R沙龙，主要内容是</p>
+                </div>
+            </li>
+            <li>
+                <div class="sidebar-ul-body">
+                    <a href="">R沙龙</a><span>15人参加</span>
+                    <p>本期R沙龙，主要内容是</p>
+                </div>
+            </li>
+            <li>
+                <div class="sidebar-ul-body">
+                    <a href="">R沙龙</a><span>15人参加</span>
+                    <p>本期R沙龙，主要内容是</p>
+                </div>
+            </li>
+        </ul>
     </div>
   
-    <div>
+    <div class="sidebar-plate">
         <legend>友情链接</legend>
+        <ul class="sidebar-ul">
+            <li>
+                <div class="sidebar-ul-body">
+                    <a href="" target="_blank">厦门大学数据挖掘研究中心</a>
+                </div>
+            </li>
+            <li>
+                <div class="sidebar-ul-body">
+                    <a href="" target="_blank">厦门大学数据挖掘研究中心</a>
+                </div>
+            </li>
+            <li>
+                <div class="sidebar-ul-body">
+                    <a href="" target="_blank">厦门大学数据挖掘研究中心</a>
+                </div>
+            </li>
+        </ul>
     </div>
   
   

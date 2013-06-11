@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Author's custom styles
+   Main styles
    ========================================================================== */
    
 /* START: from http://bootswatch.com/css/bootswatch.css  */
@@ -605,13 +605,11 @@ input[type="text"].tm-input {
 
 /* END: */
 
+/* START: Custom */
+
 body {
     font-family: "Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
-}
-
-legend {
-    font-family: "Microsoft Yahei";
 }
 
 #logo-banner {
@@ -619,16 +617,69 @@ legend {
     margin: 0 auto;
 }
 
-.aritcle-content {
-    line-height: 1.7em;
-}
-
-.aligncenter {
-    text-align: center;
-}
-
 .subnav {
     margin-bottom: 30px;
 }
+
+.center {
+    text-align: center;
+}
+
+.home-plate .headline {
+    margin-bottom: 25px;
+}
+
+.home-plate .headline h4 {
+    margin-bottom: 25px;
+}
+
+.home-plate .headline img {
+    width: 200px;
+    margin-right: 30px;
+}
+
+.home-plate .headline p a {
+    margin-right: 20px;
+}
+
+.home-plate .headline p span {
+    margin-right: 30px;
+}
+
+.home-plate ul {
+    list-style-type: square;
+}
+
+.sidebar .sidebar-plate {
+    margin-bottom: 25px;
+}
+
+.sidebar .sidebar-plate span {
+    margin-bottom: 5px;
+}
+
+.sidebar-ul {
+    list-style-type: square;
+}
+
+.sidebar-ul li {
+    margin: 15px 0;
+}
+
+.sidebar-ul li img {
+    width: 48px;
+    height: 48px;
+}
+
+.sidebar-ul li a {
+    margin-right: 20px;
+}
+
+.sidebar-ul li p {
+    margin-top: 5px;
+}
+
+
+/* END: */
 
 

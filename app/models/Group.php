@@ -4,7 +4,7 @@ class Group extends Eloquent {
 
     protected $table = 'groups';
     
-    protected $fillable = array('name', 'pic', 'description', 'status');
+    protected $fillable = array('name', 'pic', 'descr', 'status');
     
     public function users()
     {

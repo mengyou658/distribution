@@ -66,13 +66,13 @@ class GroupController extends BaseController {
         $input = array(
             'name' => Input::get('name'),
             'pic' => 'http://pic.com', // TODO: 上传图片，保存图片，保存图片url
-            'description' => Input::get('description'),
+            'descr' => Input::get('descr'),
         );
         
         $rules = array(
             'name' => 'required',
             'pic' => 'required|url',
-            'description' => 'required',
+            'descr' => 'required',
         );
         
         $v = Validator::make($input, $rules);

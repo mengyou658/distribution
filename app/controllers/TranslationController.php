@@ -15,4 +15,6 @@ class TranslationController extends BaseController {
 		return View::make('translation.index');
 	}
     
+    
+    
 }

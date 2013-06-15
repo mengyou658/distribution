@@ -8,7 +8,7 @@
       <div class="media-body">
         <h4 class="media-heading"><a href="/group/{{ $post->group_id }}/post/{{ $post->id }}">{{ $post->title }}</a></h4>
         <p>{{ Str::limit($post->content, 140) }}</p>
-        <p>发表在<a href="/group/{{ $post->group_id }}">{{ $post->group_name }}</a><a href="/group/{{ $post->group_id }}/post/{{ $post->id }}#post-comment">评论({{ $post->comment_count }})</a><span class="pull-right">{{ $post->author }}发表于 {{ $post->created_at->format('Y-m-d h:i'); }}</span></p>
+        <p>发表在<a href="/group/{{ $post->group_id }}">{{ $post->group_name }}</a><a href="/group/{{ $post->group_id }}/post/{{ $post->id }}#post-comment">评论({{ $post->comment_count }})</a><span class="pull-right">{{ $post->author_name }}发表于 {{ $post->created_at->format('Y-m-d h:i'); }}</span></p>
       </div>
     </div>
 @endforeach

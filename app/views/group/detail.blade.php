@@ -2,57 +2,54 @@
 @section('content')
 <div class="row-fluid">
     <div class="span8">
-
-    <ul class="breadcrumb">
-        <li><a href="/groups">群组</a> <span class="divider">/</span></li>
-        <li class="active">{{ $group->name }}</li>
-    </ul>
-        <div>
-            {{ $group->name }}
-            <br />
-            {{ $group->descr }}
-            <br />
+    <legend><img src="/img/test_group_pic.jpg" />{{ $group->name }}<small>{{ $group->member_count }}人加入</small></legend>
+        <div class="well">
+            <p>{{ $group->descr }}</p>
             @if(!$is_member)
-            <a href="/group/{{ $group->id }}/join">加入小组</a>
+            <a class="btn btn-small btn-primary" href="/group/{{ $group->id }}/join">加入小组</a>
             @else
-            <a href="/group/{{ $group->id }}/quit">退出小组</a>
+            <a class="btn btn-small btn-primary" href="/group/{{ $group->id }}/quit">退出小组</a>
             @endif
         </div>
-        <hr />
         <div>
-            帖子列表
+        <legend>帖子</legend>
             @if(!$posts->isEmpty())
-                <ul>
-                    @foreach ($posts as $post)
-                        <li>
-                            <a href="/group/{{ $post->group_id }}/post/{{ $post->id }}">{{ $post->title }}</a>
-                        </li>
-                    @endforeach
-                </ul>
+            @foreach ($posts as $post)
+            <div class="media">
+              <div class="media-body">
+                <h4 class="media-heading"><a href="/group/{{ $post->group_id }}/post/{{ $post->id }}">{{ $post->title }}</a></h4>
+                <p>{{ Str::limit($post->content, 100) }}</p>
+                <p><a href="/group/{{ $post->group_id }}/post/{{ $post->id }}#post-comment">评论({{ $post->comment_count }})</a><span class="pull-right">{{ $post->author_name }}发表于 {{ $post->created_at->format('Y-m-d h:i'); }}</span></p>
+              </div>
+            </div>
+            @endforeach
             @else
-                NO posts.
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                还没有帖子
+            </div>
             @endif
             <div>{{ $posts->links() }}</div>
         </div>
     </div>
-
-    <div class="span4">
-        <p>
+    <div class="span4 sidebar">
         @if($is_member)
+        <p>
         <a class="btn btn-large btn-block btn-primary" href="/group/{{ $group->id }}/new_post">发新帖</a>
-        @endif
         </p>
-        <hr />
-        <h3>小组成员</h3>
-        <ul>
+        
+        @endif
+        <div class="sidebar-plate">
+        <legend>小组成员</legend>
+        <div class="sidebar-users row-fluid">
         @foreach ($users as $user)
-            <li>
-                {{ $user->username }}
-                <br />
-                {{ $user->id }}
-            </li>
+            <div class="sidebar-user span3">
+                <a href="/user/{{$user->id}}"><img src="{{$user->avatar}}" /></a>
+                <a href="/user/{{$user->id}}">{{$user->username}}</a>
+            </div>
         @endforeach
-        </ul>
+        </div>
+        </div>
     </div>
 </div>
 

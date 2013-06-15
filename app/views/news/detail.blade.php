@@ -52,7 +52,10 @@
             </div>
         </div>
         @else
-        登录后方可评论 // TODO: 此处样式调整
+        <div class="alert alert-block">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            登录后才能评论
+        </div>
         @endif
     </div>
     </section>

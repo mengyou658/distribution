@@ -9,16 +9,28 @@
     ?>
     <div class="span6">
         @for ($i = 0; $i < ceil($group_count/2); $i++)
-        <h5><a href="/group/{{ $groups[$i]->id }}">{{ $groups[$i]->name }}</a></h5>
-        <p>{{ $groups[$i]->descr }}</p>
-        <hr />
+        <div class="media group-list">
+          <a class="pull-left" href="/group/{{ $groups[$i]->id }}">
+            <img src="/img/test_group_pic.jpg">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><a href="/group/{{ $groups[$i]->id }}">{{ $groups[$i]->name }}</a><small>{{ $groups[$i]->member_count }}人加入</small></h4>
+            <p>{{ $groups[$i]->descr }}</p>
+          </div>
+        </div>
         @endfor
     </div>
     <div class="span6">
         @for ($i = ceil($group_count/2); $i < $group_count ; $i++)
-        <h5><a href="/group/{{ $groups[$i]->id }}">{{ $groups[$i]->name }}</a></h5>
-        <p>{{ $groups[$i]->descr }}</p>
-        <hr />
+        <div class="media group-list">
+          <a class="pull-left" href="/group/{{ $groups[$i]->id }}">
+            <img src="/img/test_group_pic.jpg">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><a href="/group/{{ $groups[$i]->id }}">{{ $groups[$i]->name }}</a><small>{{ $groups[$i]->member_count }}人加入</small></h4>
+            <p>{{ $groups[$i]->descr }}</p>
+          </div>
+        </div>
         @endfor
     </div>
     </div>

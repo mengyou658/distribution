@@ -17,11 +17,14 @@
     <div class="span9">
         <legend>提醒</legend>
         @if(!$notices->isEmpty())
-            <ul>
-                @foreach($notices as $notice)
-                    <li>{{ $notice->content }}</li>
-                @endforeach
-            </ul>
+        @foreach($notices as $notice)
+        <div class="media">
+          <div class="media-body">
+            <p>{{ Str::limit($notice->content, 140) }}</p>
+            <p>{{ $notice->created_at->format('Y-m-d h:i'); }}</span></p>
+          </div>
+        </div>
+        @endforeach
         @else
         @endif
         {{ $notices->links() }}

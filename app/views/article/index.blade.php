@@ -10,7 +10,7 @@
     <img src="{{ $article->thumbnail }}" />
   </a>
   <div class="media-body">
-    <h4 class="media-heading"><a href="/article/{{ $article->id }}">{{ $article->title }}</a></h4>
+    <h4 class="media-heading"><a href="/article/{{ $article->id }}">{{ e($article->title) }}</a></h4>
     <p>{{ Str::limit($article->abstract, 136) }}</p>
     <p><a href="/article/{{ $article->id }}">阅读全文</a> <a href="/article/{{ $article->id }}#article-comment">评论({{ $article->comment_count }})</a> <span class="pull-right">发表于 {{ $article->created_at->format('Y-m-d h:i'); }}</span></p>
   </div>

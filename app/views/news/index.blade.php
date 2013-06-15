@@ -11,13 +11,13 @@
     <div class="media">
       <div class="pull-left">
           <a class="btn btn-primary news-digg" href="javascript:;" news-id="{{ $news_item->id }}">
-            <i class="icon-thumbs-up"></i>顶 ({{ $news_item->digg_count }})
+            <i class="icon-thumbs-up"></i>顶 (<span>{{ $news_item->digg_count }}</span>)
           </a>
       </div>
       <div class="media-body">
         <h4 class="media-heading"><a href="{{ $news_item->link }}">{{ $news_item->title }}</a></h4>
         <p>{{ $news_item->abstract }}</p>
-        <p><a href="/news/{{ $news_item->id }}">查看详情</a><a href="/news/{{ $news_item->id }}#news-comment">评论({{ $news_item->comment_count }})</a><span class="pull-right">{{ $news_item->courier }}投递于 {{ $news_item->created_at->format('Y-m-d h:i'); }}</span></p>
+        <p><a href="/news/{{ $news_item->id }}">查看详情</a><a href="/news/{{ $news_item->id }}#news-comment">评论({{ $news_item->comment_count }})</a><span class="pull-right">{{ $news_item->courier_name }}投递于 {{ $news_item->created_at->format('Y-m-d h:i'); }}</span></p>
       </div>
     </div>
 @endforeach
@@ -97,11 +97,11 @@
     $('.news-digg').click(function(){
         var _this = $(this);
         var news_id = _this.attr('news-id');
-        _this.addClass('disabled');
-        if (!_this.hasClass('clicked')) {
+        if (!_this.hasClass('disabled')) {
+            _this.addClass('disabled');
             $.get('/news/'+news_id+'/digg', function(res){
-                _this.addClass('clicked');
-                console.log(res);
+                var digg_span = _this.find('span');
+                digg_span.text(parseInt(digg_span.text())+1);
             });
         }
     });

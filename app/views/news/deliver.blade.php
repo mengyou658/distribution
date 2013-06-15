@@ -24,6 +24,12 @@
       <textarea class="input-xxlarge" id="abstract" rows="3" placeholder="摘要" name="abstract"></textarea>  
     </div>
   </div>
+  <div class="control-group">
+    <label class="control-label" for="tags">标签</label>
+    <div class="controls">  
+        <input class="tags span2" type="text" name="tags" placeholder="标签">
+    </div>
+  </div>
   
   <div class="control-group">
     <div class="controls">
@@ -32,4 +38,15 @@
   </div>
 </form>
 </div>
+@endsection
+@section('js')
+<script src="/js/vendor/bootstrap-tagmanager.js"></script>
+<script>
+(function () {
+    $(".tags").tagsManager({
+        tagClass: 'label label-inverse',
+        tagCloseIcon: '<i class="icon-remove"></i>',
+    });
+})();
+</script>
 @endsection

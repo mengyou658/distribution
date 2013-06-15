@@ -6,10 +6,16 @@ class AnswerComment extends Eloquent {
 
     protected $fillable = array('answer_id', 'author_id', 'author', 'content');
     
-    // 可用的
+    // scopes
     public function scopeAvailable($query)
     {
         return $query->where('status', '=', 1);
+    }
+    
+    // relations
+    public function author()
+    {
+        return $this->belongsTo('User', 'author_id');
     }
     
 }

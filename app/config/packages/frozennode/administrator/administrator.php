@@ -49,8 +49,9 @@ return array(
 	 *	)
 	 */
 	'menu' => array(
+        '文章' => array('articles',),
         'users',
-        'articles',
+        
         //'Settings' => array('settings.site'),
     ),
 
@@ -85,7 +86,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'home_page' => 'users',
+	'home_page' => 'articles',
 
 	/**
 	 * The login path is the path where Administrator will send the user if they fail a permission check

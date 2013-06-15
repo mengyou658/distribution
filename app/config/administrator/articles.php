@@ -19,14 +19,22 @@ return array(
         'id',
         
         'title' => array(
-            'title' => 'Title',
+            'title' => '标题',
             'select' => "(:table).title",
         ),
 
         'author' => array(
-            'title' => 'Author',
-            'select' => "(:table).author",
+            'title' => '作者',
+            'relationship' => 'author',
+            'select' => "(:table).username",
         ),
+        
+        
+        'created_at' => array(
+            'title' => '发布时间',
+            'select' => "(:table).created_at",
+        ),
+        
     ),
 
     /**
@@ -36,7 +44,12 @@ return array(
         'id',
         
         'title' => array(
-            'title' => 'Title',
+            'title' => '标题',
+        ),
+        
+        'created_at' => array(
+            'title' => '发布时间',
+            'type' => 'date',
         ),
         
     ),
@@ -49,6 +62,17 @@ return array(
         'title' => array(
             'title' => '标题',
             'type' => 'text',
+        ),
+        
+        'author' => array(
+            'title' => '作者',
+            'type' => 'relationship',
+            'name_field' => 'username',
+        ),
+        
+        'abstract' => array(
+            'title' => '摘要',
+            'type' => 'textarea',
         ),
         
         'content' => array(

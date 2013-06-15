@@ -28,7 +28,16 @@ Route::get('test', function()
     // $my_html = $markdown->transform($my_text);
     // return $my_html;
     
-    echo Str::random();
+    //echo Str::random();
+    // $article = Article::find(8);
+    // $article->author_id = 2;
+    // $article->save();
+    
+    // Article::create(array(
+        // 'author_id' => 2,
+    // ));
+    
+    echo 'OK';
 });
 
 Route::get(

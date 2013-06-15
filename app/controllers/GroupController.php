@@ -133,7 +133,20 @@ class GroupController extends BaseController {
         $new_post['author_id'] = $user->id;
         $new_post['author'] = $user->username;
         
-        Post::create($new_post);
+        $post = Post::create($new_post);
+        
+        $tags = explode(',', Input::get('hidden-tags'));
+        foreach($tags as $tag) {
+            $tag_id = Tag::markTag($tag);
+            PostTag::create(array(
+                'post_id' => $post->id,
+                'tag_id' => $tag_id,
+            ));
+        }
+        
+        $user->post_count += 1;
+        $user->save();
+        
         return Redirect::to("group/$group_id")->with('msg', '发帖成功');
     }
     

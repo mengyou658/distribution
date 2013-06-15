@@ -61,7 +61,7 @@ class UserController extends BaseController {
         );
 
         if ($this->user_login_auth($credentials)) {
-            return Redirect::to('/')->with('msg', '退出成功');
+            return Redirect::to('/')->with('msg', "登录成功");
         }
         
         // 验证失败，返回登录页
@@ -311,7 +311,7 @@ class UserController extends BaseController {
         
         $user = Auth::user();
         
-        $user->notices_count = 0;
+        $user->notice_count = 0;
         $user->save();
 
         $notices = Notice::whereUser_id($user->id)->orderBy('created_at', 'desc')->paginate($per_page_num);

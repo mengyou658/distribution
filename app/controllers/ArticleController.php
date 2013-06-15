@@ -32,12 +32,9 @@ class ArticleController extends BaseController {
     
     public function postComment($article_id)
     {
-        $markdown = App::make('markdown');
-        
         $user = Auth::user();
         $new_article_comment = array(
             'markdown' => Input::get('markdown'),
-            'content' => $markdown->transform(Input::get('markdown')),
             'article_id' => $article_id,
             'author_id' => $user->id,
             'author' => $user->username,

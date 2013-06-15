@@ -127,7 +127,24 @@ class NewsController extends BaseController {
         $input['courier_id'] = $user->id;
         $input['courier'] = $user->username;
 
-        News::create($input);
+        $news = News::create($input);
+        
+        $tags = explode(',', Input::get('hidden-tags'));
+        
+        foreach($tags as $tag) {
+            $tag = e($tag);
+            if ($tag) {
+                $tag_id = Tag::markTag($tag);
+                NewsTag::create(array(
+                    'news_id' => $news->id,
+                    'tag_id' => $tag_id,
+                ));
+            }
+        }
+        
+        $user->news_count += 1;
+        $user->save();
+        
         return Redirect::to('news')->with('msg', '投递成功，审核中...');
     }
     

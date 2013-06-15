@@ -39,6 +39,7 @@ class SchemaController extends BaseController {
         $this->create_answer_comments();
         $this->create_answer_attitude();
         $this->create_sources();
+        $this->create_source_comments();
         $this->create_originals();
         $this->create_translations();
         $this->create_series();
@@ -79,6 +80,7 @@ class SchemaController extends BaseController {
         Schema::dropIfExists('answer_comments');
         Schema::dropIfExists('answer_attitude');
         Schema::dropIfExists('sources');
+        Schema::dropIfExists('source_comments');
         Schema::dropIfExists('originals');
         Schema::dropIfExists('translations');
         Schema::dropIfExists('series');
@@ -132,6 +134,7 @@ class SchemaController extends BaseController {
             // 冗余数据
             $table->integer('notice_count')->default(0); // 未读通知数量
             $table->integer('post_count')->default(0); // 发帖数量
+            $table->integer('news_count')->default(0); // 发帖数量
             $table->integer('question_count')->default(0); // 提问数量
             $table->integer('answer_count')->default(0); // 回答数量
             
@@ -182,7 +185,7 @@ class SchemaController extends BaseController {
             $table->string('title', 128);
             
             $table->integer('author_id');
-            $table->string('author', 32);
+            $table->string('author_name', 32);
             
             $table->text('abstract'); // 纯文字
             $table->text('content'); // html
@@ -211,7 +214,7 @@ class SchemaController extends BaseController {
             $table->integer('article_id');
             
             $table->integer('author_id');
-            $table->string('author', 32);
+            $table->string('author_name', 32);
             
             $table->text('content');
             $table->text('markdown');
@@ -237,7 +240,7 @@ class SchemaController extends BaseController {
             
             
             $table->integer('courier_id');
-            $table->string('courier', 32);
+            $table->string('courier_name', 32);
             
             $table->text('abstract'); // 摘要 纯文字
             
@@ -262,7 +265,7 @@ class SchemaController extends BaseController {
             $table->integer('news_id');
             
             $table->integer('author_id');
-            $table->string('author', 32);
+            $table->string('author_name', 32);
             
             $table->text('content');
             $table->text('markdown');
@@ -341,7 +344,7 @@ class SchemaController extends BaseController {
             $table->string('group_name', 64); // 冗余字段
             
             $table->integer('author_id');
-            $table->string('author', 32);
+            $table->string('author_name', 32);
             
             // TODO: 楼层冗余数据
             
@@ -368,7 +371,7 @@ class SchemaController extends BaseController {
             $table->integer('post_id');
             
             $table->integer('author_id');
-            $table->string('author', 32);
+            $table->string('author_name', 32);
             
             $table->text('content');
             $table->text('markdown');
@@ -393,7 +396,7 @@ class SchemaController extends BaseController {
             $table->string('title', 256);
             
             $table->integer('asker_id');
-            $table->string('asker', 32);
+            $table->string('asker_name', 32);
             
             // TODO: 冗余数据，回答数目
     
@@ -416,7 +419,7 @@ class SchemaController extends BaseController {
             $table->integer('question_id');
             
             $table->integer('author_id');
-            $table->string('author', 32);
+            $table->string('author_name', 32);
             
             $table->text('content');
             $table->text('markdown');
@@ -447,7 +450,7 @@ class SchemaController extends BaseController {
             $table->integer('answer_id');
             
             $table->integer('author_id');
-            $table->string('author', 32);
+            $table->string('author_name', 32);
             
             $table->string('content', 512); // 只有纯文本
             
@@ -487,7 +490,7 @@ class SchemaController extends BaseController {
             $table->integer('tran_count');
             
             $table->integer('courier_id');
-            $table->string('courier', 32);
+            $table->string('courier_name', 32);
             
             $table->integer('comment_count')->default(0);
             $table->integer('status')->default(0);
@@ -495,6 +498,25 @@ class SchemaController extends BaseController {
             $table->timestamps();
         });
         echo "Create the sources table!";
+        echo '<br />';
+    }
+    
+    public function create_source_comments()
+    {
+        Schema::create('source_comments', function($table) {
+            $table->increments('id');
+            
+            $table->integer('source_id');
+            
+            $table->integer('author_id');
+            $table->string('author_name', 32);
+            
+            $table->text('content');
+            $table->text('markdown');
+            
+            $table->timestamps();
+        });
+        echo "Create the source_comments table!";
         echo '<br />';
     }
     
@@ -528,7 +550,7 @@ class SchemaController extends BaseController {
             $table->text('markdown');
             
             $table->integer('author_id');
-            $table->string('author', 32);
+            $table->string('author_name', 32);
 
             $table->integer('digg_count')->default(0);
 
@@ -611,10 +633,10 @@ class SchemaController extends BaseController {
             $table->timestamp('end_at');
             
             $table->integer('publisher_id');
-            $table->string('publisher', 32);
+            $table->string('publisher_name', 32);
             
-            //$table->integer('executor_id');
-            //$table->string('executor', 32);
+            $table->integer('executor_id');
+            $table->string('executor_name', 32);
             
             
             $table->integer('status')->default(0);
@@ -908,7 +930,7 @@ EOS;
             'title' => "第六届中国R语言会议（北京）纪要",
             
             'author_id' => 1,
-            'author' => 'test',
+            'author_name' => 'test',
             
             'abstract' => "第六届中国 R 语言会议（北京会场）于 2013 年 5 月 18 日 ~ 19 日在中国人民大学国学馆113、114教室成功召开。会议由中国人民大学应用统计科学研究中心、中国人民大学统计学院、北京大学商务智能研究中心、统计之都（cos.name）主办。在两天的会议时间里，参会者齐聚一堂，就 R 语言在互联网、商业、统计、生物、制药、可视化等诸多方面的应用进行了深入的探讨。",
             'content' => $content_raw,
@@ -922,7 +944,7 @@ EOS;
                 'title' => "title $i",
                 
                 'author_id' => 1,
-                'author' => 'test',
+                'author_name' => 'test',
                 
                 'abstract' => "abstract $i",
                 'content' => "content content content $i",
@@ -936,7 +958,7 @@ EOS;
                 'article_id' => 1,
                 
                 'author_id' => 1,
-                'author' => 'test',
+                'author_name' => 'test',
 
                 'content' => "article $i comment comment  $i <br/> comment",
                 
@@ -953,7 +975,7 @@ EOS;
                 'link' => "http://news_url",
                 
                 'courier_id' => 1,
-                'courier' => 'test',
+                'courier_name' => 'test',
 
                 'abstract' => "news abstract $i ",
                 
@@ -979,7 +1001,7 @@ EOS;
                 'news_id' => 1,
                 
                 'author_id' => 1,
-                'author' => 'test',
+                'author_name' => 'test',
 
                 'content' => "news content $i ",
                 
@@ -1031,7 +1053,7 @@ EOS;
                 'group_id' => 1,
                 'group_name' => '测试小组1',
                 'author_id' => 1,
-                'author' => 'test',
+                'author_name' => 'test',
 
                 'content' => "post $i content content content $i <br/> post content content content",
                 
@@ -1047,7 +1069,7 @@ EOS;
                 'post_id' => 1,
                 
                 'author_id' => 1,
-                'author' => 'test',
+                'author_name' => 'test',
 
                 'content' => "post $i comment comment  $i <br/> comment",
                 
@@ -1064,7 +1086,7 @@ EOS;
                 'title' => "question title $i",
                 
                 'asker_id' => 1,
-                'asker' => 'test',
+                'asker_name' => 'test',
                 
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -1078,7 +1100,7 @@ EOS;
                 'question_id' => 1,
                 
                 'author_id' => 1,
-                'author' => 'test',
+                'author_name' => 'test',
                 
                 'content'=>"answer content $i",
                 
@@ -1094,7 +1116,7 @@ EOS;
                 'answer_id' => 1,
                 
                 'author_id' => 1,
-                'author' => 'test',
+                'author_name' => 'test',
                 
                 'content'=>"answer answer_comment $i",
                 
@@ -1115,7 +1137,7 @@ EOS;
                 'para_count' => 3,
                 'tran_count' => 1,
                 'courier_id' => 1,
-                'courier' => 'test',
+                'courier_name' => 'test',
 
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -1144,7 +1166,7 @@ EOS;
                 'original_id' => 1,
                 
                 'author_id' => 1,
-                'author' => 'test',
+                'author_name' => 'test',
                 
                 'content'=>"translations $i",
                 

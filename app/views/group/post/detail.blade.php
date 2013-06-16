@@ -4,7 +4,7 @@
     <section class="span8">
     <div id="post-content">
         <h2>{{ $post->title }}</a></h2>
-        <p class="muted info">{{ $post->author }} <span>{{ $post->group_name }}</span><span>{{ $post->created_at->format('Y-m-d H:i') }}</span></p>
+        <p class="muted info">{{ $post->author_name }} <span>{{ $post->group_name }}</span><span>{{ $post->created_at->format('Y-m-d H:i') }}</span></p>
         <div class="content">
         {{ $post->content }}
         </div>
@@ -20,7 +20,7 @@
                     <img src="/img/test_group_pic.jpg" />
                 </div>
                 <div class="content">
-                <p class="info muted">{{ $post_comment->author }} <span>{{ $post_comment->created_at->format('Y-m-d H:i') }}</span></p>
+                <p class="info muted">{{ $post_comment->author_name }} <span>{{ $post_comment->created_at->format('Y-m-d H:i') }}</span></p>
                 <p>{{ $post_comment->content }}</p>
                 <p><a class="comment-quote" comment-quote-content="@{{ $post_comment->author }}: {{ Str::limit($post_comment->markdown, 20) }}">回复</a></p>
                 </div>
@@ -87,7 +87,7 @@
         @if(!$tags->isEmpty())
         
             @foreach ($tags as $tag)
-            <a href="{{ URL::route('tag_detail', array($tag->tag)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
+            <a href="{{ URL::route('tag_detail', array($tag->id)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
             @endforeach
         
         @endif

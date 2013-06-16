@@ -15,8 +15,8 @@
           </a>
       </div>
       <div class="media-body">
-        <h4 class="media-heading"><a href="{{ $news_item->link }}">{{ $news_item->title }}</a></h4>
-        <p>{{ $news_item->abstract }}</p>
+        <h4 class="media-heading"><a href="{{ $news_item->link }}">{{ e($news_item->title) }}</a></h4>
+        <p>{{ e($news_item->abstract) }}</p>
         <p><a href="/news/{{ $news_item->id }}">查看详情</a><a href="/news/{{ $news_item->id }}#news-comment">评论({{ $news_item->comment_count }})</a><span class="pull-right">{{ $news_item->courier_name }}投递于 {{ $news_item->created_at->format('Y-m-d h:i'); }}</span></p>
       </div>
     </div>
@@ -35,7 +35,7 @@
             @if(!$tags->isEmpty())
             
                 @foreach ($tags as $tag)
-                <a href="{{ URL::route('tag_detail', array($tag->tag)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
+                <a href="{{ URL::route('tag_detail', array($tag->id)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
                 @endforeach
             
             @endif

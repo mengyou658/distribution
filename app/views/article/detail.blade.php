@@ -13,6 +13,28 @@
     </div>
     <hr />
     <div id="article-comment">
+        <legend>热门评论</legend>
+        <?php $top_comment = ArticleComment::orderBy('digg_count', 'desc')->first();
+              $mark = ArticleCommentDigg::whereUser_id(Auth::user()->id)->whereArticle_comment_id($top_comment->id)->first();
+        ?>
+        <ul id="comment-list" class="unstyled">
+            <li id="article-comment-{{ $top_comment->id }}">
+                <div class="pull-left avatar">
+                    <img src="/img/test_group_pic.jpg" />
+                </div>
+                <div class="content">
+                <p class="info muted">{{ $top_comment->author_name }} <span>{{ $top_comment->created_at->format('Y-m-d H:i') }}</span></p>
+                <p>{{ $top_comment->content }}</p>
+                <p><a class="comment-quote" comment-quote-content="回复 @{{ $top_comment->author_name }} 的评论：">回复</a>
+                @if($mark)
+                <a class="comment-digg disabled">已顶[{{ $top_comment->digg_count }}]</a>
+                @else
+                <a class="comment-digg" href="javascript:;" comment-id="{{ $top_comment->id }}">顶[<span>{{ $top_comment->digg_count }}</span>]</a>
+                @endif
+                </p>
+                </div>
+            </li>
+        </ul>
         <legend>全部评论</legend>
         @if(!$article_comments->isEmpty())
             <ul id="comment-list" class="unstyled">
@@ -24,7 +46,13 @@
                 <div class="content">
                 <p class="info muted">{{ $article_comment->author_name }} <span>{{ $article_comment->created_at->format('Y-m-d H:i') }}</span></p>
                 <p>{{ $article_comment->content }}</p>
-                <p><a class="comment-quote" comment-quote-content="@{{ $article_comment->author_name }}: {{ Str::limit($article_comment->markdown, 20) }}">回复</a></p>
+                <p><a class="comment-quote" comment-quote-content="回复 @{{ $article_comment->author_name }} 的评论：">回复</a>
+                @if(isset($digg_marks[$article_comment->id]))
+                <a class="comment-digg disabled">已顶[{{ $top_comment->digg_count }}]</a>
+                @else
+                <a class="comment-digg" href="javascript:;" comment-id="{{ $article_comment->id }}">顶[<span>{{ $article_comment->digg_count }}</span>]</a>
+                @endif
+                </p>
                 </div>
                 </li>
             @endforeach
@@ -41,7 +69,7 @@
             <div id="wmd-button-bar"></div>
             <form id="wmd-form" action="/article/{{ $article->id }}/comment" method="post" >
                 <div class="clearfix">
-                <textarea id="wmd-input" class="wmd-input" name="markdown" rows="5"></textarea>
+                <textarea id="wmd-input" class="wmd-input" name="markdown" rows="7"></textarea>
                 <div id="wmd-preview" class="wmd-panel wmd-preview well"></div>
                 </div>
                 <a id="wmd-submit" class="btn btn-primary">发布</a>
@@ -69,4 +97,20 @@
 <script src="/js/vendor/pagedown/Markdown.Sanitizer.js"></script>
 <script src="/js/vendor/pagedown/Markdown.Editor.js"></script>  
 <script src="/js/editor.js"></script>
+<script>
+(function () {
+    $('.comment-digg').click(function(){
+        var _this = $(this);
+        var comment_id = _this.attr('comment-id');
+        if (!_this.hasClass('disabled')) {
+            _this.addClass('disabled');
+            $.get('/article/comment/'+comment_id+'/digg', function(res){
+                var digg_span = _this.find('span');
+                var digg_count = parseInt(digg_span.text())+1;
+                _this.text('已顶['+digg_count+']');
+            });
+        }
+    });
+})();
+</script>
 @endsection

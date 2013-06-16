@@ -5,7 +5,7 @@
         @if(!$tags->isEmpty())
         
             @foreach ($tags as $tag)
-            <a href="{{ URL::route('tag_detail', array($tag->tag)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
+            <a href="{{ URL::route('tag_detail', array($tag->id)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
             @endforeach
         
         @endif

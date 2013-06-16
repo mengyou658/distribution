@@ -14,8 +14,8 @@
             <img src="/img/test_group_pic.jpg">
           </a>
           <div class="media-body">
-            <h4 class="media-heading"><a href="/group/{{ $groups[$i]->id }}">{{ $groups[$i]->name }}</a><small>{{ $groups[$i]->member_count }}人加入</small></h4>
-            <p>{{ $groups[$i]->descr }}</p>
+            <h4 class="media-heading"><a href="/group/{{ $groups[$i]->id }}">{{ e($groups[$i]->name) }}</a><small>{{ $groups[$i]->member_count }}人加入</small></h4>
+            <p>{{ e($groups[$i]->descr) }}</p>
           </div>
         </div>
         @endfor
@@ -27,8 +27,8 @@
             <img src="/img/test_group_pic.jpg">
           </a>
           <div class="media-body">
-            <h4 class="media-heading"><a href="/group/{{ $groups[$i]->id }}">{{ $groups[$i]->name }}</a><small>{{ $groups[$i]->member_count }}人加入</small></h4>
-            <p>{{ $groups[$i]->descr }}</p>
+            <h4 class="media-heading"><a href="/group/{{ $groups[$i]->id }}">{{ e($groups[$i]->name) }}</a><small>{{ $groups[$i]->member_count }}人加入</small></h4>
+            <p>{{ e($groups[$i]->descr) }}</p>
           </div>
         </div>
         @endfor
@@ -49,8 +49,8 @@
             <li>
                 <a class="pull-left" href="/group/{{$group->id}}"><img src="{{$group->pic}}" /></a>
                 <div class="sidebar-ul-body">
-                    <a href="/group/{{$group->id}}">{{$group->name}}</a><span>{{ $group->member_count }}人加入</span>
-                    <p>{{ Str::limit($group->descr, 10) }}</p>
+                    <a href="/group/{{$group->id}}">{{e($group->name)}}</a><span>{{ $group->member_count }}人加入</span>
+                    <p>{{ e(Str::limit($group->descr, 10)) }}</p>
                 </div>
             </li>
             @endforeach
@@ -63,7 +63,7 @@
         @if(!$tags->isEmpty())
         
             @foreach ($tags as $tag)
-            <a href="{{ URL::route('tag_detail', array($tag->tag)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
+            <a href="{{ URL::route('tag_detail', array($tag->id)) }}"><span class="label label-inverse">{{ e($tag->tag) }}</span></a>
             @endforeach
         
         @endif

@@ -4,9 +4,9 @@
     <section class="span8">
     <div id="news-content">
         <h2><a href="{{ $news_item->link }}">{{ $news_item->title }}</a></h2>
-        <p class="muted info">{{ $news_item->courier }} <span>{{ $news_item->created_at->format('Y-m-d H:i') }}</span></p>
+        <p class="muted info">{{ e($news_item->courier_name) }} <span>{{ $news_item->created_at->format('Y-m-d H:i') }}</span></p>
         <div class="content">
-        {{ $news_item->abstract }}
+        {{ e($news_item->abstract) }}
         </div>
     </div>
     <hr />
@@ -22,9 +22,9 @@
                     <img src="/img/test_group_pic.jpg" />
                 </div>
                 <div class="content">
-                <p class="info muted">{{ $news_comment->author }} <span>{{ $news_comment->created_at->format('Y-m-d H:i') }}</span></p>
+                <p class="info muted">{{ $news_comment->author_name }} <span>{{ $news_comment->created_at->format('Y-m-d H:i') }}</span></p>
                 <p>{{ $news_comment->content }}</p>
-                <p><a class="comment-quote" comment-quote-content="@{{ $news_comment->author }}: {{ Str::limit($news_comment->markdown, 20) }}">回复</a></p>
+                <p><a class="comment-quote" comment-quote-content="回复 @{{ $news_comment->author_name }} 的评论：">回复</a>
                 </div>
                 </li>
             @endforeach
@@ -44,7 +44,7 @@
             <div id="wmd-button-bar"></div>
             <form id="wmd-form" action="/news/{{ $news_item->id }}/comment" method="post" >
                 <div class="clearfix">
-                <textarea id="wmd-input" class="wmd-input" name="markdown"></textarea>
+                <textarea id="wmd-input" class="wmd-input" name="markdown" rows="7"></textarea>
                 <div id="wmd-preview" class="wmd-panel wmd-preview well"></div>
                 </div>
                 <a id="wmd-submit" class="btn btn-primary">发布</a>
@@ -71,7 +71,7 @@
             @if(!$tags->isEmpty())
             
                 @foreach ($tags as $tag)
-                <a href="{{ URL::route('tag_detail', array($tag->tag)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
+                <a href="{{ URL::route('tag_detail', array($tag->id)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
                 @endforeach
             
             @endif

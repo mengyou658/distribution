@@ -6,7 +6,7 @@
 @foreach ($posts as $post)
     <div class="media">
       <div class="media-body">
-        <h4 class="media-heading"><a href="/group/{{ $post->group_id }}/post/{{ $post->id }}">{{ $post->title }}</a></h4>
+        <h4 class="media-heading"><a href="/group/{{ $post->group_id }}/post/{{ $post->id }}">{{ e($post->title) }}</a></h4>
         <p>{{ Str::limit($post->content, 140) }}</p>
         <p>发表在<a href="/group/{{ $post->group_id }}">{{ $post->group_name }}</a><a href="/group/{{ $post->group_id }}/post/{{ $post->id }}#post-comment">评论({{ $post->comment_count }})</a><span class="pull-right">{{ $post->author_name }}发表于 {{ $post->created_at->format('Y-m-d h:i'); }}</span></p>
       </div>
@@ -42,7 +42,7 @@
         @if(!$tags->isEmpty())
         
             @foreach ($tags as $tag)
-            <a href="{{ URL::route('tag_detail', array($tag->tag)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
+            <a href="{{ URL::route('tag_detail', array($tag->id)) }}"><span class="label label-inverse">{{ $tag->tag }}</span></a>
             @endforeach
         
         @endif

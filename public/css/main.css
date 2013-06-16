@@ -635,6 +635,19 @@ legend small {
     font-weight: normal;
 }
 
+blockquote p {
+    font-size: 13px;
+}
+
+a.disabled {
+    color: #b4bcc2;
+    cursor: default;
+}
+
+a.disabled:hover {
+    text-decoration: none;
+}
+
 #logo-banner {
     display: block;
     margin: 0 auto;
@@ -727,7 +740,6 @@ legend small {
     margin-bottom: 28px;
 }
 
-
 .media img {
     width: 180px;
     height: 126px;
@@ -759,6 +771,10 @@ legend small {
 
 .group-list {
     border-bottom: 1px solid #ecf0f1;
+}
+
+.pager li:first-child {
+    margin-right: 20px;
 }
 
 #article-content h2 {
@@ -831,7 +847,7 @@ legend small {
 
 #comment-list li .content .info span {
     float: right;
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
 #comment-list li .content p {
@@ -840,7 +856,12 @@ legend small {
 
 #comment-list li .content .comment-quote {
     float: right;
-    margin-right: 100px;
+    margin-right: 20px;
+}
+
+#comment-list li .content .comment-digg {
+    float: right;
+    margin-right: 20px;
 }
 
 /* END: */

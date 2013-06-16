@@ -36,8 +36,8 @@ Route::get('test', function()
     // Article::create(array(
         // 'author_id' => 2,
     // ));
-    
-    echo 'OK';
+    $plural = str_plural('category');
+    echo $plural;
 });
 
 Route::get(
@@ -96,6 +96,14 @@ Route::get(
         'uses' => 'ArticleController@getIndex',
         'as' => 'articles')
 );
+
+// 文章分类浏览
+Route::get(
+    'articles/category/{category_id}',
+    array(
+        'uses' => 'ArticleController@getCategory',
+        'as' => 'articles_category')
+)->where('category_id', '[0-9]+');
 
 // 文章详细
 Route::get('

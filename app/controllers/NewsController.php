@@ -91,7 +91,7 @@ class NewsController extends BaseController {
         $news_comment = NewsComment::create($new_news_comment);
         
         $news = News::find($news_id);
-        $news->comments_count += 1;
+        $news->comment_count += 1;
         $news->save();
         
         // TODO: event fire user messages with @
@@ -132,7 +132,6 @@ class NewsController extends BaseController {
         $tags = explode(',', Input::get('hidden-tags'));
         
         foreach($tags as $tag) {
-            $tag = e($tag);
             if ($tag) {
                 $tag_id = Tag::markTag($tag);
                 NewsTag::create(array(

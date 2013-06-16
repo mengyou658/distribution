@@ -137,11 +137,13 @@ class GroupController extends BaseController {
         
         $tags = explode(',', Input::get('hidden-tags'));
         foreach($tags as $tag) {
-            $tag_id = Tag::markTag($tag);
-            PostTag::create(array(
-                'post_id' => $post->id,
-                'tag_id' => $tag_id,
-            ));
+            if($tag) {
+                $tag_id = Tag::markTag($tag);
+                PostTag::create(array(
+                    'post_id' => $post->id,
+                    'tag_id' => $tag_id,
+                ));
+            }
         }
         
         $user->post_count += 1;

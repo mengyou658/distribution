@@ -37,7 +37,6 @@ class ArticleController extends BaseController {
             'markdown' => Input::get('markdown'),
             'article_id' => $article_id,
             'author_id' => $user->id,
-            'author' => $user->username,
         );
         
         // TODO: rules
@@ -47,6 +46,25 @@ class ArticleController extends BaseController {
         // TODO: event fire user messages with @
         
         return Redirect::to("article/$article_id#article-comment");
+    }
+    
+    public function getCommentDigg($comment_id)
+    {
+        $user = Auth::user();
+        $digg = ArticleCommentDigg::whereArticle_comment_id($comment_id)->whereUser_id($user->id)->first();
+        if (!$digg) {
+            ArticleCommentDigg::create(array(
+                'article_comment_id' => $comment_id,
+                'user_id' => $user->id
+            ));
+            
+            $article_comment = ArticleComment::find($comment_id);
+            $article_comment->digg_count += 1;
+            $article_comment->save();
+            
+            return 0; // 成功
+        }
+        return 1; // 异常
     }
 
     public function makeNoticeContent($article_id, $article_comment_id)

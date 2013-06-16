@@ -4,7 +4,7 @@ class AnswerComment extends Eloquent {
 
     protected $table = 'answer_comments';
 
-    protected $fillable = array('answer_id', 'author_id', 'author', 'content');
+    protected $fillable = array('answer_id', 'author_id', 'author_name', 'content');
     
     // scopes
     public function scopeAvailable($query)

@@ -28,6 +28,7 @@ class SchemaController extends BaseController {
         $this->create_articles();
         $this->create_article_comments();
         $this->create_article_comment_digg();
+        $this->create_categories();
         $this->create_news();
         $this->create_news_comments();
         $this->create_news_digg();
@@ -70,6 +71,7 @@ class SchemaController extends BaseController {
         Schema::dropIfExists('articles');
         Schema::dropIfExists('article_comments');
         Schema::dropIfExists('article_comment_digg');
+        Schema::dropIfExists('categories');
         Schema::dropIfExists('news');
         Schema::dropIfExists('news_comments');
         Schema::dropIfExists('news_digg');
@@ -193,6 +195,9 @@ class SchemaController extends BaseController {
             $table->text('content'); // html
             $table->text('markdown'); // markdown
             
+            $table->integer('category_id');
+            $table->string('category_name', 64);
+            
             // 缩略图
             $table->string('thumbnail', 256);
             
@@ -245,6 +250,22 @@ class SchemaController extends BaseController {
             
         });
         echo "Create the article_comment_digg table!";
+        echo '<br />';
+    }
+    
+    public function create_categories()
+    {
+        Schema::create('categories', function($table) {
+            $table->increments('id');
+            
+            $table->string('name', 64);
+            $table->text('descr');
+            $table->integer('parent_id')->default(0);
+            $table->integer('article_count')->default(0);
+
+            $table->timestamps();
+        });
+        echo "Create the categories table!";
         echo '<br />';
     }
     

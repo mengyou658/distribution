@@ -18,6 +18,14 @@ class ArticleController extends BaseController {
                    ->with('articles', $articles);
 	}
     
+    public function getCategory($category_id)
+	{
+        $per_page_num = 3;
+		$articles = Article::whereCategory_id($category_id)->orderBy('created_at', 'desc')->paginate($per_page_num);
+		return View::make('article.category')
+                   ->with('articles', $articles);
+	}
+    
     public function getDetail($article_id)
 	{
         $per_page_num = 3;

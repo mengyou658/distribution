@@ -29,6 +29,12 @@ return array(
             'select' => "(:table).username",
         ),
         
+        'category' => array(
+            'title' => '栏目',
+            'relationship' => 'category',
+            'select' => "(:table).name",
+        ),
+        
         
         'created_at' => array(
             'title' => '发布时间',
@@ -68,6 +74,12 @@ return array(
             'title' => '作者',
             'type' => 'relationship',
             'name_field' => 'username',
+        ),
+        
+        'category' => array(
+            'title' => '栏目',
+            'type' => 'relationship',
+            'name_field' => 'name',
         ),
         
         'abstract' => array(

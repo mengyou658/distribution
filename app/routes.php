@@ -113,6 +113,14 @@ Route::post(
         'as' => 'article_post_comment')
 )->where('article_id', '[0-9]+');
 
+// 文章评论顶
+Route::get(
+    'article/comment/{comment_id}/digg',
+    array(
+        'uses' => 'ArticleController@getCommentDigg',
+        'as' => 'article_comment_digg')
+)->where('comment_id', '[0-9]+');
+
 // ---------------------------------
 // # 新闻
 
@@ -140,7 +148,7 @@ Route::get(
         'as' => 'news_detail')
 )->where('news_id', '[0-9]+');
 
-// TODO: 新闻，顶
+// 新闻，顶
 Route::get(
     'news/{news_id}/digg',
     array(
@@ -550,11 +558,11 @@ Route::get(
 );
 
 Route::get(
-    'tag/{tag}',
+    'tag/{tag_id}',
     array(
         'uses' => 'TagController@getDetail',
         'as' => 'tag_detail')
-);
+)->where('tag_id', '[0-9]+');
 
 
 // 数据库维护

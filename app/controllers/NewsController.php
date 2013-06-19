@@ -68,15 +68,13 @@ class NewsController extends BaseController {
     
     public function postComment($news_id)
     {
-        $markdown = App::make('markdown');
         $user = Auth::user();
         
         $new_news_comment = array(
             'markdown' => Input::get('markdown'),
-            'content' => $markdown->transform(Input::get('markdown')),
             'news_id' => $news_id,
             'author_id' => $user->id,
-            'author' => $user->username,
+            'author_name' => $user->username,
         );
         
         $rules = array(

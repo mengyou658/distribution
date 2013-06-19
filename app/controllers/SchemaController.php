@@ -42,11 +42,13 @@ class SchemaController extends BaseController {
         $this->create_answer_attitude();
         $this->create_sources();
         $this->create_source_comments();
+        $this->create_fields();
         $this->create_originals();
         $this->create_translations();
         $this->create_series();
-        $this->create_events();
-        $this->create_event_user();
+        $this->create_activities();
+        $this->create_activity_comments();
+        $this->create_activity_user();
         $this->create_tasks();
         $this->create_task_user();
         
@@ -56,7 +58,7 @@ class SchemaController extends BaseController {
         $this->create_post_tag();
         $this->create_question_tag();
         $this->create_source_tag();
-        $this->create_event_tag();
+        $this->create_activity_tag();
         $this->create_task_tag();
         
         $this->create_notices();
@@ -85,11 +87,13 @@ class SchemaController extends BaseController {
         Schema::dropIfExists('answer_attitude');
         Schema::dropIfExists('sources');
         Schema::dropIfExists('source_comments');
+        Schema::dropIfExists('fields');
         Schema::dropIfExists('originals');
         Schema::dropIfExists('translations');
         Schema::dropIfExists('series');
-        Schema::dropIfExists('events');
-        Schema::dropIfExists('event_user');
+        Schema::dropIfExists('activities');
+        Schema::dropIfExists('activity_comments');
+        Schema::dropIfExists('activity_user');
         Schema::dropIfExists('tasks');
         Schema::dropIfExists('task_user');
         
@@ -99,7 +103,7 @@ class SchemaController extends BaseController {
         Schema::dropIfExists('post_tag');
         Schema::dropIfExists('question_tag');
         Schema::dropIfExists('source_tag');
-        Schema::dropIfExists('event_tag');
+        Schema::dropIfExists('activity_tag');
         Schema::dropIfExists('task_tag');
         
         Schema::dropIfExists('notices');
@@ -439,8 +443,10 @@ class SchemaController extends BaseController {
             $table->string('asker_name', 32);
             
             // TODO: 冗余数据，回答数目
-    
+            $table->integer('answer_count')->default(0);
+            
             $table->integer('status')->default(0); // 状态
+            
             
             $table->timestamps();
             
@@ -449,7 +455,6 @@ class SchemaController extends BaseController {
         echo '<br />';
     
     }
-    
     
     public function create_answers()
     {
@@ -532,6 +537,8 @@ class SchemaController extends BaseController {
             $table->integer('courier_id');
             $table->string('courier_name', 32);
             
+            $table->integer('field_id');
+            
             $table->integer('comment_count')->default(0);
             $table->integer('status')->default(0);
 
@@ -557,6 +564,20 @@ class SchemaController extends BaseController {
             $table->timestamps();
         });
         echo "Create the source_comments table!";
+        echo '<br />';
+    }
+    
+    public function create_fields()
+    {
+        Schema::create('fields', function($table) {
+            $table->increments('id');
+            
+            $table->string('name', 64);
+            $table->integer('source_count')->default(0);
+
+            $table->timestamps();
+        });
+        echo "Create the fields table!";
         echo '<br />';
     }
     
@@ -610,19 +631,19 @@ class SchemaController extends BaseController {
             $table->string('pic', 256);
             $table->text('descr');
 
-            $table->integer('event_count')->default(0);
+            $table->integer('activity_count')->default(0);
             $table->timestamps();
         });
         echo "Create the series table!";
         echo '<br />';
     }
     
-    public function create_events()
+    public function create_activities()
     {
-        Schema::create('events', function($table) {
+        Schema::create('activities', function($table) {
             $table->increments('id');
             
-            $table->integer('serie_id');
+            $table->integer('series_id');
             
             $table->string('title', 256);
             $table->string('organizer', 128);
@@ -634,6 +655,9 @@ class SchemaController extends BaseController {
             
             $table->text('descr'); // 描述
             
+            $table->integer('sponsor_id');
+            $table->string('sponsor_name', 32);
+            
             // 冗余字段
             $table->integer('comment_count')->default(0);
             $table->integer('status')->default(0);
@@ -641,21 +665,43 @@ class SchemaController extends BaseController {
     
             $table->timestamps();
         });
-        echo "Create the events table!";
+        echo "Create the activities table!";
         echo '<br />';
     }
     
-    public function create_event_user()
+    public function create_activity_comments()
     {
-        Schema::create('event_user', function($table) {
+        Schema::create('activity_comments', function($table) {
             $table->increments('id');
             
-            $table->integer('event_id');
+            $table->integer('activity_id');
+            
+            $table->integer('author_id');
+            $table->string('author_name', 32);
+            
+            $table->text('content');
+            $table->text('markdown');
+            
+            // TODO: 楼层
+    
+            $table->timestamps();
+            
+        });
+        echo "Create the activity_comments table!";
+        echo '<br />';
+    }
+    
+    public function create_activity_user()
+    {
+        Schema::create('activity_user', function($table) {
+            $table->increments('id');
+            
+            $table->integer('activity_id');
             $table->integer('user_id');
     
             $table->timestamps();
         });
-        echo "Create the event_user table!";
+        echo "Create the activity_user table!";
         echo '<br />';
     }
     
@@ -793,17 +839,17 @@ class SchemaController extends BaseController {
         echo '<br />';
     }
     
-    public function create_event_tag()
+    public function create_activity_tag()
     {
-        Schema::create('event_tag', function($table) {
+        Schema::create('activity_tag', function($table) {
             $table->increments('id');
             
-            $table->integer('event_id');
+            $table->integer('activity_id');
             $table->integer('tag_id');
     
             $table->timestamps();
         });
-        echo "Create the event_tag table!";
+        echo "Create the activity_tag table!";
         echo '<br />';
     }
     
@@ -1214,6 +1260,62 @@ EOS;
                 'updated_at' => date('Y-m-d H:i:s'),
             ));        
             echo "Insert translations $i!";
+            echo '<br />';
+        }
+        
+        for ($i=1; $i<=5; $i++) {
+            DB::table('activities')->insert(array(
+                'series_id' => 1,
+                
+                'title' => "活动 $i",
+                
+                'organizer' => "活动组织者$i",
+                
+                
+                'start_at' => date('Y-m-d H:i:s'),
+                'end_at' => date('Y-m-d H:i:s'),
+                
+                'location' => "活动地点$i",
+                'descr' => "活动 描述 $i",
+                
+                'sponsor_id' => 1,
+                'sponsor_name' => 'test',
+                
+                'status' => 1,
+
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert test activity $i!";
+            echo '<br />';
+        }
+        
+        for ($i=1; $i<=5; $i++) {
+            DB::table('activity_comments')->insert(array(
+                'activity_id' => 1,
+                
+                'author_id' => 1,
+                'author_name' => 'test',
+
+                'content' => "activity $i comment comment  $i <br/> comment",
+                
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert test activity comment $i!";
+            echo '<br />';
+        }
+        
+        for ($i=1; $i<=3; $i++) {
+            DB::table('series')->insert(array(
+                'name' => "系列 $i",
+                'pic' => "http://series_pic$i",
+                'descr'=>"系列 描述 $i",
+                
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert series $i!";
             echo '<br />';
         }
         

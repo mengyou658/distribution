@@ -166,7 +166,9 @@ class AskController extends BaseController {
     public function getAnswerComments($answer_id)
     {
         // 返回评论json数据
-        sleep(2);
+        $answer_comments = AnswerComment::whereAnswer_id($answer_id)->orderBy('created_at', 'desc')->get();
+        
+        // TODO: 返回 json
         return "hello";
     }
     

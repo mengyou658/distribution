@@ -372,14 +372,58 @@ Route::get(
 
 // ---------------------------------
 // # 活动
-// event
+// activity
+// Activity
+// activities
 
+// 全部活动
 Route::get(
-    'events',
+    'activities',
     array(
-        'uses' => 'EventController@getIndex',
-        'as' => 'events')
+        'uses' => 'ActivityController@getIndex',
+        'as' => 'activities')
 );
+
+// 系列
+Route::get(
+    'activities/series/{series_id}',
+    array(
+        'uses' => 'ActivityController@getSeries',
+        'as' => 'activities_series')
+)->where('series_id', '[0-9]+');
+
+// 活动详细
+Route::get(
+    'activity/{activity_id}',
+    array(
+        'uses' => 'ActivityController@getDetail',
+        'as' => 'activities_detail')
+)->where('activity_id', '[0-9]+');
+
+// 评论活动
+Route::post(
+    'activity/{activity_id}/comment',
+    array(
+        'uses' => 'ActivityController@postComment',
+        'as' => 'activities_post_comment')
+)->where('activity_id', '[0-9]+');
+
+// 参加活动
+Route::get(
+    'activity/{activity_id}/join',
+    array(
+        'uses' => 'ActivityController@getJoin',
+        'as' => 'activities_join')
+)->where('activity_id', '[0-9]+');
+
+// 退出活动
+Route::get(
+    'activity/{activity_id}/quit',
+    array(
+        'uses' => 'ActivityController@getQuit',
+        'as' => 'activities_quit')
+)->where('activity_id', '[0-9]+');
+
 
 // ---------------------------------
 // # 任务

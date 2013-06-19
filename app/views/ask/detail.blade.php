@@ -14,14 +14,11 @@
             @foreach ($answers as $answer)
                 <div class="media">
                   <div class="pull-left">
-                      <a class="btn btn-small btn-primary" href="#">
-                        <i class="icon-thumbs-up"></i> 
+                      <a class="btn btn-small btn-primary approve" href="javascript:;" answer-id="{{ $answer->id }}">
+                        赞同(<span class="attitude">0</span>)
                       </a>
-                      <br />0
-                      <br />
-                      <a class="btn btn-small btn-primary" href="#">
-                        <i class="icon-thumbs-down"></i>
-                      </a>
+                      
+
                   </div>
                   <div class="media-body">
                     {{ $answer->content }}
@@ -45,8 +42,8 @@
             <div id="wmd-button-bar"></div>
             <form id="wmd-form" action="/ask/question/{{ $question->id }}/answer" method="post" >
                 <div class="clearfix">
-                <textarea id="wmd-input" class="wmd-input pull-left" name="markdown"></textarea>
-                <div id="wmd-preview" class="wmd-panel wmd-preview well pull-right"></div>
+                <textarea id="wmd-input" class="wmd-input" name="markdown"></textarea>
+                <div id="wmd-preview" class="wmd-panel wmd-preview well"></div>
                 </div>
                 <a id="wmd-submit" class="btn btn-primary">发布</a>
             <form>
@@ -58,22 +55,13 @@
     </div>
     </section>
     
-    <div class="span4">
-        <h3>最热新闻</h3>
-        <ul class="unstyled">
-          <li><a href="">正态分布</a></li>
-          <li><a href="">正态分布</a></li>
-          <li><a href="">正态分布</a></li>
-          <li><a href="">正态分布</a></li>
-          <li><a href="">正态分布</a></li>
-        </ul>
 
-
-        <h3>标签</h3>
-        <a href="#"><span class="label label-inverse">统计</span></a>
-        <span class="label label-inverse">R</span>
-        <span class="label label-inverse">正态分布</span>
-        <span class="label label-inverse">distribution</span>
+    <div class="span4 sidebar">
+      <p>
+      <a class="btn btn-large btn-block btn-primary" href="/ask/new_question">我要提问</a>
+      </p>
+      <hr />
+        @include('ask.sidebar')
     </div>
 </div>
 
@@ -98,12 +86,28 @@
                // 菊花停
                _this.prev().remove();
                
+               // TODO:
                // 添加评论
                _this.next().append(data);
                _this.next().addClass('loaded');
             });
         }
     });
+    
+    $('.approve').click(function(){
+        var _this = $(this);
+        var answer_id = _this.attr('answer-id');
+        if (!_this.hasClass('disabled')) {
+            _this.addClass('disabled');
+            $.get('/ask/answer/'+answer_id+'/approve', function(res){
+                var attitude_span = _this.find('span');
+                attitude_span.text(parseInt(attitude_span.text())+1);
+                // TODO:
+            });
+        }
+    });
+    
+
 })();
 </script>
 @endsection

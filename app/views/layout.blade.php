@@ -103,7 +103,7 @@
                   <li @if(Request::is('group*')) class="active" @endif><a href="/group">群组</a></li>
                   <li @if(Request::is('ask*')) class="active" @endif><a href="/ask">问答</a></li>
                   <li @if(Request::is('translation*')) class="active" @endif><a href="/translations">翻译</a></li>
-                  <li @if(Request::is('event*')) class="active" @endif><a href="/events">活动</a></li>
+                  <li @if(Request::is('activit*')) class="active" @endif><a href="/activities">活动</a></li>
                   <li @if(Request::is('task*')) class="active" @endif><a href="/tasks">任务</a></li>
                   <li @if(Request::is('project*')) class="active" @endif><a href="/projects">项目</a></li>
                 </ul>

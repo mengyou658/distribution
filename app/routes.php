@@ -164,6 +164,14 @@ Route::get(
         'as' => 'news_digg')
 )->where('news_id', '[0-9]+');
 
+// 新闻，顶取消
+Route::get(
+    'news/{news_id}/digg_cancel',
+    array(
+        'uses' => 'NewsController@getDiggCancel',
+        'as' => 'news_digg_cancel')
+)->where('news_id', '[0-9]+');
+
 // 新闻评论发布
 Route::post(
     'news/{news_id}/comment',
@@ -349,7 +357,7 @@ Route::get(
         'as' => 'ask_answer_oppose')
 )->where('answer_id', '[0-9]+');
 
-// 答案评论
+// 获取答案评论
 Route::get(
     'ask/answer/{answer_id}/comments',
     array(
@@ -357,7 +365,13 @@ Route::get(
         'as' => 'ask_answer_comments')
 )->where('answer_id', '[0-9]+');
 
-
+// 发布答案评论
+Route::post(
+    'ask/answer/{answer_id}/comment',
+    array(
+        'uses' => 'AskController@postAnswerComment',
+        'as' => 'ask_post_answer_comment')
+)->where('answer_id', '[0-9]+');
 
 // ---------------------------------
 // # 翻译

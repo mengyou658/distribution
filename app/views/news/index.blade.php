@@ -10,7 +10,7 @@
 @foreach ($news as $news_item)
     <div class="media">
       <div class="pull-left">
-          <a class="btn btn-primary news-digg" href="javascript:;" news-id="{{ $news_item->id }}">
+          <a class="btn btn-primary news-digg @if(isset($digg_marks[$news_item->id])) disabled@endif" href="javascript:;" news-id="{{ $news_item->id }}">
             <i class="icon-thumbs-up"></i>顶 (<span>{{ $news_item->digg_count }}</span>)
           </a>
       </div>
@@ -100,8 +100,23 @@
         if (!_this.hasClass('disabled')) {
             _this.addClass('disabled');
             $.get('/news/'+news_id+'/digg', function(res){
-                var digg_span = _this.find('span');
-                digg_span.text(parseInt(digg_span.text())+1);
+                if (res === '2') {
+                    alert('请登录后进行操作');
+                } else {
+                    var digg_span = _this.find('span');
+                    digg_span.text(parseInt(digg_span.text())+1);
+                }
+                
+            });
+        }else if (_this.hasClass('disabled')) {
+            _this.removeClass('disabled');
+            $.get('/news/'+news_id+'/digg_cancel', function(res){
+                if (res === '2') {
+                    alert('请登录后进行操作');
+                } else {
+                    var digg_span = _this.find('span');
+                    digg_span.text(parseInt(digg_span.text())-1);
+                }
             });
         }
     });

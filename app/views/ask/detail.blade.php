@@ -13,18 +13,28 @@
             <div id="answer-list">
             @foreach ($answers as $answer)
                 <div class="media">
-                  <div class="pull-left">
+                  <div class="pull-left attitude">
                       <a class="btn btn-small btn-primary approve" href="javascript:;" answer-id="{{ $answer->id }}">
-                        赞同(<span class="attitude">0</span>)
+                        <i class="icon-caret-up"></i>
                       </a>
-                      
-
+                      <span class="count">0</span>
+                      <a class="btn btn-small btn-primary oppose" href="javascript:;" answer-id="{{ $answer->id }}">
+                        <i class="icon-caret-down"></i>
+                      </a>
                   </div>
                   <div class="media-body">
-                    {{ $answer->content }}
-                    <br/>
-                    <a class="review-comments" href="javascript:;" answer_id="{{ $answer->id }}">查看评论</a>
-                    <div class="answer-comments hide">评论</div>
+                      <p class="info muted">{{ $answer->author_name }} <span class="pull-right">{{ $answer->created_at->format('Y-m-d H:i') }}</span></p>
+                      <p>  {{ e($answer->content) }}</p>
+                     
+                      <a class="review-comments" href="javascript:;" answer-id="{{ $answer->id }}">{{ $answer->comment_count }}条评论</a>
+                      <div class="answer-comments well hide">
+                        @if(Auth::check())
+                        <div>
+                        <textarea class="input-block-level" rows="2"></textarea>
+                        </div>
+                        <a class="btn btn-primary btn-small answer-comment-submit" href="javascript:;" answer-id="{{ $answer->id }}" author="{{ Auth::user()->username }}">评论</a><a class="btn btn-primary btn-small answer-comment-cancel" href="javascript:;" >取消</a>
+                        @endif
+                      </div>
                   </div>
                   
                 </div>
@@ -81,15 +91,20 @@
         if(!_this.next().hasClass('loaded')) {
             // 菊花
             _this.before('<span><i class="icon-spinner icon-spin icon-large"></i><span>');
-            var answer_id = _this.attr('answer_id');
+            var answer_id = _this.attr('answer-id');
             $.get('/ask/answer/'+answer_id+'/comments', function(data){
-               // 菊花停
-               _this.prev().remove();
-               
-               // TODO:
-               // 添加评论
-               _this.next().append(data);
-               _this.next().addClass('loaded');
+                // 菊花停
+                _this.prev().remove();
+
+                comments = eval(data);
+                comments_html = '<div class="comment-list">';
+                for(i=0;i<comments.length;i++) {
+                    comments_html_item = '<div><span class="muted">'+comments[i].author_name+'：</span>'+comments[i].content+' - '+comments[i].created_at+'</div>';
+                    comments_html += comments_html_item;
+                }
+                comments_html += '</div>'
+                _this.next().append(comments_html);
+                _this.next().addClass('loaded');
             });
         }
     });
@@ -100,14 +115,55 @@
         if (!_this.hasClass('disabled')) {
             _this.addClass('disabled');
             $.get('/ask/answer/'+answer_id+'/approve', function(res){
-                var attitude_span = _this.find('span');
-                attitude_span.text(parseInt(attitude_span.text())+1);
-                // TODO:
+                var attitude_span = _this.parent().find('span');
+                var oppose = _this.parent().find('.oppose');
+                if(oppose.hasClass('disabled')) {
+                    attitude_span.text(parseInt(attitude_span.text())+2);
+                    oppose.removeClass('disabled');
+                }else {
+                    attitude_span.text(parseInt(attitude_span.text())+1);
+                }
             });
         }
     });
     
+    $('.oppose').click(function(){
+        var _this = $(this);
+        var answer_id = _this.attr('answer-id');
+        if (!_this.hasClass('disabled')) {
+            _this.addClass('disabled');
+            $.get('/ask/answer/'+answer_id+'/oppose', function(res){
+                var attitude_span = _this.parent().find('span');
+                var approve = _this.parent().find('.approve');
+                if(approve.hasClass('disabled')) {
+                    attitude_span.text(parseInt(attitude_span.text())-2);
+                    approve.removeClass('disabled');
+                }else {
+                    attitude_span.text(parseInt(attitude_span.text())-1);
+                }
+            });
+        }
+    });
 
+    $('.answer-comment-submit').click(function(){
+        var _this = $(this);
+        var answer_id = _this.attr('answer-id');
+        var content = _this.parent().find('textarea').val();
+        var author = _this.attr('author');
+        $.post('/ask/answer/'+answer_id+'/comment', {'content':content}, function(data){
+            if (data === '0') {
+                var comments_html_item = '<div><span class="muted">'+author+'：</span>'+content+' - 刚刚</div>';
+                var comments_list = _this.parent().find('.comment-list');
+                comments_list.prepend(comments_html_item);
+            }
+        });
+        
+    });
+    
+    $('.answer-comment-cancel').click(function(){
+        $(this).parent().toggle()
+    });
+    
 })();
 </script>
 @endsection

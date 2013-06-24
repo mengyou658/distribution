@@ -6,8 +6,13 @@
         <h2><a href="{{ $news_item->link }}">{{ $news_item->title }}</a></h2>
         <p class="muted info">{{ e($news_item->courier_name) }} <span>{{ $news_item->created_at->format('Y-m-d H:i') }}</span></p>
         <div class="content">
-        {{ e($news_item->abstract) }}
+        <p>{{ e($news_item->abstract) }}</p>
         </div>
+        <p>
+        <a class="btn btn-primary news-digg @if($digged) disabled@endif" href="javascript:;" news-id="{{ $news_item->id }}">
+            <i class="icon-thumbs-up"></i>顶 (<span>{{ $news_item->digg_count }}</span>)
+        </a>
+        </p>
     </div>
     <hr />
     <div id="news-comment">
@@ -134,4 +139,28 @@
 <script src="/js/vendor/pagedown/Markdown.Sanitizer.js"></script>
 <script src="/js/vendor/pagedown/Markdown.Editor.js"></script>  
 <script src="/js/editor.js"></script>
+<script>
+(function () {
+    $('.news-digg').click(function(){
+        var _this = $(this);
+        var news_id = _this.attr('news-id');
+        
+        
+        if (!_this.hasClass('disabled')) {
+            _this.addClass('disabled');
+            $.get('/news/'+news_id+'/digg', function(res){
+                var digg_span = _this.find('span');
+                digg_span.text(parseInt(digg_span.text())+1);
+            });
+        }else if (_this.hasClass('disabled')) {
+            _this.removeClass('disabled');
+            $.get('/news/'+news_id+'/digg_cancel', function(res){
+                var digg_span = _this.find('span');
+                digg_span.text(parseInt(digg_span.text())-1);
+            });
+        }
+        
+    });
+})();
+</script>
 @endsection

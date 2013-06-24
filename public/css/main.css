@@ -782,6 +782,44 @@ a.disabled:hover {
     height: 200px;
 }
 
+.attitude a.btn {
+    display: block;
+    margin: 0 15px 0 0;
+    font-size: 18px;
+}
+
+#answer-list .media .media-body {
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 10px;
+}
+
+.attitude span.count {
+    display: block;
+    text-align: center;
+    margin: 0 15px 0 0;
+}
+
+.answer-comments a.btn {
+    margin: 0 15px 0 0;
+}
+
+.answer-comments .comment-list {
+    margin-top: 20px;
+}
+
+.answer-comments .comment-list span{
+    margin: 0;
+}
+
+.answer-comments .comment-list div {
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+
+.answer-comments .comment-list div + div {
+    border-top: 1px solid #dde4e6;
+}
+
 #article-content h2 {
     font-size: 24px;
 }

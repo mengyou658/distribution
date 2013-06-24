@@ -13,10 +13,15 @@
     </div>
     <hr />
     <div id="article-comment">
-        <legend>热门评论</legend>
-        <?php $top_comment = ArticleComment::orderBy('digg_count', 'desc')->first();
-              $mark = ArticleCommentDigg::whereUser_id(Auth::user()->id)->whereArticle_comment_id($top_comment->id)->first();
+        
+        <?php $top_comment = ArticleComment::whereArticle_id($article->id)->orderBy('digg_count', 'desc')->first();
+              if ($top_comment) {
+              if (Auth::check()) {
+                $mark = ArticleCommentDigg::whereUser_id(Auth::user()->id)->whereArticle_comment_id($top_comment->id)->first();
+              }
         ?>
+        
+        <legend>热门评论</legend>
         <ul id="comment-list" class="unstyled">
             <li id="article-comment-{{ $top_comment->id }}">
                 <div class="pull-left avatar">
@@ -26,7 +31,7 @@
                 <p class="info muted">{{ $top_comment->author_name }} <span>{{ $top_comment->created_at->format('Y-m-d H:i') }}</span></p>
                 <p>{{ $top_comment->content }}</p>
                 <p><a class="comment-quote" comment-quote-content="回复 @{{ $top_comment->author_name }} 的评论：">回复</a>
-                @if($mark)
+                @if(isset($mark))
                 <a class="comment-digg disabled">已顶[{{ $top_comment->digg_count }}]</a>
                 @else
                 <a class="comment-digg" href="javascript:;" comment-id="{{ $top_comment->id }}">顶[<span>{{ $top_comment->digg_count }}</span>]</a>
@@ -35,6 +40,7 @@
                 </div>
             </li>
         </ul>
+        <?php } ?>
         <legend>全部评论</legend>
         @if(!$article_comments->isEmpty())
             <ul id="comment-list" class="unstyled">
@@ -105,9 +111,13 @@
         if (!_this.hasClass('disabled')) {
             _this.addClass('disabled');
             $.get('/article/comment/'+comment_id+'/digg', function(res){
-                var digg_span = _this.find('span');
-                var digg_count = parseInt(digg_span.text())+1;
-                _this.text('已顶['+digg_count+']');
+                if (res === '2') {
+                    alert('请登录后进行操作');
+                } else {
+                    var digg_span = _this.find('span');
+                    var digg_count = parseInt(digg_span.text())+1;
+                    _this.text('已顶['+digg_count+']');
+                }
             });
         }
     });

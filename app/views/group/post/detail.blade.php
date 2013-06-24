@@ -21,7 +21,7 @@
                 </div>
                 <div class="content">
                 <p class="info muted">{{ $post_comment->author_name }} <span>{{ $post_comment->created_at->format('Y-m-d H:i') }}</span></p>
-                <p>{{ $post_comment->content }}</p>
+                <p>{{ e($post_comment->content) }}</p>
                 <p><a class="comment-quote" comment-quote-content="@{{ $post_comment->author }}: {{ Str::limit($post_comment->markdown, 20) }}">回复</a></p>
                 </div>
                 </li>

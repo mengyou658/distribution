@@ -22,6 +22,22 @@
 </div>
 <div class="span4 sidebar">
     <div class="sidebar-plate">
+        <legend>文章栏目</legend>
+        <?php $categories = Category::whereParent_id(0)->get() ?>
+        @if(!$categories->isEmpty())
+        <ul class="sidebar-ul">
+            @foreach ($categories as $category)
+            <li>
+                <div class="sidebar-ul-body">
+                    <a href="{{ URL::route('articles_category', array($category->id)) }}" >{{ $category->name }}</a>
+                </div>
+            </li>
+            @endforeach
+        </ul>
+        @endif
+    </div>
+    
+    <div class="sidebar-plate">
         <legend>热门标签</legend>
         <?php $tags = Tag::orderBy('refer_count', 'desc')->take(7)->get() ?>
         @if(!$tags->isEmpty())

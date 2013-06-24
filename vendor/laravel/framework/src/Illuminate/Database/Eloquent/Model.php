@@ -347,6 +347,16 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	}
 
 	/**
+	 * Begin querying the model.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public static function query()
+	{
+		return with(new static)->newQuery();
+	}
+
+	/**
 	 * Begin querying the model on a given connection.
 	 *
 	 * @param  string  $connection
@@ -679,7 +689,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	/**
 	 * Delete the model from the database.
 	 *
-	 * @return void
+	 * @return bool|null
 	 */
 	public function delete()
 	{
@@ -735,7 +745,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 
 		if ($this->softDelete)
 		{
-			$query->update(array(static::DELETED_AT => new DateTime));
+			$query->update(array(static::DELETED_AT => $this->freshTimestamp()));
 		}
 		else
 		{
@@ -746,7 +756,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	/**
 	 * Restore a soft-deleted model instance.
 	 *
-	 * @return void
+	 * @return bool|null
 	 */
 	public function restore()
 	{
@@ -923,7 +933,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	 * @param  string  $column
 	 * @param  int     $amount
 	 * @param  string  $method
-	 * @return void
+	 * @return int
 	 */
 	protected function incrementOrDecrement($column, $amount, $method)
 	{
@@ -1285,7 +1295,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	/**
 	 * Get a fresh timestamp for the model.
 	 *
-	 * @return mixed
+	 * @return DateTime
 	 */
 	public function freshTimestamp()
 	{
@@ -1324,7 +1334,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	{
 		return $this->newQuery(false);
 	}
- 
+
  	/**
  	 * Determine if the model instance has been soft-deleted.
  	 *
@@ -1741,7 +1751,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	 */
 	public function attributesToArray()
 	{
-		$attributes = $this->getAccessibleAttributes();
+		$attributes = $this->getArrayableAttributes();
 
 		// We want to spin through all the mutated attributes for this model and call
 		// the mutator for the attribute. We cache off every mutated attributes so
@@ -1757,11 +1767,11 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	}
 
 	/**
-	 * Get an attribute array of all accessible attributes.
+	 * Get an attribute array of all arrayable attributes.
 	 *
 	 * @return array
 	 */
-	protected function getAccessibleAttributes()
+	protected function getArrayableAttributes()
 	{
 		if (count($this->visible) > 0)
 		{
@@ -2112,8 +2122,8 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	/**
 	 * Get the model's original attribute values.
 	 *
-	 * @param  string|null  $key
-	 * @param  mixed  $default
+	 * @param  string  $key
+	 * @param  mixed   $default
 	 * @return array
 	 */
 	public function getOriginal($key = null, $default = null)
@@ -2162,6 +2172,16 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 		}
 
 		return $dirty;
+	}
+
+	/**
+	 * Get all the loaded relations for the instance.
+	 * 
+	 * @return array
+	 */
+	public function getRelations()
+	{
+		return $this->relations;
 	}
 
 	/**
@@ -2278,7 +2298,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	/**
 	 * Set the event dispatcher instance.
 	 *
-	 * @param  \Illuminate\Events\Dispatcher
+	 * @param  \Illuminate\Events\Dispatcher  $dispatcher
 	 * @return void
 	 */
 	public static function setEventDispatcher(Dispatcher $dispatcher)

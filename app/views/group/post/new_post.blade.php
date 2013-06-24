@@ -16,10 +16,16 @@
       <div id="wmd-panel" class="wmd-panel">
       <div id="wmd-button-bar"></div>
           <div class="clearfix">
-          <textarea id="wmd-input" class="wmd-input pull-left" name="markdown"></textarea>
-          <div id="wmd-preview" class="wmd-panel wmd-preview well pull-right"></div>
+          <textarea id="wmd-input" class="wmd-input" rows="10" name="markdown"></textarea>
+          <div id="wmd-preview" class="wmd-panel wmd-preview well"></div>
           </div>
       </div>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="tags">标签</label>
+    <div class="controls">  
+        <input class="tags span2" type="text" name="tags" placeholder="标签">
     </div>
   </div>
   <div class="control-group">
@@ -33,6 +39,15 @@
 @section('js')
 <script src="/js/vendor/pagedown/Markdown.Converter.js"></script>
 <script src="/js/vendor/pagedown/Markdown.Sanitizer.js"></script>
-<script src="/js/vendor/pagedown/Markdown.Editor.js"></script>  
+<script src="/js/vendor/pagedown/Markdown.Editor.js"></script>
 <script src="/js/editor.js"></script>
+<script src="/js/vendor/bootstrap-tagmanager.js"></script>
+<script>
+(function () {
+    $(".tags").tagsManager({
+        tagClass: 'label label-inverse',
+        tagCloseIcon: '<i class="icon-remove"></i>',
+    });
+})();
+</script>
 @endsection

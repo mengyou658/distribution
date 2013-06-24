@@ -28,7 +28,7 @@ return array(
 	|
 	*/
     
-    // TODO: smtp server
+    // TODO:
 	'host' => '',
 
 	/*
@@ -55,7 +55,7 @@ return array(
 	|
 	*/
     
-    // TODO: 需要填写，否则无法寄送
+    // TODO:
 	'from' => array('address' => '', 'name' => ''),
 
 	/*
@@ -81,7 +81,7 @@ return array(
 	| connection. You may also set the "password" value below this one.
 	|
 	*/
-
+    
     // TODO:
 	'username' => '',
 
@@ -111,5 +111,18 @@ return array(
 	*/
 
 	'sendmail' => '/usr/sbin/sendmail -bs',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Mail "Pretend"
+	|--------------------------------------------------------------------------
+	|
+	| When this option is enabled, e-mail will not actually be sent over the
+	| web and will instead be written to your application's logs files so
+	| you may inspect the message. This is great for local development.
+	|
+	*/
+
+	'pretend' => false,
 
 );

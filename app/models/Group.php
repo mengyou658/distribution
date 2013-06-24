@@ -4,15 +4,18 @@ class Group extends Eloquent {
 
     protected $table = 'groups';
     
-    protected $fillable = array('name', 'pic', 'description', 'status');
+    protected $fillable = array('name', 'pic', 'descr', 'status');
     
-    public function users()
-    {
-        return $this->belongsToMany('User', 'user_group', 'group_id', 'user_id');
-    }
-    
+    // scopes
     public function scopeValid($query)
     {
         return $query->where('status', '=', 1);
     }
+    
+    // relations
+    public function users()
+    {
+        return $this->belongsToMany('User', 'group_user', 'group_id', 'user_id');
+    }
+    
 }

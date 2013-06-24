@@ -15,7 +15,8 @@
     $('.comment-quote').click(function(){
         var cmt_quote_content = $(this).attr('comment-quote-content');
         var wmd_input = $('#wmd-input');
-        wmd_input.val("> "+cmt_quote_content.replace(/\n/g, '\n> ')+'\n');
+        cmt_quote_content = cmt_quote_content.replace(/\n\s*> @.*\n/g, '');
+        wmd_input.val("> "+cmt_quote_content.replace(/\n/g, '\n> ')+'\n\n');
         $('body').animate({scrollTop:$('#comment-reply').offset().top - 60}, 800);
         
         my_editor.refreshPreview();

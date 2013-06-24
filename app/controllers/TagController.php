@@ -17,9 +17,9 @@ class TagController extends BaseController {
                    ->with('tags', $tags);
 	}
     
-    public function getDetail($tag)
+    public function getDetail($tag_id)
 	{
-        $tag = Tag::whereTag($tag)->first();
+        $tag = Tag::find($tag_id);
 		return View::make('tag.detail')
                    ->with('tag', $tag);
 	}

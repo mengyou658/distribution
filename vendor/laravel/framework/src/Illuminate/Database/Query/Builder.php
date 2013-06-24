@@ -974,6 +974,8 @@ class Builder {
 	 */
 	public function getCached($columns = array('*'))
 	{
+		if (is_null($this->columns)) $this->columns = $columns;
+
 		list($key, $minutes) = $this->getCacheInfo();
 
 		// If the query is requested ot be cached, we will cache it using a unique key
@@ -1085,6 +1087,20 @@ class Builder {
 	}
 
 	/**
+	 * Concatenate values of a given column as a string.
+	 *
+	 * @param  string  $column
+	 * @param  string  $glue
+	 * @return string
+	 */
+	public function implode($column, $glue = null)
+	{
+		if (is_null($glue)) return implode($this->lists($column));
+
+		return implode($glue, $this->lists($column));
+	}
+
+	/**
 	 * Get a paginator for the "select" statement.
 	 *
 	 * @param  int    $perPage
@@ -1171,12 +1187,19 @@ class Builder {
 	{
 		list($orders, $this->orders) = array($this->orders, null);
 
+		$columns = $this->columns;
+
 		// Because some database engines may throw errors if we leave the ordering
 		// statements on the query, we will "back them up" and remove them from
 		// the query. Once we have the count we will put them back onto this.
 		$total = $this->count();
 
 		$this->orders = $orders;
+
+		// Once the query is run we need to put the old select columns back on the
+		// instance so that the select query will run properly. Otherwise, they
+		// will be cleared, then the query will fire with all of the columns.
+		$this->columns = $columns;
 
 		return $total;
 	}
@@ -1262,7 +1285,7 @@ class Builder {
 		// Once we have executed the query, we will reset the aggregate property so
 		// that more select queries can be executed against the database without
 		// the aggregate value getting in the way when the grammar builds it.
-		$this->aggregate = null;
+		$this->columns = null; $this->aggregate = null;
 
 		if (isset($results[0]))
 		{
@@ -1546,6 +1569,7 @@ class Builder {
 		}
 
 		$className = get_class($this);
+
 		throw new \BadMethodCallException("Call to undefined method {$className}::{$method}()");
 	}
 

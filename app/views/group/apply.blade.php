@@ -19,9 +19,9 @@
   </div>
   
   <div class="control-group">
-    <label class="control-label" for="description">小组描述</label>
+    <label class="control-label" for="descr">小组描述</label>
     <div class="controls">
-      <textarea class="input-xxlarge" id="description" rows="5" placeholder="描述" name="description"></textarea>  
+      <textarea class="input-xxlarge" id="descr" rows="5" placeholder="描述" name="descr"></textarea>  
     </div>
   </div>
   

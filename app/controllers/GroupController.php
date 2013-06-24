@@ -12,7 +12,15 @@ class GroupController extends BaseController {
     
     public function __construct()
     {
-        $this->beforeFilter('auth', array('only' => array('getApply', 'postApply', 'getJoin', 'getQuit', 'getNewPost', 'postNewPost', 'postPostComment')));
+        $this->beforeFilter('auth', array('only' => array(
+            'getApply',
+            'postApply',
+            'getJoin',
+            'getQuit',
+            'getNewPost',
+            'postNewPost',
+            'postPostComment'
+        )));
     }
 
 	public function getIndex()
@@ -58,13 +66,13 @@ class GroupController extends BaseController {
         $input = array(
             'name' => Input::get('name'),
             'pic' => 'http://pic.com', // TODO: 上传图片，保存图片，保存图片url
-            'description' => Input::get('description'),
+            'descr' => Input::get('descr'),
         );
         
         $rules = array(
             'name' => 'required',
             'pic' => 'required|url',
-            'description' => 'required',
+            'descr' => 'required',
         );
         
         $v = Validator::make($input, $rules);
@@ -125,7 +133,22 @@ class GroupController extends BaseController {
         $new_post['author_id'] = $user->id;
         $new_post['author'] = $user->username;
         
-        Post::create($new_post);
+        $post = Post::create($new_post);
+        
+        $tags = explode(',', Input::get('hidden-tags'));
+        foreach($tags as $tag) {
+            if($tag) {
+                $tag_id = Tag::markTag($tag);
+                PostTag::create(array(
+                    'post_id' => $post->id,
+                    'tag_id' => $tag_id,
+                ));
+            }
+        }
+        
+        $user->post_count += 1;
+        $user->save();
+        
         return Redirect::to("group/$group_id")->with('msg', '发帖成功');
     }
     

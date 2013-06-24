@@ -126,3 +126,13 @@ require app_path().'/viewcomposers.php';
 */
 
 require app_path().'/events.php';
+
+/*
+|--------------------------------------------------------------------------
+| Custom Observers by G_will
+|--------------------------------------------------------------------------
+| 
+|
+*/
+
+require app_path().'/observers.php';

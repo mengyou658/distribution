@@ -22,13 +22,22 @@ Route::get('test', function()
     // var_dump($tag);
     
     
-    $markdown = App::make('markdown');
+    // $markdown = App::make('markdown');
     
-    $my_text="# abc\n\n* 123\n* 456\n\n<script></script>\n";
-    $my_html = $markdown->transform($my_text);
-    return $my_html;
+    // $my_text="# abc\n\n* 123\n* 456\n\n<script></script>\n";
+    // $my_html = $markdown->transform($my_text);
+    // return $my_html;
     
+    //echo Str::random();
+    // $article = Article::find(8);
+    // $article->author_id = 2;
+    // $article->save();
     
+    // Article::create(array(
+        // 'author_id' => 2,
+    // ));
+    $plural = str_plural('category');
+    echo $plural;
 });
 
 Route::get(
@@ -88,6 +97,14 @@ Route::get(
         'as' => 'articles')
 );
 
+// 文章分类浏览
+Route::get(
+    'articles/category/{category_id}',
+    array(
+        'uses' => 'ArticleController@getCategory',
+        'as' => 'articles_category')
+)->where('category_id', '[0-9]+');
+
 // 文章详细
 Route::get('
     article/{article_id}',
@@ -104,6 +121,14 @@ Route::post(
         'as' => 'article_post_comment')
 )->where('article_id', '[0-9]+');
 
+// 文章评论顶
+Route::get(
+    'article/comment/{comment_id}/digg',
+    array(
+        'uses' => 'ArticleController@getCommentDigg',
+        'as' => 'article_comment_digg')
+)->where('comment_id', '[0-9]+');
+
 // ---------------------------------
 // # 新闻
 
@@ -115,12 +140,36 @@ Route::get(
         'as' => 'news')
 );
 
+// 新闻首页最热列表
+Route::get(
+    'news/hottest',
+    array(
+        'uses' => 'NewsController@getHottest',
+        'as' => 'news_hottest')
+);
+
 // 新闻详细
 Route::get(
     'news/{news_id}',
     array(
         'uses' => 'NewsController@getDetail',
         'as' => 'news_detail')
+)->where('news_id', '[0-9]+');
+
+// 新闻，顶
+Route::get(
+    'news/{news_id}/digg',
+    array(
+        'uses' => 'NewsController@getDigg',
+        'as' => 'news_digg')
+)->where('news_id', '[0-9]+');
+
+// 新闻，顶取消
+Route::get(
+    'news/{news_id}/digg_cancel',
+    array(
+        'uses' => 'NewsController@getDiggCancel',
+        'as' => 'news_digg_cancel')
 )->where('news_id', '[0-9]+');
 
 // 新闻评论发布
@@ -241,15 +290,165 @@ Route::post(
         'as' => 'group_post_comment')
 )->where('group_id', '[0-9]+')
  ->where('post_id', '[0-9]+');
-
-// ---------------------------------
-// # 活动
-// event
  
+// ---------------------------------
+// # 问答
+// ask
+
+// 问答首页
+Route::get(
+    'ask',
+    array(
+        'uses' => 'AskController@getIndex',
+        'as' => 'ask')
+);
+
+// 问题列表
+Route::get(
+    'ask/questions',
+    array(
+        'uses' => 'AskController@getIndex',
+        'as' => 'ask_questions')
+);
+
+// 提问
+Route::get(
+    'ask/new_question',
+    array(
+        'uses' => 'AskController@getNewQuestion',
+        'as' => 'ask_new_question')
+);
+Route::post(
+    'ask/new_question',
+    array(
+        'uses' => 'AskController@postNewQuestion',
+        'as' => 'ask_post_new_question')
+);
+
+// 问题详细
+Route::get(
+    'ask/question/{question_id}',
+    array(
+        'uses' => 'AskController@getDetail',
+        'as' => 'ask_detail')
+)->where('question_id', '[0-9]+');
+
+// 回答问题
+Route::post(
+    'ask/question/{question_id}/answer',
+    array(
+        'uses' => 'AskController@postAnswer',
+        'as' => 'ask_post_answer')
+)->where('question_id', '[0-9]+');
+
+// 赞同答案
+Route::get(
+    'ask/answer/{answer_id}/approve',
+    array(
+        'uses' => 'AskController@getAnswerApprove',
+        'as' => 'ask_answer_approve')
+)->where('answer_id', '[0-9]+');
+
+// 反对答案
+Route::get(
+    'ask/answer/{answer_id}/oppose',
+    array(
+        'uses' => 'AskController@getAnswerOppose',
+        'as' => 'ask_answer_oppose')
+)->where('answer_id', '[0-9]+');
+
+// 获取答案评论
+Route::get(
+    'ask/answer/{answer_id}/comments',
+    array(
+        'uses' => 'AskController@getAnswerComments',
+        'as' => 'ask_answer_comments')
+)->where('answer_id', '[0-9]+');
+
+// 发布答案评论
+Route::post(
+    'ask/answer/{answer_id}/comment',
+    array(
+        'uses' => 'AskController@postAnswerComment',
+        'as' => 'ask_post_answer_comment')
+)->where('answer_id', '[0-9]+');
 
 // ---------------------------------
 // # 翻译
 // translation
+
+Route::get(
+    'translations',
+    array(
+        'uses' => 'TranslationController@getIndex',
+        'as' => 'translations')
+);
+
+// ---------------------------------
+// # 活动
+// activity
+// Activity
+// activities
+
+// 全部活动
+Route::get(
+    'activities',
+    array(
+        'uses' => 'ActivityController@getIndex',
+        'as' => 'activities')
+);
+
+// 系列
+Route::get(
+    'activities/series/{series_id}',
+    array(
+        'uses' => 'ActivityController@getSeries',
+        'as' => 'activities_series')
+)->where('series_id', '[0-9]+');
+
+// 活动详细
+Route::get(
+    'activity/{activity_id}',
+    array(
+        'uses' => 'ActivityController@getDetail',
+        'as' => 'activities_detail')
+)->where('activity_id', '[0-9]+');
+
+// 评论活动
+Route::post(
+    'activity/{activity_id}/comment',
+    array(
+        'uses' => 'ActivityController@postComment',
+        'as' => 'activities_post_comment')
+)->where('activity_id', '[0-9]+');
+
+// 参加活动
+Route::get(
+    'activity/{activity_id}/join',
+    array(
+        'uses' => 'ActivityController@getJoin',
+        'as' => 'activities_join')
+)->where('activity_id', '[0-9]+');
+
+// 退出活动
+Route::get(
+    'activity/{activity_id}/quit',
+    array(
+        'uses' => 'ActivityController@getQuit',
+        'as' => 'activities_quit')
+)->where('activity_id', '[0-9]+');
+
+
+// ---------------------------------
+// # 任务
+// task
+
+Route::get(
+    'tasks',
+    array(
+        'uses' => 'TaskController@getIndex',
+        'as' => 'tasks')
+);
 
 // ---------------------------------
 // # 用户
@@ -327,13 +526,15 @@ Route::get(
 Route::get(
     'user/register',
     array(
-        'uses' => 'UserController@getRegister',
+        //'uses' => 'UserController@getRegister',
+        'uses' => 'UserController@getRegisterWithMailAuth',
         'as' => 'user_register')
 );
 Route::post(
     'user/register',
     array(
-        'uses' => 'UserController@postRegister',
+        //'uses' => 'UserController@postRegister',
+        'uses' => 'UserController@postRegisterWithMailAuth',
         'as' => 'user_post_register')
 );
 
@@ -423,12 +624,12 @@ Route::get(
 );
 
 Route::get(
-    'tag/{tag}',
+    'tag/{tag_id}',
     array(
         'uses' => 'TagController@getDetail',
         'as' => 'tag_detail')
-);
+)->where('tag_id', '[0-9]+');
 
 
 // 数据库维护
-Route::controller('scheme', 'SchemeController');
+Route::controller('schema', 'SchemaController');

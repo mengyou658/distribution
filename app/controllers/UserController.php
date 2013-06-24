@@ -61,7 +61,7 @@ class UserController extends BaseController {
         );
 
         if ($this->user_login_auth($credentials)) {
-            return Redirect::to('/')->with('msg', 'login success');
+            return Redirect::to('/')->with('msg', "登录成功");
         }
         
         // 验证失败，返回登录页
@@ -92,7 +92,7 @@ class UserController extends BaseController {
         return Password::reset($credentials, function($user, $password){
             $user->password = Hash::make($password);
             $user->save();
-            return Redirect::to('/')->with('msg', '密码重置成功');
+            return Redirect::to('/')->with('msg', '密码设置成功，请登录');
         });
     }
     
@@ -150,6 +150,55 @@ class UserController extends BaseController {
         return Redirect::to('/')->with('msg','register success');
     }
     
+    public function getRegisterWithMailAuth()
+    {
+        if (Auth::check()) {
+            return Redirect::to('user');
+        }
+        
+        return View::make('user.register_mailauth');
+    }
+    
+    public function postRegisterWithMailAuth()
+    {
+        if (Auth::check()) {
+            return Redirect::to('/');
+        }
+        
+        $input = array(
+            'email' => Input::get('email'),
+            'username' => Input::get('username'),
+        );
+        
+        $rules = array(
+            'email' => 'required|email|unique:users',
+            'username' => 'required|max:32',
+        );
+
+        $v = Validator::make($input, $rules);
+
+        if ( $v->fails() ) {
+            return Redirect::to('user/register')->with('msg', 'input error');
+        }
+        
+        // 注册用户信息构建
+        $new_user = array(
+            'email' => Input::get('email'),
+            'username' => Input::get('username'),
+        );
+        
+        // 保存用户数据
+        $user = new User($new_user);
+        $user->save();
+        
+        // 发送验证邮件，设置密码
+        $credentials = array('email' => Input::get('email'));
+        Password::remind($credentials, function($message, $user){
+            $message->subject('统计之都账号验证');
+        });
+        
+        return Redirect::to('/')->with('msg','注册成功，验证邮件已经发送到您的邮箱，请进行验证');
+    }
     
     public function getLogout()
     {
@@ -262,7 +311,7 @@ class UserController extends BaseController {
         
         $user = Auth::user();
         
-        $user->notices_count = 0;
+        $user->notice_count = 0;
         $user->save();
 
         $notices = Notice::whereUser_id($user->id)->orderBy('created_at', 'desc')->paginate($per_page_num);

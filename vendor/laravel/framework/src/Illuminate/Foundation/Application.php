@@ -32,7 +32,7 @@ class Application extends Container implements HttpKernelInterface, ResponsePrep
 	 *
 	 * @var string
 	 */
-	const VERSION = '4.0.1';
+	const VERSION = '4.0.5';
 
 	/**
 	 * Indicates if the application has "booted".
@@ -133,19 +133,7 @@ class Application extends Container implements HttpKernelInterface, ResponsePrep
 	 */
 	public function redirectIfTrailingSlash()
 	{
-		if ($this->runningInConsole()) return;
-
-		// Here we will check if the request path ends in a single trailing slash and
-		// redirect it using a 301 response code if it does which avoids duplicate
-		// content in this application while still providing a solid experience.
-		$path = $this['request']->getPathInfo();
-
-		if ($path != '/' and ends_with($path, '/') and ! ends_with($path, '//'))
-		{
-			with(new SymfonyRedirect($this['request']->fullUrl(), 301))->send();
-
-			exit;			
-		}
+		return;
 	}
 
 	/**
@@ -296,7 +284,7 @@ class Application extends Container implements HttpKernelInterface, ResponsePrep
 	{
 		return php_sapi_name() == 'cli';
 	}
-	
+
 	/**
 	 * Determine if we are running unit tests.
 	 *
@@ -693,12 +681,23 @@ class Application extends Container implements HttpKernelInterface, ResponsePrep
 	/**
 	 * Register an application error handler.
 	 *
-	 * @param  Closure  $callback
+	 * @param  \Closure  $callback
 	 * @return void
 	 */
 	public function error(Closure $callback)
 	{
 		$this['exception']->error($callback);
+	}
+
+	/**
+	 * Register an error handler at the bottom of the stack.
+	 *
+	 * @param  \Closure  $callback
+	 * @return void
+	 */
+	public function pushError(Closure $callback)
+	{
+		$this['exception']->pushError($callback);
 	}
 
 	/**

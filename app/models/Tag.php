@@ -22,17 +22,37 @@ class Tag extends Eloquent {
         return $this->belongsToMany('Post', 'post_tag', 'tag_id', 'post_id');
     }
     
-    // TODO: 标记标签
-    static function markTag($tag)
+    public function sources()
     {
-        $my_tag = Tag::whereTag($tag)->first();
-        if ($my_tag) {
-            $my_tag->refer_counts += 1;
-            $my_tag->save();
-            return $my_tag;
+        return $this->belongsToMany('Source', 'source_tag', 'tag_id', 'source_id');
+    }
+    
+    public function questions()
+    {
+        return $this->belongsToMany('Question', 'question_tag', 'tag_id', 'question_id');
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany('Event', 'event_tag', 'tag_id', 'event_id');
+    }
+    
+    public function tasks()
+    {
+        return $this->belongsToMany('Task', 'task_tag', 'tag_id', 'task_id');
+    }
+
+    // static
+    static function markTag($tag_str)
+    {
+        $tag = Tag::whereTag($tag_str)->first();
+        if ($tag) {
+            $tag->refer_count += 1;
+            $tag->save();
         } else {
-            return Tag::create(array('tag'=>$tag));
+            $tag = Tag::create(array('tag'=>$tag_str));
         }
+        return $tag->id;
     }
     
 }

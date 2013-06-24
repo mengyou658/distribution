@@ -39,13 +39,15 @@ mysql
 
 ## 致谢
 
-感谢 加藤乐 @Willerce 同学作为人肉 js 文档的鼎力帮助。
+感谢 @Willerce 同学作为人肉 JS 文档的鼎力帮助。
 
 ## Version
 
 laravel-v4
 
-bootstrap-v2.3.0
+laravel-administrator-v4.0.0
+
+bootstrap-v2.3.2
 
 ## License 
 

@@ -12,7 +12,10 @@ class NewsController extends BaseController {
     
     public function __construct()
     {
-        $this->beforeFilter('auth', array('only' => array('getDeliver', 'postDeliver')));
+        $this->beforeFilter('auth', array('only' => array(
+            'getDeliver',
+            'postDeliver',
+        )));
     }
 
 	public function getIndex()
@@ -23,6 +26,14 @@ class NewsController extends BaseController {
                    ->with('news', $news);
 	}
     
+    public function getHottest()
+    {
+        $per_page_num = 3;
+		$news = News::orderBy('digg_count', 'desc')->paginate($per_page_num);
+		return View::make('news.index')
+                   ->with('news', $news);
+    }
+    
     public function getDetail($news_id)
 	{
         $per_page_num = 3;
@@ -30,22 +41,67 @@ class NewsController extends BaseController {
         
         $news_item = News::find($news_id);
         $news_comments = NewsComment::whereNews_id($news_id)->orderBy('created_at', 'desc')->paginate($per_page_num);
+        
+        $digged = (Auth::check() and NewsDigg::whereNews_id($news_id)->whereUser_id(Auth::user()->id)->first())?true:false;
+        
 		return View::make('news.detail')
                    ->with('news_item', $news_item)
-                   ->with('news_comments', $news_comments);
+                   ->with('news_comments', $news_comments)
+                   ->with('digged', $digged);
 	}
+    
+    public function getDigg($news_id)
+    {
+        if (Auth::guest()) {
+            return 2;
+        }
+        
+        $user = Auth::user();
+        $digg = NewsDigg::whereNews_id($news_id)->whereUser_id($user->id)->first();
+        if (!$digg) {
+            NewsDigg::create(array(
+                'news_id' => $news_id,
+                'user_id' => $user->id
+            ));
+            
+            $news = News::find($news_id);
+            $news->digg_count += 1;
+            $news->save();
+            
+            return 0; // 成功
+        }
+        return 1; // 异常
+    }
+    
+    public function getDiggCancel($news_id)
+    {
+        if (Auth::guest()) {
+            return 2;
+        }
+        
+        $user = Auth::user();
+        $digg = NewsDigg::whereNews_id($news_id)->whereUser_id($user->id)->first();
+        if ($digg) {
+            $digg->delete();
+            
+            $news = News::find($news_id);
+            $news->digg_count -= 1;
+            $news->save();
+            
+            return 0; // 成功
+        }
+        return 1; // 异常
+    }
     
     public function postComment($news_id)
     {
-        $markdown = App::make('markdown');
         $user = Auth::user();
         
         $new_news_comment = array(
             'markdown' => Input::get('markdown'),
-            'content' => $markdown->transform(Input::get('markdown')),
             'news_id' => $news_id,
             'author_id' => $user->id,
-            'author' => $user->username,
+            'author_name' => $user->username,
         );
         
         $rules = array(
@@ -58,6 +114,10 @@ class NewsController extends BaseController {
         }
         
         $news_comment = NewsComment::create($new_news_comment);
+        
+        $news = News::find($news_id);
+        $news->comment_count += 1;
+        $news->save();
         
         // TODO: event fire user messages with @
         
@@ -92,7 +152,23 @@ class NewsController extends BaseController {
         $input['courier_id'] = $user->id;
         $input['courier'] = $user->username;
 
-        News::create($input);
+        $news = News::create($input);
+        
+        $tags = explode(',', Input::get('hidden-tags'));
+        
+        foreach($tags as $tag) {
+            if ($tag) {
+                $tag_id = Tag::markTag($tag);
+                NewsTag::create(array(
+                    'news_id' => $news->id,
+                    'tag_id' => $tag_id,
+                ));
+            }
+        }
+        
+        $user->news_count += 1;
+        $user->save();
+        
         return Redirect::to('news')->with('msg', '投递成功，审核中...');
     }
     

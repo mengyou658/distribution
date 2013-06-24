@@ -20,7 +20,7 @@
         </style>
         <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="/css/main.css">
-
+        @include('utils.mathjax')
         <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
@@ -53,11 +53,11 @@
                             @if ( Auth::check() )
                             
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->username }} ({{ Auth::user()->notices_count }}) <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->username }} ({{ Auth::user()->notice_count }}) <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user">个人中心</a></li>
                                     <li><a href="/user/setting">设置</a></li>
-                                    <li><a href="/user/notices">提醒 ({{ Auth::user()->notices_count }}) </a></li>
+                                    <li><a href="/user/notices">提醒 ({{ Auth::user()->notice_count }}) </a></li>
                                     <li class="divider"></li>
                                     <!-- <li class="nav-header">Nav header</li>
                                     <li><a href="#">Separated link</a></li>
@@ -101,6 +101,11 @@
                   <li @if(Request::is('article*')) class="active" @endif><a href="/articles">文章</a></li>
                   <li @if(Request::is('news*')) class="active" @endif><a href="/news">新闻</a></li>
                   <li @if(Request::is('group*')) class="active" @endif><a href="/group">群组</a></li>
+                  <li @if(Request::is('ask*')) class="active" @endif><a href="/ask">问答</a></li>
+                  <li @if(Request::is('translation*')) class="active" @endif><a href="/translations">翻译</a></li>
+                  <li @if(Request::is('activit*')) class="active" @endif><a href="/activities">活动</a></li>
+                  <li @if(Request::is('task*')) class="active" @endif><a href="/tasks">任务</a></li>
+                  <li @if(Request::is('project*')) class="active" @endif><a href="/projects">项目</a></li>
                 </ul>
             </div>
             @if ( $msg = Session::get('msg', false) )
@@ -117,7 +122,7 @@
         
         <footer>
             <div class="container">
-            <hr>
+            <hr />
                 <div class="">
                     <ul class="nav nav-pills pull-left">
                         <li><a href="/about">关于我们</a></li>
@@ -131,7 +136,7 @@
         </footer>
 
         <!-- start: 全局 -->
-@include('utils.mathjax')
+
         
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>

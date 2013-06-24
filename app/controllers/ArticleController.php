@@ -18,6 +18,14 @@ class ArticleController extends BaseController {
                    ->with('articles', $articles);
 	}
     
+    public function getCategory($category_id)
+	{
+        $per_page_num = 3;
+		$articles = Article::whereCategory_id($category_id)->orderBy('created_at', 'desc')->paginate($per_page_num);
+		return View::make('article.category')
+                   ->with('articles', $articles);
+	}
+    
     public function getDetail($article_id)
 	{
         $per_page_num = 3;
@@ -32,15 +40,11 @@ class ArticleController extends BaseController {
     
     public function postComment($article_id)
     {
-        $markdown = App::make('markdown');
-        
         $user = Auth::user();
         $new_article_comment = array(
             'markdown' => Input::get('markdown'),
-            'content' => $markdown->transform(Input::get('markdown')),
             'article_id' => $article_id,
             'author_id' => $user->id,
-            'author' => $user->username,
         );
         
         // TODO: rules
@@ -50,6 +54,29 @@ class ArticleController extends BaseController {
         // TODO: event fire user messages with @
         
         return Redirect::to("article/$article_id#article-comment");
+    }
+    
+    public function getCommentDigg($comment_id)
+    {
+        if (Auth::guest()) {
+            return 2;
+        }
+        
+        $user = Auth::user();
+        $digg = ArticleCommentDigg::whereArticle_comment_id($comment_id)->whereUser_id($user->id)->first();
+        if (!$digg) {
+            ArticleCommentDigg::create(array(
+                'article_comment_id' => $comment_id,
+                'user_id' => $user->id
+            ));
+            
+            $article_comment = ArticleComment::find($comment_id);
+            $article_comment->digg_count += 1;
+            $article_comment->save();
+            
+            return 0; // 成功
+        }
+        return 1; // 异常
     }
 
     public function makeNoticeContent($article_id, $article_comment_id)

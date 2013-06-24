@@ -17,7 +17,8 @@ class AskController extends BaseController {
             'postNewQuestion',
             'postAnswer',
             'getAnswerApprove',
-            'getAnswerOppose'
+            'getAnswerOppose',
+            'postAnswerComment'
         )));
     }
 
@@ -165,11 +166,33 @@ class AskController extends BaseController {
     
     public function getAnswerComments($answer_id)
     {
-        // 返回评论json数据
         $answer_comments = AnswerComment::whereAnswer_id($answer_id)->orderBy('created_at', 'desc')->get();
+        return $answer_comments->toJson();
+    }
+    
+    public function postAnswerComment($answer_id)
+    {
+        $new_answer_comment = array(
+            'content' => Input::get('content'),
+        );
         
-        // TODO: 返回 json
-        return "hello";
+        $rules = array(
+            'content' => 'required',
+        );
+        
+        $v = Validator::make($new_answer_comment, $rules);
+        if ($v->fails()) {
+            return 1;
+        }
+        
+        $user = Auth::user();
+
+        $new_answer_comment['answer_id'] = $answer_id;
+        $new_answer_comment['author_id'] = $user->id;
+        $new_answer_comment['author_name'] = $user->username;
+        
+        AnswerComment::create($new_answer_comment);
+        return 0;
     }
     
 }

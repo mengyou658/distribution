@@ -15,7 +15,6 @@ class NewsController extends BaseController {
         $this->beforeFilter('auth', array('only' => array(
             'getDeliver',
             'postDeliver',
-            'getDigg',
         )));
     }
 
@@ -42,13 +41,21 @@ class NewsController extends BaseController {
         
         $news_item = News::find($news_id);
         $news_comments = NewsComment::whereNews_id($news_id)->orderBy('created_at', 'desc')->paginate($per_page_num);
+        
+        $digged = (Auth::check() and NewsDigg::whereNews_id($news_id)->whereUser_id(Auth::user()->id)->first())?true:false;
+        
 		return View::make('news.detail')
                    ->with('news_item', $news_item)
-                   ->with('news_comments', $news_comments);
+                   ->with('news_comments', $news_comments)
+                   ->with('digged', $digged);
 	}
     
     public function getDigg($news_id)
     {
+        if (Auth::guest()) {
+            return 2;
+        }
+        
         $user = Auth::user();
         $digg = NewsDigg::whereNews_id($news_id)->whereUser_id($user->id)->first();
         if (!$digg) {
@@ -59,6 +66,26 @@ class NewsController extends BaseController {
             
             $news = News::find($news_id);
             $news->digg_count += 1;
+            $news->save();
+            
+            return 0; // 成功
+        }
+        return 1; // 异常
+    }
+    
+    public function getDiggCancel($news_id)
+    {
+        if (Auth::guest()) {
+            return 2;
+        }
+        
+        $user = Auth::user();
+        $digg = NewsDigg::whereNews_id($news_id)->whereUser_id($user->id)->first();
+        if ($digg) {
+            $digg->delete();
+            
+            $news = News::find($news_id);
+            $news->digg_count -= 1;
             $news->save();
             
             return 0; // 成功

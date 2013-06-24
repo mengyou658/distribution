@@ -58,6 +58,10 @@ class ArticleController extends BaseController {
     
     public function getCommentDigg($comment_id)
     {
+        if (Auth::guest()) {
+            return 2;
+        }
+        
         $user = Auth::user();
         $digg = ArticleCommentDigg::whereArticle_comment_id($comment_id)->whereUser_id($user->id)->first();
         if (!$digg) {

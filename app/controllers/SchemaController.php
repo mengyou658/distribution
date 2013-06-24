@@ -1018,6 +1018,8 @@ EOS;
             'author_id' => 1,
             'author_name' => 'test',
             
+            'category_id' => 1,
+            
             'abstract' => "第六届中国 R 语言会议（北京会场）于 2013 年 5 月 18 日 ~ 19 日在中国人民大学国学馆113、114教室成功召开。会议由中国人民大学应用统计科学研究中心、中国人民大学统计学院、北京大学商务智能研究中心、统计之都（cos.name）主办。在两天的会议时间里，参会者齐聚一堂，就 R 语言在互联网、商业、统计、生物、制药、可视化等诸多方面的应用进行了深入的探讨。",
             'content' => $content_raw,
             'thumbnail' => "http://cos.name/wp-content/uploads/2013/05/6th-china-r-bj-500x332.jpg",
@@ -1031,6 +1033,8 @@ EOS;
                 
                 'author_id' => 1,
                 'author_name' => 'test',
+                
+                'category_id' => $i/2,
                 
                 'abstract' => "abstract $i",
                 'content' => "content content content $i",
@@ -1392,6 +1396,19 @@ EOS;
                 'updated_at' => date('Y-m-d H:i:s'),
             ));        
             echo "Insert test notice $i!";
+            echo '<br />';
+        }
+        
+        for ($i=1; $i<=5; $i++) {
+            DB::table('categories')->insert(array(
+                
+                'name' => "测试栏目$i",
+                'descr' => "测试栏目$i 描述",
+
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ));        
+            echo "Insert test category $i!";
             echo '<br />';
         }
         

@@ -6,6 +6,8 @@ class AnswerComment extends Eloquent {
 
     protected $fillable = array('answer_id', 'author_id', 'author_name', 'content');
     
+    protected $visible = array('author_name', 'content', 'created_at');
+    
     // scopes
     public function scopeAvailable($query)
     {

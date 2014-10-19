@@ -2,16 +2,52 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+/*
+|--------------------------------------------------------------------------
+| Dev Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+if(Config::get('app.debug')) {
+    // Event::listen('illuminate.query', function($query, $params, $time, $conn) 
+    // {    
+    //    echo "<!-- debug \n";
+    //    print_r(array($query, $params, $time, $conn));
+    //    echo "-->\n";
+    // });
+
+    Route::get('test', function() {
+        return "Hello";
+    });
+
+    Route::get('schema/up', function() {
+        Artisan::call('migrate', ['--seed' => true, '--force' => true]);
+        echo 'migrated!';
+    });
+
+    Route::get('schema/reset', function(){
+        Artisan::call('migrate:reset', ['--force' => true]);
+        echo 'reseted!';
+    });
+
+    Route::get('schema/refresh', function(){
+        Artisan::call('migrate:refresh', ['--seed' => true, '--force' => true]);
+        echo 'refreshed!';
+    });
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Home Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::get('/', 'HomeController@getIndex');

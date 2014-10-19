@@ -79,7 +79,7 @@ return array(
 	*/
 
 	// @todo: update before deploy
-	'key' => 'distribution',
+	'key' => 'kxpnwjhskhkjxvdopdxiwvgqwbcfetig',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 

@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Asia/Shanghai',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'zh-CN',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,8 @@ return array(
 	|
 	*/
 
-	'key' => 'YourSecretKey!!!',
+	// @todo: update before deploy
+	'key' => 'distribution',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 

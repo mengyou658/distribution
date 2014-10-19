@@ -29,7 +29,7 @@ return array(
 	|
 	*/
 
-	'lifetime' => 120,
+	'lifetime' => 43200,
 
 	'expire_on_close' => false,
 
@@ -70,7 +70,7 @@ return array(
 	|
 	*/
 
-	'table' => 'sessions',
+	'table' => 'session',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return array(
 	|
 	*/
 
-	'cookie' => 'laravel_session',
+	'cookie' => 'distribution_session',
 
 	/*
 	|--------------------------------------------------------------------------

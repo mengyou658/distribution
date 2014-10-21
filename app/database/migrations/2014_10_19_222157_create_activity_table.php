@@ -15,7 +15,19 @@ class CreateActivityTable extends Migration {
         Schema::create('activity', function(Blueprint $table)
         {
             $table->increments('id');
+
+            $table->string('title', 64);
+
+            $table->text('abstract');
+            $table->text('content');
+
+            $table->dateTime('began_at');
+            $table->dateTime('ended_at');
+
+            $table->integer('topic_id');
+
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

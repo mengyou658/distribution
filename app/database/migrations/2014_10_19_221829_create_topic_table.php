@@ -15,7 +15,11 @@ class CreateTopicTable extends Migration {
         Schema::create('topic', function(Blueprint $table)
         {
             $table->increments('id');
+
+            $table->string('title', 64);
+
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

@@ -15,7 +15,14 @@ class CreateFeedbackTable extends Migration {
         Schema::create('feedback', function(Blueprint $table)
         {
             $table->increments('id');
+
+            $table->string('name', 16);
+            $table->string('email', 64);
+
+            $table->text('content');
+
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

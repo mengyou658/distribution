@@ -15,7 +15,12 @@ class CreateArticleCategoryTable extends Migration {
         Schema::create('article_category', function(Blueprint $table)
         {
             $table->increments('id');
+
+            $table->string('name', 16);
+            $table->integer('parent_id')->default(0); // parent article category id
+
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

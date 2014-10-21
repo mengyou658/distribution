@@ -15,7 +15,16 @@ class CreateGroupTable extends Migration {
         Schema::create('group', function(Blueprint $table)
         {
             $table->increments('id');
+
+            $table->string('name', 16);
+            $table->string('thumbnail', 256);
+
+            $table->text('descr');
+
+            $table->integer('discuss_id');
+
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

@@ -15,7 +15,15 @@ class CreatePostTable extends Migration {
         Schema::create('post', function(Blueprint $table)
         {
             $table->increments('id');
+
+            $table->integer('discuss_id');
+            $table->integer('user_id');
+
+            $table->string('title', 64);
+            $table->text('content');
+
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

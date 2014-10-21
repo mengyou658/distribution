@@ -15,7 +15,19 @@ class CreateUserTable extends Migration {
         Schema::create('user', function(Blueprint $table)
         {
             $table->increments('id');
+
+            $table->string('email', 64);
+            $table->string('name', 16);
+            $table->string('password', 64);
+
+            $table->string('avatar', 256)->default('');
+            $table->string('descr', 512)->default('');
+
+            $table->string('status', 16)->default('member');
+
+            $table->rememberToken();
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

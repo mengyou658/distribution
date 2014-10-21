@@ -2,16 +2,16 @@
 
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	|
-	*/
+    /*
+    |--------------------------------------------------------------------------
+    | Default Home Controller
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
 
-	public function getIndex() {
-		return View::make('index');
-	}
+    public function getIndex() {
+        return View::make('index');
+    }
 
 }

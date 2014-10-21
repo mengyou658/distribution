@@ -74,13 +74,19 @@ question
     title
     content
 
+    topic_id
+
 
 ### 回答
 
 answer
     question_id
     user_id
-    digg_count
+
+    content
+    vote_count
+
+    topic_id
 
 ### 评论主题
 
@@ -94,11 +100,16 @@ comment
     user_id
     content
 
+    // @todo digg_count
+
 ### 群组
 
 group
     name
     thumbnail
+
+    descr
+
     discuss_id
 
 ### 讨论主题
@@ -109,7 +120,7 @@ discuss
 ### 讨论帖子
 
 post
-    topic_id
+    discuss_id
 
     user_id
 
@@ -151,6 +162,6 @@ feedback
 
 ### 活动与标签
 
-### 群组与用户
+### 群组与用户 //@todo
 
 ### 活动与用户

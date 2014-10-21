@@ -23,7 +23,8 @@ if(Config::get('app.debug')) {
     // });
 
     Route::get('test', function() {
-        return "Hello";
+        //return "Hello";
+        return Redirect::to('/')->with('msg', 'test');
     });
 
     Route::get('schema/up', function() {
@@ -100,6 +101,11 @@ Route::post('user/setting/password', 'UserController@postSettingPassword');
 
 Route::get('article', 'ArticleController@getIndex');
 
+Route::get('article/category/{id}', 'ArticleController@getCategory');
+Route::get('article/tag/{id}', 'ArticleController@getTag');
+Route::get('article/{id}', 'ArticleController@getDetail');
+
+// @todo: index by tag
 
 /*
 |--------------------------------------------------------------------------
@@ -108,21 +114,59 @@ Route::get('article', 'ArticleController@getIndex');
 |
 */
 
+Route::get('news', 'NewsController@getIndex');
+
+Route::get('news/tag/{id}', 'NewsController@getTag');
+Route::get('news/{id}', 'NewsController@getDetail');
+
+// digg
+Route::get('news/{id}/digg', 'NewsController@getNewsDigg');
+
+// deliver
+Route::get('news/deliver', 'NewsController@getDeliver');
+Route::post('news/deliver', 'NewsController@postDeliver');
 
 /*
 |--------------------------------------------------------------------------
-| Question Routes
+| Ask (Question) Routes
 |--------------------------------------------------------------------------
 |
 */
 
+Route::get('ask', 'AskController@getIndex');
+
+Route::get('ask/quesiton/tag/{id}', 'AskController@getQuestionTag');
+Route::get('ask/question/{id}', 'AskController@getQuestion');
+
+Route::get('ask/ask', 'AskController@getAsk');
+Route::post('ask/ask', 'AskController@postAsk');
+
+Route::post('ask/question/{id}/answer', 'AskController@postAnswer');
+
+Route::get('ask/answer/{id}/approve', 'AskController@getAnswerApprove');
+Route::get('ask/answer/{id}/oppose', 'AskController@getAnswerOppose');
 
 /*
 |--------------------------------------------------------------------------
-| Discussion Routes
+| Group (Discussion) Routes
 |--------------------------------------------------------------------------
 |
 */
+
+Route::get('group', 'GroupController@getIndex');
+
+Route::get('group/post', 'GroupController@getPost');
+Route::get('group/group', 'GroupController@getGroup');
+
+Route::get('group/{id}', 'GroupController@getDetail');
+// Route::get('group/{id}/join', 'GroupController@getJoin');
+// Route::get('group/{id}/quit', 'GroupController@getQuit');
+
+Route::get('group/{group_id}/post/{post_id}', 'GroupController@getPostDetail');
+
+Route::get('group/{id}/new_post', 'GroupController@getNewPost');
+Route::post('group/{id}/new_post', 'GroupController@postNewPost');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -132,6 +176,14 @@ Route::get('article', 'ArticleController@getIndex');
 */
 
 
+Route::get('event', 'ActivityController@getIndex');
+
+Route::get('event/series/{id}', 'ActivityController@getSeries');
+Route::get('event/{id}', 'ActivityController@getDetail');
+
+Route::get('event/{id}/join', 'ActivityController@getJoin');
+Route::get('event/{id}/quit', 'ActivityController@getQuit');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -140,3 +192,9 @@ Route::get('article', 'ArticleController@getIndex');
 |
 */
 
+Route::post('comment', 'CommentController@postIndex');
+
+// ajax
+Route::get('comment/topic/{id}', 'CommentController@getTopic');
+
+// @todo: digg?

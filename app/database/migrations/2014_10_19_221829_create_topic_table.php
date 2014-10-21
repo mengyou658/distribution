@@ -16,7 +16,7 @@ class CreateTopicTable extends Migration {
         {
             $table->increments('id');
 
-            $table->string('title', 64);
+            $table->string('title', 64)->default('');
 
             $table->timestamps();
             $table->engine = 'InnoDB';

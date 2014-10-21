@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="COS">
 
-    <title>COS</title>
+    <title>COS 统计之都 // @todo</title>
 
     <link rel="icon" href="/favicon.ico">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -22,11 +22,11 @@
   </head>
 
   <body>
-
+    <header>
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topnav">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -34,67 +34,88 @@
           </button>
           <a class="navbar-brand" href="/">统计之都</a>
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">首页</a></li>
-            <li><a href="#about">文章</a></li>
-            <li><a href="#contact">问答</a></li>
-            <li><a href="#contact">讨论</a></li>
-            <li><a href="#contact">活动</a></li>
-            <!--
+        <div class="navbar-collapse collapse" id="topnav">
+          <ul class="nav navbar-nav navbar-right">
+            @if(Auth::check())
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{{Auth::user()->name}}} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li><a href="/user/dashboard">我的页面</a></li>
+                <li><a href="/user/setting/profile">个人设置</a></li>
                 <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
+                <li><a href="/user/logout">退出</a></li>
               </ul>
             </li>
-            -->
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Default</a></li>
-            <li><a href="../navbar-static-top/">Static top</a></li>
+            @else
+            <li><a href="/user/login">登录</a></li>
+            <li><a href="/user/signup">注册</a></li>
+            @endif
           </ul>
         </div>
       </div>
     </div>
 
     <div class="container">
-
-    <!--subnav
-    <nav class="navbar navbar-inverse" role="navigation">
-      <div class="container-fluid">
-
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Brand</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-          </ul>
+      <div class="row hidden-sm hidden-xs">
+        <div class="col-xs-12 text-center">
+          <img src="/img/cos_logo.png">
         </div>
       </div>
-    </nav>
-    -->
 
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subnav">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <!--
+            <a class="navbar-brand" href="#">Brand</a>
+            -->
+          </div>
+
+          <div class="collapse navbar-collapse" id="subnav">
+            <ul class="nav navbar-nav">
+              <li @if(Request::is('/')) class="active" @endif ><a href="/">首页</a></li>
+              <li @if(Request::is('article*')) class="active" @endif ><a href="/article">文章</a></li>
+              <li @if(Request::is('new*')) class="active" @endif ><a href="/news">快讯</a></li>
+              <li @if(Request::is('ask*')) class="active" @endif ><a href="/ask">问答</a></li>
+              <li @if(Request::is('group*')) class="active" @endif ><a href="/group">讨论</a></li>
+              <li @if(Request::is('event*')) class="active" @endif ><a href="/event">活动</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      @if(Session::has('msg'))
+      <div class="alert alert-success alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      {{Session::get('msg')}}
+      </div>
+      @endif
+    </div>
+    </header>
+
+    <div class="container">
 @yield('content')
-
     </div>
 
+    <footer>
+      <div class="container">
+      <hr>
+          <div class="">
+              <ul class="nav nav-pills pull-left">
+                  <li><a href="/about">关于我们</a></li>
+                  <li><a href="/contact">联系我们</a></li>
+                  <li><a href="/policy">免责声明</a></li>
+                  <li><a href="/help">帮助中心</a></li>
+              </ul>
+              <p class="text-muted pull-right">&copy; 2014 cos.name</p>
+          </div>
+      </div>
+    </footer>
 
     <script src="/js/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>

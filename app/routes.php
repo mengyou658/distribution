@@ -61,6 +61,12 @@ Route::get('help', 'HomeController@getHelp');
 
 Route::get('project', 'HomeController@getProject');
 
+// catch all 
+// App::missing(function($exception) {
+//     return View::make('index');
+// });
+
+
 /*
 |--------------------------------------------------------------------------
 | User Routes

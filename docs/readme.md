@@ -1,5 +1,26 @@
 # Distribution 开发文档
 
+
+## @todo
+
+- admin 中有 valid 相关配置吗？
+
+## 旧站文章转移思路
+
+- 用 xml 导出（wp自带工具）
+- 写个脚本导入 mysql （单表，结构随意），考虑到 mysql 连接库的问题，用 php 实现，注意超时问题
+    - 关键的字段
+        - 发布时间
+        - 内容
+        - 摘要（用切割 <!-- more --> 的办法尝试？）
+
+
+- 将库放上线，使用 phpmyadmin 导入主库
+
+- 将以前的上传附件，转移到新站点，即 /wp-content/upload
+
+
+
 ## 输入组件
 
 ### 编辑器（问题、评论）
@@ -48,6 +69,8 @@ article
     status
 
     topic_id
+
+    published_at
 
 ### 文章分类
 

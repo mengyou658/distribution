@@ -14,3 +14,23 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-size: 24px;
     font-weight: bold;
 }
+
+.btn-wide {
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+/* news */
+@media (min-width: 768px) {
+    .deliver-source-form .form-group {
+        width: 58%;
+    }
+
+    .deliver-source-form .form-group .deliver-source-input {
+        width: 100%;
+    }
+
+    .deliver-source-submit {
+        float: right;
+    }
+}

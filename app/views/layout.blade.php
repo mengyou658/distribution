@@ -71,9 +71,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <!--
-            <a class="navbar-brand" href="#">Brand</a>
-            -->
+            <a class="navbar-brand visible-xs" href="/">统计之都</a>
           </div>
 
           <div class="collapse navbar-collapse" id="subnav">

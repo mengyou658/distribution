@@ -8,6 +8,18 @@ class Article extends Eloquent {
         'id',
         //'status',
     );
+
+    public static function boot() {
+        parent::boot();
+        
+        static::created(function($article) {
+        
+            $topic = Topic::create([]);
+            $article->topic_id = $topic->id;
+            $article->save();
+            
+        });
+    }
     
     // attr: comment_count
     // public function getCommentCountAttribute() {
@@ -34,16 +46,6 @@ class Article extends Eloquent {
         return $this->belongsToMany('Tag', 'article_tag', 'article_id', 'tag_id');
     }
     
-    public static function boot() {
-        parent::boot();
-        
-        static::created(function($article) {
-        
-            $topic = Topic::create([]);
-            $article->topic_id = $topic->id;
-            $article->save();
-            
-        });
-    }
+
     
 }

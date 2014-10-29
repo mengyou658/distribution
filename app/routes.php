@@ -44,12 +44,21 @@ if(Config::get('app.debug')) {
 }
 
 
+// @todo: args patten
+
 /*
 |--------------------------------------------------------------------------
 | Home Routes
 |--------------------------------------------------------------------------
 |
 */
+
+// catch all and for 404
+// App::missing(function($exception) {
+//     return View::make('index');
+// });
+
+// @todo: for 500
 
 Route::get('/', 'HomeController@getIndex');
 
@@ -61,11 +70,7 @@ Route::get('help', 'HomeController@getHelp');
 
 Route::get('project', 'HomeController@getProject');
 
-// catch all 
-// App::missing(function($exception) {
-//     return View::make('index');
-// });
-
+// @todo: 图书资料、视频教程、R 语言会议（数据科学会议），讲座与培训，招聘信息
 
 /*
 |--------------------------------------------------------------------------
@@ -107,9 +112,9 @@ Route::post('user/setting/password', 'UserController@postSettingPassword');
 
 Route::get('article', 'ArticleController@getIndex');
 
-Route::get('article/category/{id}', 'ArticleController@getCategory');
+Route::get('article/category/{id}.html', 'ArticleController@getCategory');
 Route::get('article/tag/{id}', 'ArticleController@getTag');
-Route::get('article/{id}', 'ArticleController@getDetail');
+Route::get('article/detail/{id}.html', 'ArticleController@getDetail');
 
 // @todo: index by tag
 
@@ -123,10 +128,10 @@ Route::get('article/{id}', 'ArticleController@getDetail');
 Route::get('news', 'NewsController@getIndex');
 
 Route::get('news/tag/{id}', 'NewsController@getTag');
-Route::get('news/{id}', 'NewsController@getDetail');
+Route::get('news/detail/{id}.html', 'NewsController@getDetail');
 
 // digg
-Route::get('news/{id}/digg', 'NewsController@getNewsDigg');
+Route::post('news/digg', 'NewsController@postDigg');
 
 // deliver
 Route::get('news/deliver', 'NewsController@getDeliver');
@@ -142,15 +147,15 @@ Route::post('news/deliver', 'NewsController@postDeliver');
 Route::get('ask', 'AskController@getIndex');
 
 Route::get('ask/quesiton/tag/{id}', 'AskController@getQuestionTag');
-Route::get('ask/question/{id}', 'AskController@getQuestion');
+Route::get('ask/question/detail/{id}.html', 'AskController@getQuestion');
 
 Route::get('ask/ask', 'AskController@getAsk');
 Route::post('ask/ask', 'AskController@postAsk');
 
-Route::post('ask/question/{id}/answer', 'AskController@postAnswer');
+Route::post('ask/question/answer', 'AskController@postAnswer');
 
-Route::get('ask/answer/{id}/approve', 'AskController@getAnswerApprove');
-Route::get('ask/answer/{id}/oppose', 'AskController@getAnswerOppose');
+Route::post('ask/answer/approve', 'AskController@postAnswerApprove');
+Route::post('ask/answer/oppose', 'AskController@postAnswerOppose');
 
 /*
 |--------------------------------------------------------------------------
@@ -164,11 +169,11 @@ Route::get('group', 'GroupController@getIndex');
 Route::get('group/post', 'GroupController@getPost');
 Route::get('group/group', 'GroupController@getGroup');
 
-Route::get('group/{id}', 'GroupController@getDetail');
+Route::get('group/detail/{id}.html', 'GroupController@getDetail');
 // Route::get('group/{id}/join', 'GroupController@getJoin');
 // Route::get('group/{id}/quit', 'GroupController@getQuit');
 
-Route::get('group/{group_id}/post/{post_id}', 'GroupController@getPostDetail');
+Route::get('group/{group_id}/post/detail/{post_id}.html', 'GroupController@getPostDetail');
 
 Route::get('group/{id}/new_post', 'GroupController@getNewPost');
 Route::post('group/{id}/new_post', 'GroupController@postNewPost');
@@ -184,8 +189,8 @@ Route::post('group/{id}/new_post', 'GroupController@postNewPost');
 
 Route::get('event', 'ActivityController@getIndex');
 
-Route::get('event/series/{id}', 'ActivityController@getSeries');
-Route::get('event/{id}', 'ActivityController@getDetail');
+Route::get('event/series/{id}.html', 'ActivityController@getSeries');
+Route::get('event/detail/{id}.html', 'ActivityController@getDetail');
 
 Route::get('event/{id}/join', 'ActivityController@getJoin');
 Route::get('event/{id}/quit', 'ActivityController@getQuit');

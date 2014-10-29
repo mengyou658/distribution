@@ -98,4 +98,20 @@ class UserController extends BaseController {
     public function getDashboard() {
         return View::make('user.dashboard');
     }
+
+
+    // @todo: 考虑如何用以前的库进行验证，和提取资料
+    /*
+    思路：
+        - 当旧站不再注册后，到处用户表到新站（用新库）
+        - 设置连接和模型
+        - 实现一个 hash 的验证方法
+
+        - 用户登录逻辑（这里有个问题，以前是 ID ，现在是 email，同步的问题，需要看以前的用户信息数据）
+            - 查新库，有 id 则验证，返回是否通过
+                - 没有通过，提示注册
+            - 没有 id 去老库找，验证
+                - 通过，将信息写入新库，包括密码的新hash
+                - 没有通过，提示注册
+    */
 }

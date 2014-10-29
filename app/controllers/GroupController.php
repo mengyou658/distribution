@@ -1,10 +1,10 @@
 <?php
 
-class HomeController extends BaseController {
+class GroupController extends BaseController {
 
     /*
     |--------------------------------------------------------------------------
-    | Default Home Controller
+    | Group Controller
     |--------------------------------------------------------------------------
     |
     |
@@ -21,26 +21,7 @@ class HomeController extends BaseController {
     }
 
     public function getIndex() {
-        return View::make('index');
+        return View::make('group.index');
     }
 
-    public function getAbout() {
-        return View::make('home.about');
-    }
-
-    public function getContact() {
-        return View::make('home.contact');
-    }
-
-    public function getPolicy() {
-        return View::make('home.policy');
-    }
-
-    public function getHelp() {
-        return View::make('home.help');
-    }
-
-    public function getProject() {
-        return View::make('home.project');
-    }
 }

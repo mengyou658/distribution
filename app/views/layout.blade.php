@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="COS">
 
-    <title>COS 统计之都 // @todo</title>
+    <title>统计之都 (Capital of Statistics) | 中国统计学门户网站，免费统计学服务平台 | 做正直的统计学网站</title>
 
     <link rel="icon" href="/favicon.ico">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
-@yield('css')
+    @yield('css')
 
     <!--[if lt IE 9]>
       <script src="/js/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="/js/libs/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-<!-- @todo mathjax -->
+
+    @include('utils.mathjax')
   </head>
 
   <body>
@@ -40,7 +40,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{{Auth::user()->name}}} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="/user/dashboard">我的页面</a></li>
+                <li><a href="/user/dashboard">我的主页</a></li>
                 <li><a href="/user/setting/profile">个人设置</a></li>
                 <li class="divider"></li>
                 <li><a href="/user/logout">退出</a></li>

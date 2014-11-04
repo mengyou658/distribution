@@ -1,7 +1,9 @@
 @extends('layout')
 
 @section('content')
-<h3>注册</h3>
+<div class="page-header">
+<legend>注册</legend>
+</div>
 <hr>
 <form class="form-horizontal" role="form" action="{{ action('UserController@postSignup') }}" method="post">
     <div class="form-group">

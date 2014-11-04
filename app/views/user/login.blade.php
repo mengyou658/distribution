@@ -1,15 +1,27 @@
 @extends('layout')
 
 @section('content')
-<h3>登录</h3>
+<div class="page-header">
+<legend>登录</legend>
+</div>
 <hr>
 <form class="form-horizontal" role="form" action="{{ action('UserController@postLogin') }}" method="post">
+    <!--
     <div class="form-group">
         <label for="inputEmail" class="col-sm-2 control-label">邮箱</label>
         <div class="col-sm-4">
             <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="email">
         </div>
     </div>
+    -->
+
+    <div class="form-group">
+        <label for="inputName" class="col-sm-2 control-label">用户名</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="inputName" placeholder="Name" name="name">
+        </div>
+    </div>
+
     <div class="form-group">
         <label for="inputPassword" class="col-sm-2 control-label">密码</label>
         <div class="col-sm-4">

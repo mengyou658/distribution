@@ -5,7 +5,7 @@
     <div class="col-sm-8">
 
         <div class="page-header">
-            <h2>最新文章<small class="pull-right"><a href="#">所有文章...</a></small></h2>
+            <legend>最新文章<small class="pull-right"><a href="#">所有文章...</a></small></legend>
         </div>
         <div class="home-widget">
             <h3><a href="#">最新文章最新文章</a></h3>
@@ -39,20 +39,28 @@
         </div>
         <hr>
 
+        <div class="page-header">
+            <legend>最新文章<small class="pull-right"><a href="#">所有文章...</a></small></legend>
+        </div>
+
+        <div class="home-widget">
+            <p>
+                
+            $a+b=c$
+
+            \( a+b=c \)
+
+            $$  a^2+b^2=c^2 $$
+
+            \[ a^2+b^2=c^2 \]
+
+            </p>
+        </div>
+
+
     </div>
     <div class="col-sm-4">
-        <div class="page-header">
-            <h2>关注我们</h2>
-        </div>
-        <div class="page-header">
-            <h2>讨论小组<small class="pull-right"><a href="#">所有活动...</a></small></h2>
-        </div>
-        <div class="page-header">
-            <h2>近期活动<small class="pull-right"><a href="#">所有活动...</a></small></h2>
-        </div>
-        <div class="page-header">
-            <h2>链接</h2>
-        </div>
+        @include('sidebar')
     </div>
 </div>
 @stop

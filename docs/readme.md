@@ -23,6 +23,13 @@
 
 ## 输入组件
 
+### 需要用 富文本 的内容实体
+
+- Article
+- Question
+- Answer
+- Post
+
 ### 编辑器（问题、评论）
 
 pagedown + mathjax

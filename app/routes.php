@@ -24,7 +24,9 @@ if(Config::get('app.debug')) {
 
     Route::get('test', function() {
         //return "Hello";
-        return Redirect::to('/')->with('msg', 'test');
+        //return Redirect::to('/')->with('msg', 'test');
+
+        return Redirect::back()->with('msg', '评论发布失败');
     });
 
     Route::get('schema/up', function() {
@@ -89,7 +91,7 @@ Route::get('user/logout', 'UserController@getLogout');
 
 Route::get('user/dashboard', 'UserController@getDashboard');
 
-Route::get('user/{user_id}', 'UserController@getUserDetail');
+Route::get('user/detail/{user_id}.html', 'UserController@getUserDetail');
 
 Route::get('user/setting/profile', 'UserController@getSettingProfile');
 Route::post('user/setting/profile', 'UserController@postSettingProfile');
@@ -113,7 +115,7 @@ Route::post('user/setting/password', 'UserController@postSettingPassword');
 Route::get('article', 'ArticleController@getIndex');
 
 Route::get('article/category/{id}.html', 'ArticleController@getCategory');
-Route::get('article/tag/{id}', 'ArticleController@getTag');
+Route::get('article/tag/{id}.html', 'ArticleController@getTag');
 Route::get('article/detail/{id}.html', 'ArticleController@getDetail');
 
 // @todo: index by tag
@@ -127,7 +129,7 @@ Route::get('article/detail/{id}.html', 'ArticleController@getDetail');
 
 Route::get('news', 'NewsController@getIndex');
 
-Route::get('news/tag/{id}', 'NewsController@getTag');
+Route::get('news/tag/{id}.html', 'NewsController@getTag');
 Route::get('news/detail/{id}.html', 'NewsController@getDetail');
 
 // digg
@@ -146,7 +148,7 @@ Route::post('news/deliver', 'NewsController@postDeliver');
 
 Route::get('ask', 'AskController@getIndex');
 
-Route::get('ask/quesiton/tag/{id}', 'AskController@getQuestionTag');
+Route::get('ask/quesiton/tag/{id}.html', 'AskController@getQuestionTag');
 Route::get('ask/question/detail/{id}.html', 'AskController@getQuestion');
 
 Route::get('ask/ask', 'AskController@getAsk');

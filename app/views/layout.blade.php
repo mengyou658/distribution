@@ -13,12 +13,12 @@
     <link href="/css/main.css" rel="stylesheet">
 @yield('css')
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/js/libs/ie10-viewport-bug-workaround.js"></script>
     <!--[if lt IE 9]>
       <script src="/js/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="/js/libs/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+<!-- @todo mathjax -->
   </head>
 
   <body>
@@ -117,6 +117,9 @@
 
     <script src="/js/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/js/libs/ie10-viewport-bug-workaround.js"></script>
+
     <script src="/js/main.js"></script>
 @yield('js')
   </body>

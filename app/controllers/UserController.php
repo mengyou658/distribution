@@ -11,13 +11,19 @@ class UserController extends BaseController {
     */
 
     public function __construct(){
-        $this->beforeFilter('auth', array('only' => array(
+        $this->beforeFilter('auth', ['only' => [
+
             'getDashboard',
-            // 'getSettingAvatar',
-            // 'postSettingAvatar',
-            // 'getSettingPassword',
-            // 'postSettingPassword',
-        )));
+            'getSettingProfile',
+            'postSettingProfile',
+            'getSettingEmail',
+            'postSettingEmail',
+            'getSettingAvatar',
+            'postSettingAvatar',
+            'getSettingPassword',
+            'postSettingPassword',
+
+        ]]);
     }
 
     public function getSignup() {
@@ -79,7 +85,8 @@ class UserController extends BaseController {
         //dd(Input::all());
 
         $input = array(
-            'email' => Input::get('email'),
+            // 'email' => Input::get('email'),
+            'name' => Input::get('name'),
             'password' => Input::get('password'),
         );
 
@@ -96,7 +103,8 @@ class UserController extends BaseController {
     }
 
     public function getDashboard() {
-        return View::make('user.dashboard');
+        $user = Auth::user();
+        return View::make('user.dashboard', compact('user'));
     }
 
 
@@ -114,4 +122,41 @@ class UserController extends BaseController {
                 - 通过，将信息写入新库，包括密码的新hash
                 - 没有通过，提示注册
     */
+
+    public function getUserDetail($userId) {
+        $user = User::find($userId);
+        return View::make('user.dashboard', compact('user'));
+    }
+
+    public function getSettingProfile() {
+        return View::make('user.dashboard');
+    }
+
+    public function postSettingProfile() {
+        return View::make('user.dashboard');
+    }
+
+    public function getSettingEmail() {
+        return View::make('user.dashboard');
+    }
+
+    public function postSettingEmail() {
+        return View::make('user.dashboard');
+    }
+
+    public function getSettingAvatar() {
+        return View::make('user.dashboard');
+    }
+
+    public function postSettingAvatar() {
+        return View::make('user.dashboard');
+    }
+
+    public function getSettingPassword() {
+        return View::make('user.dashboard');
+    }
+
+    public function postSettingPassword() {
+        return View::make('user.dashboard');
+    }
 }

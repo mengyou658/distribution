@@ -21,6 +21,7 @@ class AskController extends BaseController {
     }
 
     public function getIndex() {
+        dd($this);
         return View::make('ask.index');
     }
 

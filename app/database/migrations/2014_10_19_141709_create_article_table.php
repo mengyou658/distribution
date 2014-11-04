@@ -19,13 +19,17 @@ class CreateArticleTable extends Migration {
             $table->integer('user_id');
 
             $table->string('title', 64);
-            $table->string('subtitle', 64);
-            $table->string('thumbnail', 256);
+            $table->string('subtitle', 64)->default('');
+            $table->string('thumbnail', 256)->default('');
 
-            $table->text('abstract');
+            $table->integer('category_id');
+
+            $table->text('abstract')->default('');
             $table->text('content');
+            
 
             $table->string('status', 16)->default('draft');
+            $table->dateTime('published_at');
 
             $table->integer('topic_id');
 

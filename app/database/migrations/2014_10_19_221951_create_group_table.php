@@ -16,12 +16,15 @@ class CreateGroupTable extends Migration {
         {
             $table->increments('id');
 
+            //$table->string('sign', 16);
             $table->string('name', 16);
             $table->string('thumbnail', 256);
 
-            $table->text('descr');
+            $table->text('descr')->default('');
 
             $table->integer('discuss_id');
+
+            //$table->boolean('is_public')->default(true);
 
             $table->timestamps();
             $table->engine = 'InnoDB';

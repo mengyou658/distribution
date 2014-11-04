@@ -32,20 +32,45 @@ class Article extends Eloquent {
     //     return $commentCount;
     // }
 
+    // attr: abstract
+    public function getAbstractAttribute() {
+
+        if ($this->attributes['abstract']) {
+            return $this->attributes['abstract'];
+        }
+        else {
+            return Str::limit($this->attributes['content'], 136);
+        }
+
+    }
+
     // scope
     // public function scopePublished($query) {
     //     return $query->whereStatus('published');
     // }
     
-    // relation
+
+    // relation: user
+    public function user() {
+        return $this->belongsTo('User', 'user_id');
+    }
+
+    // relation: topic
     public function topic() {
         return $this->belongsTo('Topic', 'topic_id');
     }
     
+    // relation: tag
     public function tag() {
         return $this->belongsToMany('Tag', 'article_tag', 'article_id', 'tag_id');
     }
     
+    // relation: category
+    public function category() {
+        return $this->belongsTo('ArticleCategory', 'category_id');
+    }
+
+
 
     
 }

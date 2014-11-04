@@ -8,4 +8,11 @@ class Comment extends Eloquent {
         'id',
     );
 
+
+    // relation: user
+
+    public function user() {
+        return $this->belongsTo('User', 'user_id');
+    }
+
 }

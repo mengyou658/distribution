@@ -1,5 +1,17 @@
 @extends('layout')
 
 @section('content')
-home.about
+<div class="row">
+    <div class="col-sm-8">
+
+        <div class="">
+
+        </div>
+        
+    </div>
+
+    <div class="col-sm-4">
+        @include('home.sidebar')
+    </div>
+</div>
 @stop

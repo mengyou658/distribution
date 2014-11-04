@@ -8,4 +8,9 @@ class Topic extends Eloquent {
         'id',
     );
 
+
+    // relation: comments 
+    public function comments() {
+        return $this->hasMany('Comment', 'topic_id');
+    }
 }

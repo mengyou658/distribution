@@ -34,15 +34,13 @@
 
 pagedown + mathjax
 
-寻找方案
-
 ### 标签
 
-寻找方案
+bootstrap-tagsinput
 
 ### 头像上传
 
-寻找方案
+Jasny Bootstrap
 
 ## 数据架构
 
@@ -58,6 +56,9 @@ user
     descr
     
     status
+        - member
+        - editor
+        - admin
 
 ```
 
@@ -74,6 +75,9 @@ article
     content
 
     status
+        - draft
+        - published
+        - dropped
 
     topic_id
 
@@ -94,6 +98,10 @@ news
     source
     content
 
+    status
+        - published
+        - dropped
+
     topic_id
 
 ### 问题
@@ -103,6 +111,10 @@ question
 
     title
     content
+
+    status
+        - published
+        - dropped
 
     topic_id
 
@@ -166,6 +178,8 @@ activity
     abstract
     content
 
+    status
+
     began_at
     ended_at
 
@@ -192,6 +206,6 @@ feedback
 
 ### 活动与标签
 
-### 群组与用户 //@todo
+### 群组与用户 // @todo
 
 ### 活动与用户

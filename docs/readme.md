@@ -49,9 +49,12 @@ Jasny Bootstrap
 
 ### 代码高亮
 
+highlightjs
+
 ## 数据架构
 
 ### 用户
+
 
 ```
 user
@@ -66,11 +69,11 @@ user
         - member
         - editor
         - admin
-
 ```
 
 ### 文章
 
+```
 article
     user_id
 
@@ -89,15 +92,19 @@ article
     topic_id
 
     published_at
+```
 
 ### 文章分类
 
-aritcle_category
+```
+category
     name
     parent_id
+```
 
 ### 快讯 
 
+```
 news
     user_id
 
@@ -110,9 +117,11 @@ news
         - dropped
 
     topic_id
+```
 
 ### 问题
 
+```
 question
     user_id
 
@@ -124,10 +133,11 @@ question
         - dropped
 
     topic_id
-
+```
 
 ### 回答
 
+```
 answer
     question_id
     user_id
@@ -136,23 +146,29 @@ answer
     vote_count
 
     topic_id
+```
 
 ### 评论主题
 
+```
 topic
     title
+```
 
 ### 评论
 
+```
 comment
     topic_id
     user_id
     content
 
     // @todo digg_count
+```
 
 ### 群组
 
+```
 group
     name
     thumbnail
@@ -160,14 +176,18 @@ group
     descr
 
     discuss_id
+```
 
 ### 讨论主题
 
+```
 discuss
     title
+```
 
 ### 讨论帖子
 
+```
 post
     discuss_id
 
@@ -175,9 +195,11 @@ post
 
     title
     content
+```
 
 ### 活动
 
+```
 activity
     
     title
@@ -191,19 +213,24 @@ activity
     ended_at
 
     topic_id
+```
 
 
 ### 标签
 
+```
 tag
     name
+```
 
 ### 反馈
 
+```
 feedback
     name
     email
     content
+```
 
 ## 关系
 

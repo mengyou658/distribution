@@ -201,6 +201,9 @@ post
 
 ```
 activity
+
+    user_id
+    series_id
     
     title
 
@@ -213,6 +216,14 @@ activity
     ended_at
 
     topic_id
+```
+
+### 活动系列
+
+```
+series
+    name
+
 ```
 
 
@@ -237,6 +248,8 @@ feedback
 ### 文章与标签
 
 ### 新闻与标签
+
+### 新闻与顶（与用户）
 
 ### 活动与标签
 

@@ -14,7 +14,7 @@
 
     <div class="col-sm-9">
         <div class="page-header">
-            <h4>个人简介</h4>
+            <legend>个人简介</legend>
         </div>
 
         <p>

@@ -11,6 +11,7 @@
             @foreach($articles as $article)
             <div class="article-item">
                 <h1><a href="{{ action('ArticleController@getDetail', $article->id) }}">{{ $article->title }}</a></h1>
+                
                 <div>
                     <img src="">
                 </div>
@@ -23,7 +24,7 @@
 
             {{$articles->links()}}
         </div>
-        
+
     </div>
 
     <div class="col-sm-4">

@@ -4,15 +4,19 @@
 <div class="row">
     <div class="col-sm-8">
         <div class="page-header">
-            <h2>问答</h2>
+            <legend>等待回答 <small class="pull-right"><a href="{{action('AskController@getPending')}}">全部...</a></small></legend>
         </div>
 
         <div class="question-list">
-            @foreach($questions as $question)
 
-            @endforeach
+        </div>
 
-            {{$questions->links()}}
+        <div class="page-header">
+            <legend>最新问题 <small class="pull-right"><a href="{{action('AskController@getHottest')}}">全部...</a></small></legend>
+        </div>
+
+        <div class="question-list">
+
         </div>
 
     </div>

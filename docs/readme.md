@@ -100,6 +100,7 @@ article
 category
     name
     parent_id
+    order
 ```
 
 ### 快讯 
@@ -211,6 +212,8 @@ activity
     content
 
     status
+        - published
+        - dropped
 
     began_at
     ended_at
@@ -223,7 +226,7 @@ activity
 ```
 series
     name
-
+    order
 ```
 
 

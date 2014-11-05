@@ -78,11 +78,23 @@ class TableSeeder extends Seeder {
         for ($i = 1; $i <= 10; $i++) {
 
             Activity::create([
+
                 'title' => "测试活动标题$i",
                 'abstract' => '测试活动简介',
                 'content' => "测试活动标题，测试活动标题，测试活动标题$i",
+                'began_at' => date("Y-m-d H:i:s"),
+                'ended_at' => date("Y-m-d H:i:s"),
+    
             ]);
 
+        }
+
+        DB::table('series')->delete();
+
+        for ($i = 1; $i <= 10; $i++) {
+            Series::create([
+                'name' => "测试系列$i",
+            ]);
         }
 
     }

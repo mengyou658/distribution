@@ -17,6 +17,7 @@ class CreateSeriesTable extends Migration {
 			$table->increments('id');
 
 			$table->string('name', 16);
+			$table->integer('order')->default(0);
 
 			$table->timestamps();
 		});

@@ -18,6 +18,7 @@ class CreateCategoryTable extends Migration {
 
             $table->string('name', 16);
             $table->integer('parent_id')->default(0); // parent article category id
+            $table->integer('order')->default(0);
 
             $table->timestamps();
             $table->engine = 'InnoDB';

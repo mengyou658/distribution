@@ -46,8 +46,36 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     }
 }
 
+.news-item {
+    padding-left: 15px;
+}
+
+.news-digg {
+}
+
+.news-digg a {
+    margin-top: 35px;
+    padding: 3px 9px;
+}
+
+.news-digg a i {
+    font-size: 30px;
+}
+
+.news-digg p {
+    margin-top: 10px;
+}
+
+.news-digg p span {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+
 /* ask */
 
 /* group */
 
 /* event */
+
+/* comment */

@@ -57,6 +57,7 @@ class ArticleController extends BaseController {
         $topic = $article->topic;
 
         //Config::set('view.pagination', 'pagination::simple');
+        // @todo: config comments prePage num
         $comments = $topic->comments()
                           ->orderBy('created_at', 'desc')
                           ->paginate(3);

@@ -156,12 +156,16 @@ Route::post('news/deliver', 'NewsController@postDeliver');
 
 Route::get('ask', 'AskController@getIndex');
 
+Route::get('ask/pending', 'AskController@getPending');
+Route::get('ask/hottest', 'AskController@getHottest');
+
 Route::get('ask/quesiton/tag/{id}.html', 'AskController@getQuestionTag');
 Route::get('ask/question/detail/{id}.html', 'AskController@getQuestion');
 
 Route::get('ask/ask', 'AskController@getAsk');
 Route::post('ask/ask', 'AskController@postAsk');
 
+Route::get('ask/question/{id}/answer', 'AskController@getAnswer');
 Route::post('ask/question/answer', 'AskController@postAnswer');
 
 Route::post('ask/answer/approve', 'AskController@postAnswerApprove');

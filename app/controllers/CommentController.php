@@ -10,13 +10,13 @@ class CommentController extends BaseController {
     */
 
     public function __construct(){
-        $this->beforeFilter('auth', array('only' => array(
+        $this->beforeFilter('auth', ['only' => [
             'postIndex',
             // 'getSettingAvatar',
             // 'postSettingAvatar',
             // 'getSettingPassword',
             // 'postSettingPassword',
-        )));
+        ]]);
     }
 
     public function postIndex() {
@@ -31,11 +31,11 @@ class CommentController extends BaseController {
             'content' => Input::get('content'),
         ];
 
-        $rules = array(
+        $rules = [
             'user_id' => 'required',
             'topic_id' => 'required',
             'content' => 'required',
-        );
+        ];
 
         $validator = Validator::make($input, $rules);
         

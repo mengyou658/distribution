@@ -32,7 +32,12 @@
 
 ### 编辑器（问题、评论）
 
-pagedown + mathjax
+pagedown + mathjax + pagedown-extra
+
+### 后端 markdown parser
+
+https://github.com/erusev/parsedown-extra
+
 
 ### 标签
 
@@ -41,6 +46,8 @@ bootstrap-tagsinput
 ### 头像上传
 
 Jasny Bootstrap
+
+### 代码高亮
 
 ## 数据架构
 

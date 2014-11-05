@@ -8,47 +8,28 @@
             <legend>活动</legend>
         </div>
 
-        <div class="event-list row">
+        <div class="event-list">
+            <div class="row">
+            @foreach($activities as $activity)
             <div class="col-sm-4">
-                test
+                <div class="thumbnail">
+                    <img style="width: 200px;" src="/img/test_event.png" alt="...">
+                    <div class="caption">
+                        <h3>{{{$activity->title}}}</h3>
+                        <p>{{$activity->abstract}}</p>
+                        <p><a href="{{action('ActivityController@getDetail', $activity->id)}}" class="btn btn-primary btn-wide">查看详情</a></p>
+                    </div>
+                </div>
             </div>
-
-            <div class="col-sm-4">
-                test
+            @endforeach
             </div>
-
-            <div class="col-sm-4">
-            test
-            </div>
-
-            <div class="col-sm-4">
-            test
-            </div>
-
-            <div class="col-sm-4">
-            test
-            </div>
-
-            <div class="col-sm-4">
-            test
-            </div>
-
-            <div class="col-sm-4">
-            test
-            </div>
-
-            <div class="col-sm-4">
-            test
-            </div>
-
-            <div class="col-sm-4">
-            test
-            </div>
+            {{$activities->links()}}
         </div>
         
     </div>
 
     <div class="col-sm-4">
+        @include('event.sidebar.series')
         @include('sidebar')
     </div>
 </div>

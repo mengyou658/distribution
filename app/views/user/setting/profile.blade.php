@@ -6,11 +6,11 @@
 
 @section('content')
 <div class="row">
-    <div class="col-sm-4">
-        
+    <div class="col-sm-3">
+        @include('user.setting.sidebar')
     </div>
 
-    <div class="col-sm-8">
+    <div class="col-sm-9">
     </div>
 </div>
 @stop

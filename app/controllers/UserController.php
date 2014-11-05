@@ -129,34 +129,34 @@ class UserController extends BaseController {
     }
 
     public function getSettingProfile() {
-        return View::make('user.dashboard');
+        return View::make('user.setting.profile');
     }
 
     public function postSettingProfile() {
-        return View::make('user.dashboard');
+        dd(Input::all());
     }
 
     public function getSettingEmail() {
-        return View::make('user.dashboard');
+        return View::make('user.setting.email');
     }
 
     public function postSettingEmail() {
-        return View::make('user.dashboard');
+        dd(Input::all());
     }
 
     public function getSettingAvatar() {
-        return View::make('user.dashboard');
+        return View::make('user.setting.avatar');
     }
 
     public function postSettingAvatar() {
-        return View::make('user.dashboard');
+        dd(Input::all());
     }
 
     public function getSettingPassword() {
-        return View::make('user.dashboard');
+        return View::make('user.setting.password');
     }
 
     public function postSettingPassword() {
-        return View::make('user.dashboard');
+        dd(Input::all());
     }
 }

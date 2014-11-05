@@ -20,4 +20,13 @@ class Question extends Eloquent {
         });
     }
 
+    // relation: user
+    public function user() {
+        return $this->belongsTo('User', 'user_id');
+    }
+
+    // relation: topic
+    public function topic() {
+        return $this->belongsTo('Topic', 'topic_id');
+    }
 }

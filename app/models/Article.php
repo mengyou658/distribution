@@ -21,6 +21,8 @@ class Article extends Eloquent {
             $article->save();
             
         });
+
+        // @todo: handle other events
     }
     
     // attr: comment_count

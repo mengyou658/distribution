@@ -65,6 +65,7 @@ class TableSeeder extends Seeder {
 
         for ($i = 1; $i <= 5; $i++) {
             News::create([
+                'user_id' => 1,
                 'title' => "测试新闻标题$i",
                 'source' => 'http://test.com/test',
                 'content' => "测试新闻内容，测试新闻内容，测试新闻内容$i",

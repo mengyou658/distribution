@@ -34,10 +34,10 @@ class TableSeeder extends Seeder {
             ]);
         }
 
-        DB::table('article_category')->delete();
+        DB::table('category')->delete();
 
         for ($i = 1; $i <= 5; $i++) {
-            ArticleCategory::create([
+            Category::create([
                 'name' => "测试分类$i",
             ]);
         }
@@ -72,6 +72,17 @@ class TableSeeder extends Seeder {
         }
 
 
+        DB::table('activity')->delete();
+
+        for ($i = 1; $i <= 10; $i++) {
+
+            Activity::create([
+                'title' => "测试活动标题$i",
+                'abstract' => '测试活动简介',
+                'content' => "测试活动标题，测试活动标题，测试活动标题$i",
+            ]);
+
+        }
 
     }
 

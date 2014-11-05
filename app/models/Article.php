@@ -2,6 +2,8 @@
 
 class Article extends Eloquent {
 
+    // @todo: 考虑删除模型时的处理，相关删除等
+
     protected $table = 'article';
     
     protected $guarded = array(
@@ -67,7 +69,7 @@ class Article extends Eloquent {
     
     // relation: category
     public function category() {
-        return $this->belongsTo('ArticleCategory', 'category_id');
+        return $this->belongsTo('Category', 'category_id');
     }
 
 

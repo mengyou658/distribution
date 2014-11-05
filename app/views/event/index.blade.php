@@ -11,7 +11,7 @@
     </div>
 
     <div class="col-sm-4">
-        @include('event.sidebar')
+        @include('sidebar')
     </div>
 </div>
 @stop

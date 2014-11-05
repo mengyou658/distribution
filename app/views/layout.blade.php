@@ -10,6 +10,7 @@
 
     <link rel="icon" href="/favicon.ico">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/fontawesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
     @yield('css')
 

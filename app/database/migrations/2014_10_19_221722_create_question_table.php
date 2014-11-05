@@ -21,6 +21,9 @@ class CreateQuestionTable extends Migration {
             $table->string('title', 64);
             $table->text('content');
 
+            $table->integer('answer_count')->default(0);
+            $table->string('status', 16)->default('published');
+
             $table->integer('topic_id');
 
             $table->timestamps();

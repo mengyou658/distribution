@@ -16,11 +16,17 @@ class CreateNewsTable extends Migration {
         {
             $table->increments('id');
 
+            $table->integer('user_id');
+
             $table->string('title', 64);
             $table->string('source', 256);
             $table->text('content');
 
+            $table->string('status', 16)->default('published');
+
             $table->integer('topic_id');
+
+            $table->integer('digg_count')->default(0);
 
             $table->timestamps();
             $table->engine = 'InnoDB';

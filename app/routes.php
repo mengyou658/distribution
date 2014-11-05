@@ -29,6 +29,14 @@ if(Config::get('app.debug')) {
         return Redirect::back()->with('msg', '评论发布失败');
     });
 
+    Route::get('test/editor', function() {
+        return View::make('editor');
+    });
+
+    Route::get('test/code', function() {
+        return View::make('code');
+    });
+
     Route::get('schema/up', function() {
         Artisan::call('migrate', ['--seed' => true, '--force' => true]);
         echo 'migrated!';

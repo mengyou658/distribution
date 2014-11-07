@@ -8,7 +8,7 @@
         </div>
 
         <div>
-            <img src="/img/test_avatar.png" alt="avatar" class="img-thumbnail">
+            <img style="width:256px;height:256px;" src="/img/test_avatar.png" alt="avatar" class="img-thumbnail">
         </div>
     </div>
 

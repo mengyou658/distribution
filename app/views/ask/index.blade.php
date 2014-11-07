@@ -22,6 +22,8 @@
     </div>
 
     <div class="col-sm-4">
+        <a class="btn btn-primary btn-block" href="{{action('AskController@getAsk')}}">提问</a>
+        
         @include('sidebar')
     </div>
 </div>

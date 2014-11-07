@@ -8,14 +8,14 @@
 
     <div class="col-sm-9">
         <div class="page-header">
-            <legend>个人信息</legend>
+            <legend>修改邮箱</legend>
         </div>
 
-        <form class="form-horizontal" action="{{ action('UserController@postSettingProfile') }}" method="post">
+        <form class="form-horizontal" action="{{ action('UserController@postSettingEmail') }}" method="post">
         <div class="form-group">
-            <label class="col-sm-2 control-label">个人简介</label>
-            <div class="col-sm-8">
-                <textarea class="form-control" rows="4" placeholder="Description" name="descr">{{Auth::user()->descr}}</textarea>
+            <label class="col-sm-2 control-label">邮箱地址</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="E-mail" name="email" value="{{Auth::user()->email}}">            
             </div>
         </div>
 

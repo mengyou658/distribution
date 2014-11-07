@@ -36,6 +36,7 @@
           <a class="navbar-brand" href="/">统计之都</a>
         </div>
         <div class="navbar-collapse collapse" id="topnav">
+          <img class="nav-avatar img-circle pull-right" src="/img/default-avatar.png"><!-- @todo: fixme -->
           <ul class="nav navbar-nav navbar-right">
             @if(Auth::check())
             <li class="dropdown">
@@ -51,6 +52,8 @@
             <li><a href="/user/login">登录</a></li>
             <li><a href="/user/signup">注册</a></li>
             @endif
+
+
           </ul>
         </div>
       </div>
@@ -63,30 +66,7 @@
         </div>
       </div>
 
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subnav">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand visible-xs" href="/">统计之都</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="subnav">
-            <ul class="nav navbar-nav">
-              <li @if(Request::is('/')) class="active" @endif ><a href="/">首页</a></li>
-              <li @if(Request::is('article*')) class="active" @endif ><a href="/article">文章</a></li>
-              <li @if(Request::is('new*')) class="active" @endif ><a href="/news">快讯</a></li>
-              <li @if(Request::is('ask*')) class="active" @endif ><a href="/ask">问答</a></li>
-              <li @if(Request::is('group*')) class="active" @endif ><a href="/group">讨论</a></li>
-              <li @if(Request::is('event*')) class="active" @endif ><a href="/event">活动</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      @include('subnav')
 
       @if(Session::has('msg'))
       <div class="alert alert-success alert-dismissable">
@@ -98,7 +78,7 @@
     </header>
 
     <div class="container">
-@yield('content')
+    @yield('content')
     </div>
 
     <footer>
@@ -122,6 +102,6 @@
     <script src="/js/libs/ie10-viewport-bug-workaround.js"></script>
 
     <script src="/js/main.js"></script>
-@yield('js')
+    @yield('js')
   </body>
 </html>

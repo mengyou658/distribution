@@ -3,6 +3,7 @@
 @section('css')
 <link href="/css/highlight/github.css" rel="stylesheet">
 <link href="/css/bootstrap-markdown.min.css" rel="stylesheet">
+<link href="/css/tagmanager.css" rel="stylesheet">
 @stop
 
 @section('content')
@@ -10,25 +11,29 @@
 <textarea id="editor" rows="10"></textarea>
 
 
+<form class="form-horizontal"  method="post">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">题目</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="Title" name="title">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">标签</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control tags-input" placeholder="Title" name="tags">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary btn-wide">确定</button>
+        </div>
+    </div>
+</form>
+
 <div>
-    
-<pre><code class="lang-cpp">
-#include <iostream>
-#define IABS(x) ((x) < 0 ? -(x) : (x))
 
-int main(int argc, char *argv[]) {
 
-  /* An annoying "Hello World" example */
-  for (auto i = 0; i < 0xFFFF; i++)
-    cout << "Hello, World!" << endl;
-
-  char c = '\n';
-  unordered_map <string, vector<string> > m;
-  m["key"] = "\\\\"; // this is an error
-
-  return -2e3 + 12l;
-}
-</code></pre>
 
 </div>
 
@@ -41,11 +46,19 @@ int main(int argc, char *argv[]) {
 <script src="/js/libs/to-markdown.js"></script>
 <script src="/js/bootstrap-markdown.js"></script>
 <script src="/js/bootstrap-markdown.zh.js"></script>
+
+<script src="/js/tagmanager.js"></script>
+
 <script>
 $(function(){
     // code hightlight
     $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
+    });
+
+    $('.tags-input').tagsManager({
+        tagCloseIcon: '<i class="fa fa-times"></i>',
+        tagClass: 'label label-primary'
     });
 
     // @todo: tab 缩进
@@ -97,9 +110,6 @@ $(function(){
 
             }
 
-        },
-        onFocus: function(e) {
-            
         },
     });
 

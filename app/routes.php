@@ -33,6 +33,10 @@ if(Config::get('app.debug')) {
         return View::make('editor');
     });
 
+    Route::post('test/editor', function() {
+        dd(Input::all());
+    });
+
     Route::get('test/code', function() {
         return View::make('code');
     });
@@ -160,7 +164,9 @@ Route::get('ask/pending', 'AskController@getPending');
 Route::get('ask/hottest', 'AskController@getHottest');
 
 Route::get('ask/quesiton/tag/{id}.html', 'AskController@getQuestionTag');
-Route::get('ask/question/detail/{id}.html', 'AskController@getQuestion');
+Route::get('ask/question/detail/{id}.html', 'AskController@getQuestionDetail');
+
+Route::post('ask/question/digg', 'AskController@postQuestionDigg');
 
 Route::get('ask/ask', 'AskController@getAsk');
 Route::post('ask/ask', 'AskController@postAsk');

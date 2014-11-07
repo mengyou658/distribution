@@ -41,7 +41,7 @@ https://github.com/erusev/parsedown-extra
 
 ### 标签
 
-bootstrap-tagsinput
+tagmanager
 
 ### 头像上传
 
@@ -50,6 +50,18 @@ Jasny Bootstrap
 ### 代码高亮
 
 highlightjs
+
+### 日期选取
+
+// @todo
+
+### minify
+
+https://github.com/ceesvanegmond/minify
+
+考虑 fork 重写
+
+- 缓存？
 
 ## 数据架构
 
@@ -65,10 +77,14 @@ user
     avatar
     descr
     
+    is_confirmed
+
     status
         - member
         - editor
         - admin
+
+
 ```
 
 ### 文章

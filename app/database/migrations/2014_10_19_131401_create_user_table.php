@@ -23,6 +23,7 @@ class CreateUserTable extends Migration {
             $table->string('avatar', 256)->default('');
             $table->string('descr', 512)->default('');
 
+            $table->boolean('is_confirmed')->default(false);
             $table->string('status', 16)->default('member');
 
             $table->rememberToken();

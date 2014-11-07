@@ -91,7 +91,7 @@ class TableSeeder extends Seeder {
 
         DB::table('series')->delete();
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             Series::create([
                 'name' => "测试系列$i",
             ]);

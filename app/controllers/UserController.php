@@ -39,7 +39,7 @@ class UserController extends BaseController {
             'password' => Input::get('password'),
             'repassword' => Input::get('repassword'),
         );
-        
+
         $rules = array(
             'email' => 'required|email|unique:user',
             //'name' => 'required|alpha_dash|min:4|max:16', // 英文 数字 下划线 中划线
@@ -47,33 +47,33 @@ class UserController extends BaseController {
             'password' => 'required|min:4|max:32',
             'repassword' => 'required|same:password',
         );
-        
+
         $validator = Validator::make($input, $rules);
-        
+
         if ($validator->fails()) {
             $messages = $validator->messages();
-            
+
             if ($messages->has('email')) {
                 return Redirect::to('user/signup')->with('msg', '此邮件地址已经注册过');
             }
-            
+
             if ($messages->has('name')) {
                 return Redirect::to('user/signup')->with('msg', '用户名不规范，或者已经被注册');
             }
-            
+
             if ($messages->has('repassword')) {
                 return Redirect::to('user/signup')->with('msg', '两次输入的密码不一致');
             }
-        
+
             return Redirect::to('user/signup')->with('msg', '输入信息错误');
         }
 
         // hash password
         $input['password'] = Hash::make($input['password']);
-        
+
         $user = User::create($input);
         Auth::login($user);
-        
+
         return Redirect::to('/')->with('msg', '注册成功');
     }
 
@@ -93,7 +93,7 @@ class UserController extends BaseController {
         if (Auth::attempt($input)) {
             return Redirect::intended('/')->with('msg', '登录成功');
         }
-        
+
         return Redirect::to('user/login')->with('msg', '账号信息错误');
     }
 
@@ -133,7 +133,27 @@ class UserController extends BaseController {
     }
 
     public function postSettingProfile() {
-        dd(Input::all());
+        // dd(Input::all());
+
+        // @todo: 其他的用户属性
+        // realname profession blog sex
+
+        $user = Auth::user();
+        $descr = Input::get('descr');
+
+        $input = [];
+        $rules = [];
+
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->fails()) {
+            return Redirect::to('user/setting/profile')->with('msg', '信息填写错误');
+        }
+
+        $user->descr = $descr;
+        $user->save();
+
+        return Redirect::to('user/setting/profile')->with('msg', '修改成功');
     }
 
     public function getSettingEmail() {
@@ -142,6 +162,8 @@ class UserController extends BaseController {
 
     public function postSettingEmail() {
         dd(Input::all());
+
+        $email = Input::get('email');
     }
 
     public function getSettingAvatar() {

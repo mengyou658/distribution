@@ -13,7 +13,7 @@
             <legend>提问</legend>
         </div>
 
-        <form class="form-horizontal" action="{{ action('NewsController@postDeliver') }}" method="post">
+        <form class="form-horizontal" action="{{ action('AskController@postAsk') }}" method="post">
             <div class="form-group">
                 <label class="col-sm-2 control-label">题目</label>
                 <div class="col-sm-10">

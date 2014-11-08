@@ -18,7 +18,8 @@
         </div>
 
         <p>
-        简介：这家伙很懒，还没有写简介
+        {{-- @todo: 这里要填入的内容 --}}
+        简介：@if($user->descr) {{$user->descr}} @else 这家伙很懒，还没有写简介 @endif
         </p>
     </div>
 </div>

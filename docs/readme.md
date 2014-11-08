@@ -47,6 +47,15 @@ tagmanager
 
 Jasny Bootstrap
 
+
+### 前端验证
+
+// @todo: 
+
+http://reactiveraven.github.io/jqBootstrapValidation/
+
+http://1000hz.github.io/bootstrap-validator/
+
 ### 代码高亮
 
 highlightjs

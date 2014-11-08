@@ -6,7 +6,8 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"frozennode/administrator": "dev-master"
+		"frozennode/administrator": "dev-master",
+		"erusev/parsedown": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

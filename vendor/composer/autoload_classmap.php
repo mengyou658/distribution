@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Activity' => $baseDir . '/app/models/Activity.php',
     'ActivityController' => $baseDir . '/app/controllers/ActivityController.php',
+    'ActivityUser' => $baseDir . '/app/models/ActivityUser.php',
     'Answer' => $baseDir . '/app/models/Answer.php',
     'Article' => $baseDir . '/app/models/Article.php',
     'ArticleController' => $baseDir . '/app/controllers/ArticleController.php',
@@ -753,6 +754,7 @@ return array(
     'PHPParser_TemplateLoader' => $vendorDir . '/nikic/php-parser/lib/PHPParser/TemplateLoader.php',
     'PHPParser_Unserializer' => $vendorDir . '/nikic/php-parser/lib/PHPParser/Unserializer.php',
     'PHPParser_Unserializer_XML' => $vendorDir . '/nikic/php-parser/lib/PHPParser/Unserializer/XML.php',
+    'Parsedown' => $vendorDir . '/erusev/parsedown/Parsedown.php',
     'Patchwork\\PHP\\Shim\\Iconv' => $vendorDir . '/patchwork/utf8/class/Patchwork/PHP/Shim/Iconv.php',
     'Patchwork\\PHP\\Shim\\Intl' => $vendorDir . '/patchwork/utf8/class/Patchwork/PHP/Shim/Intl.php',
     'Patchwork\\PHP\\Shim\\Mbstring' => $vendorDir . '/patchwork/utf8/class/Patchwork/PHP/Shim/Mbstring.php',
@@ -1036,6 +1038,7 @@ return array(
     'Psr\\Log\\LoggerTrait' => $vendorDir . '/psr/log/Psr/Log/LoggerTrait.php',
     'Psr\\Log\\NullLogger' => $vendorDir . '/psr/log/Psr/Log/NullLogger.php',
     'Question' => $baseDir . '/app/models/Question.php',
+    'Series' => $baseDir . '/app/models/Series.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'Stack\\Builder' => $vendorDir . '/stack/builder/src/Stack/Builder.php',
     'Stack\\StackedHttpKernel' => $vendorDir . '/stack/builder/src/Stack/StackedHttpKernel.php',

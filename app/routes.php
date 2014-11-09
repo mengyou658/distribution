@@ -26,7 +26,10 @@ if(Config::get('app.debug')) {
         //return "Hello";
         //return Redirect::to('/')->with('msg', 'test');
 
-        return Redirect::back()->with('msg', '评论发布失败');
+        //return Redirect::back()->with('msg', '评论发布失败');
+
+        $parsedown = App::make('parsedown');
+        echo $parsedown->text("```python\ndef foo():\n    return abc\n```");
     });
 
     Route::get('test/editor', function() {

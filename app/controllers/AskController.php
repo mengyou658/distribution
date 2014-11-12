@@ -50,7 +50,7 @@ class AskController extends BaseController {
                                     ->orderBy('created_at', 'desc')
                                     ->paginate(3);
 
-        return View::make('ask.list', compact('pendingQuestions'));
+        return View::make('ask.pending', compact('pendingQuestions'));
     }
 
     public function getHottest() {
@@ -60,7 +60,7 @@ class AskController extends BaseController {
                                     ->orderBy('created_at', 'desc')
                                     ->paginate(3);
         
-        return View::make('ask.list', compact('hottestQuestions'));
+        return View::make('ask.hottest', compact('hottestQuestions'));
     }
 
     public function getQuestionTag($tagId) {
@@ -82,28 +82,65 @@ class AskController extends BaseController {
             App::abort(404);
         }
 
+        // @todo
+
     }
 
     public function getAsk() {
-        
         return View::make('ask.ask');
     }
 
     public function postAsk() {
-        dd(Input::all());
+        //dd(Input::all());
 
         $user = Auth::user();
+        $title = Input::get('title');
+        $markdown = Input::get('markdown');
+        $parsedown = App::make('parsedown');
 
-        $Input = [];
+
+        $newQuestion = [
+            'user_id' => $user->id,
+            'title' => $title,
+            'markdown' => $markdown,
+            'content' => $parsedown->text($markdown),
+        ];
+
+        $rules = [
+            'title' => 'required',
+            'content' => 'required',
+        ];
+
+        $validator = Validator::make($newQuestion, $rules);
+
+        if ($validator->fails()) {
+            return Redirect::to('ask/ask')
+                           ->with('title', $title)
+                           ->with('markdown', $markdown)
+                           ->with('msg', '请输入问题和题干');
+        }
+
+        $question = Question::create($newQuestion);
+
+        $tags = explode(',', Input::get('hidden-tags'));
+
+        foreach ($tags as $tagName) {
+            $question->tag($tagName);
+        }
+
+        return Redirect::to('ask')->with('msg', '提问成功');
     }
 
-    public function getAnswer($questionId) {
+    public function getQuestionAnswer($questionId) {
         
+        $question = Question::find($questionId);
+
+        return View::make('ask.answer', compact('question'));
     }
 
-    public function postAnswer() {
+    public function postQuestionAnswer() {
         dd(Input::all());
-
+        // @todo: 
     }
 
     public function postAnswerApprove() {

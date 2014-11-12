@@ -174,8 +174,8 @@ Route::post('ask/question/digg', 'AskController@postQuestionDigg');
 Route::get('ask/ask', 'AskController@getAsk');
 Route::post('ask/ask', 'AskController@postAsk');
 
-Route::get('ask/question/{id}/answer', 'AskController@getAnswer');
-Route::post('ask/question/answer', 'AskController@postAnswer');
+Route::get('ask/question/{id}/answer', 'AskController@getQuestionAnswer');
+Route::post('ask/question/answer', 'AskController@postQuestionAnswer');
 
 Route::post('ask/answer/approve', 'AskController@postAnswerApprove');
 Route::post('ask/answer/oppose', 'AskController@postAnswerOppose');

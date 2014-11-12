@@ -21,11 +21,46 @@
         
         <hr>
 
+        <div class="page-header">
+            <legend>回答</legend>
+        </div>
+
+        <div class="answer-list">
+
+            @foreach($answers as $answer)
+            <div class="answer-item row">
+
+                <div class="col-xs-1">
+                    <a href="javascript:;" class="btn btn-primary answer-approve" data-answer_id="{{$answer->id}}"><i class="fa fa-caret-up"></i></a>
+
+                    <p><span>{{$answer->vote_count}}</span></p>
+
+                    <a href="javascript:;" class="btn btn-primary answer-oppose" data-answer_id="{{$answer->id}}"><i class="fa fa-caret-down"></i></a>
+                </div>
+
+                <div class="col-xs-11">
+                    <div>
+                    <img src="/img/test_avatar.png" style="width:32px;"> <!-- @todo -->
+                    <span>{{$answer->user->name}}</span> @ {{$answer->created_at}}
+                    </div>
+
+                    <div>
+                        {{$answer->content}}
+                    </div>
+                    
+                </div>
+            </div> 
+            @endforeach
+
+            {{$answers->links()}}
+        </div>
+
+
 
     </div>
 
     <div class="col-sm-4">
-        <a class="btn btn-primary btn-block" href="{{action('AskController@getAnswer', $question->id)}}">我来回答</a>
+        <a class="btn btn-primary btn-block" href="{{action('AskController@getQuestionAnswer', $question->id)}}">我来回答</a>
         @include('sidebar')
     </div>
 </div>

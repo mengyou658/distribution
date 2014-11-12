@@ -26,6 +26,21 @@
             <legend>回答</legend>
         </div>
 
+        <form class="form-horizontal" action="{{ action('AskController@postQuestionAnswer') }}" method="post">
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <textarea id="editor" rows="10" name="markdown">{{$markdown or ''}}</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input type="hidden" name="question_id" value="{{$question->id}}">
+                    <button type="submit" class="btn btn-primary btn-wide">回答</button>
+                </div>
+            </div>
+        </form>
 
     </div>
 

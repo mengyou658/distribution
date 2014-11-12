@@ -132,33 +132,136 @@ class AskController extends BaseController {
     }
 
     public function getQuestionAnswer($questionId) {
-        
         $question = Question::find($questionId);
-
-        return View::make('ask.answer', compact('question'));
+        return View::make('ask.question.answer', compact('question'));
     }
 
     public function postQuestionAnswer() {
-        dd(Input::all());
-        // @todo: 
+        // dd(Input::all());
+
+        $user = Auth::user();
+        $questionId = Input::get('question_id');
+        $markdown = Input::get('markdown');
+        $parsedown = App::make('parsedown');
+
+        $newAnswer = [
+            'user_id' => $user->id,
+            'question_id' => $questionId,
+            'markdown' => $markdown,
+            'content' => $parsedown->text($markdown),
+        ];
+
+        $rules = [
+            'content' => 'required',
+        ];
+
+        $validator = Validator::make($newAnswer, $rules);
+
+        if ($validator->fails()) {
+            return Redirect::action('AskController@getQuestionAnswer', $questionId)
+                           ->with('msg', '请填写正确的信息');
+        }
+
+        $answer = Answer::create($newAnswer);
+
+        return Redirect::action('AskController@getQuestionDetail', $questionId)
+                       ->with('msg', '提交回答成功');
     }
 
     public function postAnswerApprove() {
-        dd(Input::all());
+        // dd(Input::all());
 
         if (!Request::ajax()) {
             App::abort(404);
+        }
+
+        $user = Auth::user();
+        $answerId = Input::get('answer_id');
+
+
+        $oldAnswerAttitude = AnswerAttitude::whereUser_id($user->id)
+                                           ->whereAnswer_id($answerId)
+                                           ->first();
+
+        if ($oldAnswerAttitude) {
+
+            if ($oldAnswerAttitude->type == 'approve') {
+                return Response::json(['status'=>'error', 'msg'=>'already have'], 400); 
+            }
+            else if ($oldAnswerAttitude->type == 'oppose') {
+
+                $oldAnswerAttitude->type = 'approve';
+                $oldAnswerAttitude->save();
+
+                $answer = Answer::find($answerId);
+                $answer->vote_count += 2;
+                $answer->save();
+                
+                return Response::json(['status'=>'ok']);
+            }
+
+        }
+        else {
+            $answerAttitude = AnswerAttitude::create([
+                'answer_id' => $answerId,
+                'user_id' => $user->id,
+                'type' => 'approve',
+            ]);
+
+            $answer = Answer::find($answerId);
+            $answer->vote_count += 1;
+            $answer->save();
+
+            return Response::json(['status'=>'ok']);
         }
 
     }
 
     public function postAnswerOppose() {
-        dd(Input::all());
+        // dd(Input::all());
 
         if (!Request::ajax()) {
             App::abort(404);
         }
 
+        $user = Auth::user();
+        $answerId = Input::get('answer_id');
+
+        $oldAnswerAttitude = AnswerAttitude::whereUser_id($user->id)
+                                           ->whereAnswer_id($answerId)
+                                           ->first();
+
+        if ($oldAnswerAttitude) {
+
+            if ($oldAnswerAttitude->type == 'oppose') {
+                return Response::json(['status'=>'error', 'msg'=>'already have'], 400); 
+            }
+            else if ($oldAnswerAttitude->type == 'approve') {
+
+                $oldAnswerAttitude->type = 'oppose';
+                $oldAnswerAttitude->save();
+
+                $answer = Answer::find($answerId);
+                $answer->vote_count -= 2;
+                $answer->save();
+                
+                return Response::json(['status'=>'ok']);
+            }
+
+        }
+        else {
+            $answerAttitude = AnswerAttitude::create([
+                'answer_id' => $answerId,
+                'user_id' => $user->id,
+                'type' => 'oppose',
+            ]);
+
+            $answer = Answer::find($answerId);
+            $answer->vote_count -= 1;
+            $answer->save();
+
+            return Response::json(['status'=>'ok']);
+        }
     }
 
 }

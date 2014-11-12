@@ -20,6 +20,7 @@ class CreateActivityTable extends Migration {
             $table->string('thumbnail', 256)->default('');
             $table->text('abstract')->default('');
             $table->text('content');
+            $table->text('markdown');
 
             $table->integer('series_id');
             $table->dateTime('began_at');

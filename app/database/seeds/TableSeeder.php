@@ -4,6 +4,8 @@ class TableSeeder extends Seeder {
     
     public function run() {
 
+        $parsedown = App::make('parsedown');
+
         DB::table('user')->delete();
 
         User::create([
@@ -73,6 +75,33 @@ class TableSeeder extends Seeder {
         }
 
 
+        DB::table('question')->delete();
+
+        for ($i = 1; $i <= 10; $i++) {
+            $markdown = "# abc\n\n## efg\n\nhello{$i}\n\n```R\nprint(123)\n```";
+
+            Question::create([
+                'user_id' => 1,
+                'title' => "测试问题标题$i",
+                'markdown' => $markdown,
+                'content' => $parsedown->text($markdown),
+            ]);
+        }
+
+        DB::table('answer')->delete();
+
+        for ($i = 1; $i <= 10; $i++) {
+            $markdown = "# abc\n\n## efg\n\nhello{$i}\n\n```R\nprint(123)\n```";
+
+            Answer::create([
+                'user_id' => 1,
+                'question_id' => 1,
+                'markdown' => $markdown,
+                'content' => $parsedown->text($markdown),
+            ]);
+        }
+
+
         DB::table('activity')->delete();
 
         for ($i = 1; $i <= 10; $i++) {
@@ -84,6 +113,8 @@ class TableSeeder extends Seeder {
                 'content' => "测试活动标题，测试活动标题，测试活动标题$i",
                 'began_at' => date("Y-m-d H:i:s"),
                 'ended_at' => date("Y-m-d H:i:s"),
+
+                'series_id' => 1,
     
             ]);
 
@@ -91,11 +122,20 @@ class TableSeeder extends Seeder {
 
         DB::table('series')->delete();
 
-        for ($i = 1; $i <= 4; $i++) {
-            Series::create([
-                'name' => "测试系列$i",
-            ]);
-        }
+        Series::create([
+            'name' => "中国R语言会议",
+            'order' => 10,
+        ]);
+
+        Series::create([
+            'name' => "统计沙龙",
+            'order' => 20,
+        ]);
+
+        Series::create([
+            'name' => "讲座与培训",
+            'order' => 30,
+        ]);
 
     }
 

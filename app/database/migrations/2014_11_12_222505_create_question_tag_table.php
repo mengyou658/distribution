@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeriesTable extends Migration {
+class CreateQuestionTagTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,12 @@ class CreateSeriesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('series', function(Blueprint $table)
+		Schema::create('question_tag', function(Blueprint $table)
 		{
 			$table->increments('id');
 
-			$table->string('name', 16);
-			$table->integer('order')->default(0);
+			$table->integer('question_id');
+			$table->integer('tag_id');
 
 			$table->timestamps();
 			$table->engine = 'InnoDB';
@@ -31,7 +31,7 @@ class CreateSeriesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('series');
+		Schema::drop('question_tag');
 	}
 
 }

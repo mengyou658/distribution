@@ -20,6 +20,7 @@ class CreateCommentTable extends Migration {
             $table->integer('user_id');
 
             $table->text('content');
+            $table->text('markdown');
 
             $table->timestamps();
             $table->engine = 'InnoDB';

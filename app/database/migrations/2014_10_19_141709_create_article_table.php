@@ -26,6 +26,7 @@ class CreateArticleTable extends Migration {
 
             $table->text('abstract')->default('');
             $table->text('content');
+            $table->text('markdown');
             
 
             $table->string('status', 16)->default('draft');

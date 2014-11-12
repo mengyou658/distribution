@@ -21,6 +21,7 @@ class CreatePostTable extends Migration {
 
             $table->string('title', 64);
             $table->text('content');
+            $table->text('markdown');
 
             $table->timestamps();
             $table->engine = 'InnoDB';

@@ -59,6 +59,10 @@ span.tm-tag {
     background-color: #eee;
 }
 
+.tm-tag .tm-tag-remove {
+    opacity: 0.6;
+}
+
 /* article */
 
 

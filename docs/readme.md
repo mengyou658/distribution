@@ -108,6 +108,7 @@ article
 
     abstract
     content
+    markdown
 
     status
         - draft
@@ -153,6 +154,7 @@ question
 
     title
     content
+    markdown
 
     status
         - published
@@ -169,6 +171,8 @@ answer
     user_id
 
     content
+    markdown
+
     vote_count
 
     topic_id
@@ -188,6 +192,7 @@ comment
     topic_id
     user_id
     content
+    markdown
 
     // @todo digg_count
 ```
@@ -221,6 +226,9 @@ post
 
     title
     content
+    markdown
+
+    topic_id
 ```
 
 ### 活动
@@ -228,20 +236,20 @@ post
 ```
 activity
 
-    user_id
-    series_id
-    
     title
-
+    thumbnail
     abstract
     content
+    markdown
+
+    series_id
+    began_at
+    ended_at
+    member_count
 
     status
         - published
         - dropped
-
-    began_at
-    ended_at
 
     topic_id
 ```
@@ -275,12 +283,41 @@ feedback
 
 ### 文章与标签
 
-### 新闻与标签
+article_tag
+
+
+### 新闻与标签（没有对用户输入开放）
+
+news_tag
 
 ### 新闻与顶（与用户）
 
+news_digg
+
+### 问题与标签
+
+question_tag
+
+### 问题与顶
+
+question_digg
+
+### 回答与态度
+
+answer_attitude
+    user_id
+    answer_id
+    type
+        - approve
+        - oppose
+
 ### 活动与标签
 
-### 群组与用户 // @todo
+activity_tag
 
-### 活动与用户
+### 活动与用户（参加）
+
+activity_user
+
+
+

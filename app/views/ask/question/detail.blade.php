@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('css')
+<link href="/css/highlight/github.css" rel="stylesheet">
+@stop
+
 @section('content')
 <div class="row">
     <div class="col-sm-8">
@@ -7,8 +11,12 @@
             <legend>问题</legend>
         </div>
 
-        <div class="">
+        <div class="question-detail">
+            <h2>{{{$question->title}}}</h2>
 
+            <div class="">
+                {{$question->content}}
+            </div>
         </div>
         
         <hr>
@@ -24,9 +32,15 @@
 @stop
 
 @section('js')
+<script src="/js/libs/highlight.pack.js"></script>
+
 <script>
 $(function(){
-    
+    // code hightlight
+    $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+    });
+
     $('.news-digg a').click(function(){
         var _this = $(this);
         var news_id = _this.data('news_id');

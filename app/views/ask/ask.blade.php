@@ -17,19 +17,19 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">题目</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Title" name="title">
+                    <input type="text" class="form-control" placeholder="Title" name="title" value="{{$title or ''}}">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">描述</label>
                 <div class="col-sm-10">
-                    <textarea id="editor" rows="10" name="content"></textarea>
+                    <textarea id="editor" rows="10" name="markdown">{{$markdown or ''}}</textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">标签</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control tags-input" placeholder="Tag" name="title">
+                    <input type="text" class="form-control tags-input" placeholder="Tag" name="tags">
                 </div>
             </div>
             <div class="form-group">

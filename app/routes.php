@@ -28,8 +28,12 @@ if(Config::get('app.debug')) {
 
         //return Redirect::back()->with('msg', '评论发布失败');
 
-        $parsedown = App::make('parsedown');
-        echo $parsedown->text("```python\ndef foo():\n    return abc\n```");
+        // $parsedown = App::make('parsedown');
+        // echo $parsedown->text("```python\ndef foo():\n    return abc\n```");
+
+        $discuss = Discuss::find(1);
+        dd($discuss->group->name);
+
     });
 
     Route::get('test/editor', function() {
@@ -82,6 +86,7 @@ Route::get('/', 'HomeController@getIndex');
 // pages
 Route::get('about', 'HomeController@getAbout');
 Route::get('contact', 'HomeController@getContact');
+Route::get('terms', 'HomeController@getTerms');
 Route::get('policy', 'HomeController@getPolicy');
 Route::get('help', 'HomeController@getHelp');
 
@@ -196,7 +201,7 @@ Route::get('group/detail/{id}.html', 'GroupController@getDetail');
 // Route::get('group/{id}/join', 'GroupController@getJoin');
 // Route::get('group/{id}/quit', 'GroupController@getQuit');
 
-Route::get('group/{group_id}/post/detail/{post_id}.html', 'GroupController@getPostDetail');
+Route::get('group/post/detail/{post_id}.html', 'GroupController@getPostDetail');
 
 Route::get('group/{id}/new_post', 'GroupController@getNewPost');
 Route::post('group/{id}/new_post', 'GroupController@postNewPost');

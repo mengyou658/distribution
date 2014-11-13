@@ -23,16 +23,16 @@ pre {
     margin-bottom: 22px;
 }
 
-.tags-input {
-    width: 120px;
-    display: inline;
-}
-
 /* widget */
+
+.page-header {
+    margin: 24px 0 22px;
+}
 
 .page-header legend {
     font-size: 24px;
     font-weight: bold;
+    margin: 0;
 }
 
 .page-header legend small {
@@ -61,6 +61,11 @@ span.tm-tag {
 
 .tm-tag .tm-tag-remove {
     opacity: 0.6;
+}
+
+.tags-input {
+    width: 120px;
+    display: inline;
 }
 
 /* article */

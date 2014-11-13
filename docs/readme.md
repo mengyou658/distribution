@@ -183,6 +183,8 @@ answer
 ```
 topic
     title
+
+    // @todo floor_count
 ```
 
 ### 评论
@@ -194,6 +196,7 @@ comment
     content
     markdown
 
+    // @todo floor
     // @todo digg_count
 ```
 
@@ -205,6 +208,8 @@ group
     thumbnail
 
     descr
+
+    order
 
     discuss_id
 ```
@@ -227,6 +232,10 @@ post
     title
     content
     markdown
+
+    status
+        - published
+        - dropped
 
     topic_id
 ```

@@ -19,4 +19,10 @@ class Group extends Eloquent {
             
         });
     }
+
+    // relation: discuss
+    public function discuss() {
+        return $this->belongsTo('Discuss', 'discuss_id');
+    }
+
 }

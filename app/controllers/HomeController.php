@@ -32,6 +32,10 @@ class HomeController extends BaseController {
         return View::make('home.contact');
     }
 
+    public function getTerms() {
+        return View::make('home.terms');
+    }
+
     public function getPolicy() {
         return View::make('home.policy');
     }

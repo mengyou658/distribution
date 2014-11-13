@@ -23,6 +23,10 @@ class CreatePostTable extends Migration {
             $table->text('content');
             $table->text('markdown');
 
+            $table->integer('topic_id');
+
+            $table->string('status', 16)->default('published');
+
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

@@ -101,6 +101,52 @@ class TableSeeder extends Seeder {
             ]);
         }
 
+        DB::table('group')->delete();
+
+        Group::create([
+            'name' => '网站事务',
+            'thumbnail' => '/img/test_group.jpg',
+            'order' => 10,
+        ]);
+
+        Group::create([
+            'name' => '统计学',
+            'thumbnail' => '/img/test_group.jpg',
+            'order' => 20,
+        ]);
+
+        Group::create([
+            'name' => 'R语言',
+            'thumbnail' => '/img/test_group.jpg',
+            'order' => 30,
+        ]);
+
+        Group::create([
+            'name' => '统计软件',
+            'thumbnail' => '/img/test_group.jpg',
+            'order' => 40,
+        ]);
+
+        Group::create([
+            'name' => '灌水区',
+            'thumbnail' => '/img/test_group.jpg',
+            'order' => 100,
+        ]);
+
+        DB::table('post')->delete();
+
+        for ($i = 1; $i <= 10; $i++) {
+            $markdown = "# abc\n\n## efg\n\nhello{$i}\n\n```R\nprint(123)\n```";
+
+            Post::create([
+                'discuss_id' => 1,
+                'user_id' => 1,
+                'title' => "测试帖子标题$i",
+                'markdown' => $markdown,
+                'content' => $parsedown->text($markdown),
+            ]);
+        }
+
 
         DB::table('activity')->delete();
 

@@ -22,6 +22,8 @@ class CreateGroupTable extends Migration {
 
             $table->text('descr')->default('');
 
+            $table->integer('order')->default(0);
+
             $table->integer('discuss_id');
 
             //$table->boolean('is_public')->default(true);

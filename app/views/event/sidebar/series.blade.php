@@ -5,8 +5,7 @@
     <li @if(!isset($curSeriesId)) class="active" @endif ><a href="/event">全部活动</a></li>
     
     <?php
-    // @todo: order
-    $serieses = Series::all();
+    $serieses = Series::orderBy('order')->get();
     ?>
     @foreach($serieses as $series)
 

@@ -5,7 +5,7 @@
     <div class="col-sm-8">
 
         <div class="page-header">
-            <legend>最新文章<small class="pull-right"><a href="#">所有文章...</a></small></legend>
+            <legend>文章<small class="pull-right"><a href="#">所有文章...</a></small></legend>
         </div>
         <div class="home-widget">
             <h3><a href="#">最新文章最新文章</a></h3>
@@ -25,14 +25,12 @@
                     <ul class="">
                         <li><a href="http://new.cos.name/article/2">title 1</a></li>
                         <li><a href="http://new.cos.name/article/3">title 2</a></li>
-                        <li><a href="http://new.cos.name/article/4">title 3</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6">
                     <ul class="">
                         <li><a href="http://new.cos.name/article/2">title 1</a></li>
                         <li><a href="http://new.cos.name/article/3">title 2</a></li>
-                        <li><a href="http://new.cos.name/article/4">title 3</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,22 +38,25 @@
         <hr>
 
         <div class="page-header">
-            <legend>最新文章<small class="pull-right"><a href="#">所有文章...</a></small></legend>
+            <legend>快讯<small class="pull-right"><a href="#">所有文章...</a></small></legend>
         </div>
 
         <div class="home-widget">
-            <p>
-                
-            $a+b=c$
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4><a href="">标题标题标题</a></h4>
+                </div>
 
-            \( a+b=c \)
+                <div class="col-sm-12">
+                    <h4><a href="">标题标题标题</a></h4>
+                </div>
 
-            $$  a^2+b^2=c^2 $$
-
-            \[ a^2+b^2=c^2 \]
-
-            </p>
+                <div class="col-sm-12">
+                    <h4><a href="">标题标题标题</a></h4>
+                </div>
+            </div>
         </div>
+        <hr>
 
 
     </div>

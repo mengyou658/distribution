@@ -36,7 +36,13 @@
           <a class="navbar-brand" href="/">统计之都</a>
         </div>
         <div class="navbar-collapse collapse" id="topnav">
-          <img class="nav-avatar img-circle pull-right" src="/img/default-avatar.png"><!-- @todo: fixme -->
+          <ul class="nav navbar-nav">
+            <li>
+              <a target="_blank" href="https://github.com/Gwill/distribution/issues/new">问题反馈</a>
+            </li>
+          </ul>
+
+          <img class="nav-avatar img-circle pull-right" src="/img/default_avatar.png"><!-- @todo: fixme -->
           <ul class="nav navbar-nav navbar-right">
             @if(Auth::check())
             <li class="dropdown">
@@ -88,6 +94,7 @@
               <ul class="nav nav-pills pull-left">
                   <li><a href="/about">关于我们</a></li>
                   <li><a href="/contact">联系我们</a></li>
+                  <li><a href="/terms">用户协议</a></li>
                   <li><a href="/policy">免责声明</a></li>
                   <li><a href="/help">帮助中心</a></li>
               </ul>

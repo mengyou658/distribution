@@ -328,5 +328,6 @@ activity_tag
 
 activity_user
 
+    is_confirmed // 确认是否参加会议（可以使用邮件方式确认）
 
 

@@ -25,11 +25,25 @@ class CommentController extends BaseController {
         $user = Auth::user();
         $refer = Input::get('refer', false);
 
-        $input = [
-            'user_id' => $user->id,
-            'topic_id' => Input::get('topic_id'),
-            'content' => Input::get('content'),
-        ];
+        $input = [];
+        if (Input::has('markdown')) {
+            $parsedown = App::make('parsedown');
+            $markdown = Input::get('markdown');
+            $input = [
+                'user_id' => $user->id,
+                'topic_id' => Input::get('topic_id'),
+                'markdown' => $markdown,
+                'content' => $parsedown->text($markdown),
+            ];
+        }
+        else {
+            $content = Input::get('content');
+            $input = [
+                'user_id' => $user->id,
+                'topic_id' => Input::get('topic_id'),
+                'content' => '<p>' . nl2br(e($content)) . '</p>', // @todo: 看看有没有更好的办法
+            ];
+        }
 
         $rules = [
             'user_id' => 'required',
@@ -49,9 +63,6 @@ class CommentController extends BaseController {
             }
             
         }
-
-        // @todo: 看看有没有更好的办法
-        $input['content'] = '<p>' . nl2br(e($input['content'])) . '</p>';
 
         $comment = Comment::create($input);
 

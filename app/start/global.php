@@ -11,14 +11,14 @@
 |
 */
 
-ClassLoader::addDirectories(array(
+ClassLoader::addDirectories([
 
     app_path().'/commands',
     app_path().'/controllers',
     app_path().'/models',
     app_path().'/database/seeds',
 
-));
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -46,9 +46,9 @@ Log::useDailyFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-App::error(function(Exception $exception, $code)
-{
+App::error(function(Exception $exception, $code) {
     Log::error($exception);
+    // @todo: 500 页面
 });
 
 /*
@@ -62,8 +62,8 @@ App::error(function(Exception $exception, $code)
 |
 */
 
-App::down(function()
-{
+App::down(function() {
+    // @todo: 系统维护页面
     return Response::make("Be right back!", 503);
 });
 

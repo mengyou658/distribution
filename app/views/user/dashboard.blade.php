@@ -8,6 +8,7 @@
         </div>
 
         <div>
+            <!-- @todo: 样式分离 -->
             <img style="width:256px;height:256px;" src="/img/test_avatar.png" alt="avatar" class="img-thumbnail">
         </div>
     </div>
@@ -19,7 +20,7 @@
 
         <p>
         {{-- @todo: 这里要填入的内容 --}}
-        简介：@if($user->descr) {{$user->descr}} @else 这家伙很懒，还没有写简介 @endif
+        简介： @if($user->descr) {{$user->descr}} @else 这家伙很懒，还没有写简介 @endif
         </p>
     </div>
 </div>

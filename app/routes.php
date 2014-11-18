@@ -133,6 +133,7 @@ if(Config::get('app.debug')) {
     });
 
     Route::get('schema/refresh', function(){
+        define('STDIN',fopen("php://stdin","r"));
         Artisan::call('migrate:refresh', ['--seed' => true, '--force' => true]);
         echo 'refreshed!';
     });

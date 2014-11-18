@@ -8,9 +8,8 @@ Github issues
 
 ## 设计
 
-https://github.com/cosname/admin/blob/master/CEP/cep-002.md
-
-- [文档](docs)
+- [CEP](https://github.com/cosname/admin/blob/master/CEP/cep-002.md)
+- [开发文档](docs)
 
 ## 技术
 

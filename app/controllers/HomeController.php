@@ -20,11 +20,18 @@ class HomeController extends BaseController {
         )));
     }
 
+    public function content($viewName) {
+        $viewsPath = __DIR__.'/../views/home';
+        //$markdownPath = 
+    }
+
     public function getIndex() {
         return View::make('index');
     }
 
     public function getAbout() {
+
+
         return View::make('home.about');
     }
 
@@ -42,6 +49,11 @@ class HomeController extends BaseController {
 
     public function getHelp() {
         return View::make('home.help');
+    }
+
+    public function getBooks() {
+
+        return View::make('home.books');
     }
 
     public function getProject() {

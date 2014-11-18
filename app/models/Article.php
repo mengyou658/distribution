@@ -43,7 +43,7 @@ class Article extends Eloquent {
             return $this->attributes['abstract'];
         }
         else {
-            return Str::limit($this->attributes['content'], 136);
+            return substr($this->attributes['content'], 0, strpos($this->attributes['content'], '<!--more-->'));
         }
 
     }

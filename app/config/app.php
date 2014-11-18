@@ -124,6 +124,8 @@ return array(
         'Illuminate\Workbench\WorkbenchServiceProvider',
 
         'Frozennode\Administrator\AdministratorServiceProvider',
+        'CeesVanEgmond\Minify\MinifyServiceProvider',
+        'MikeMcLin\WpPassword\WpPasswordServiceProvider',
     ),
 
     /*

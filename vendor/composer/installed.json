@@ -144,164 +144,6 @@
         ]
     },
     {
-        "name": "phpseclib/phpseclib",
-        "version": "0.3.8",
-        "version_normalized": "0.3.8.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phpseclib/phpseclib.git",
-            "reference": "5085202f1f37769aae59f9711c423f28159c9b29"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/5085202f1f37769aae59f9711c423f28159c9b29",
-            "reference": "5085202f1f37769aae59f9711c423f28159c9b29",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.0.0"
-        },
-        "require-dev": {
-            "phing/phing": "2.7.*",
-            "phpunit/phpunit": "4.0.*",
-            "sami/sami": "1.*",
-            "squizlabs/php_codesniffer": "1.*"
-        },
-        "suggest": {
-            "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
-            "ext-mcrypt": "Install the Mcrypt extension in order to speed up a wide variety of cryptographic operations.",
-            "pear-pear/PHP_Compat": "Install PHP_Compat to get phpseclib working on PHP < 4.3.3."
-        },
-        "time": "2014-09-13 02:42:45",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "0.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Crypt": "phpseclib/",
-                "File": "phpseclib/",
-                "Math": "phpseclib/",
-                "Net": "phpseclib/",
-                "System": "phpseclib/"
-            },
-            "files": [
-                "phpseclib/Crypt/Random.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "include-path": [
-            "phpseclib/"
-        ],
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jim Wigginton",
-                "email": "terrafrost@php.net",
-                "role": "Lead Developer"
-            },
-            {
-                "name": "Patrick Monnerat",
-                "email": "pm@datasphere.ch",
-                "role": "Developer"
-            },
-            {
-                "name": "Andreas Fischer",
-                "email": "bantu@phpbb.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Hans-Jürgen Petrich",
-                "email": "petrich@tronic-media.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
-        "homepage": "http://phpseclib.sourceforge.net",
-        "keywords": [
-            "BigInteger",
-            "aes",
-            "asn.1",
-            "asn1",
-            "blowfish",
-            "crypto",
-            "cryptography",
-            "encryption",
-            "rsa",
-            "security",
-            "sftp",
-            "signature",
-            "signing",
-            "ssh",
-            "twofish",
-            "x.509",
-            "x509"
-        ]
-    },
-    {
-        "name": "patchwork/utf8",
-        "version": "v1.1.25",
-        "version_normalized": "1.1.25.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-            "reference": "2d43bd047b120279511d45e76e61c5a9812d9a83"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/2d43bd047b120279511d45e76e61c5a9812d9a83",
-            "reference": "2d43bd047b120279511d45e76e61c5a9812d9a83",
-            "shasum": ""
-        },
-        "require": {
-            "lib-pcre": ">=7.3",
-            "php": ">=5.3.0"
-        },
-        "suggest": {
-            "ext-iconv": "Use iconv for best performance",
-            "ext-intl": "Use Intl for best performance",
-            "ext-mbstring": "Use Mbstring for best performance"
-        },
-        "time": "2014-08-05 08:00:32",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Patchwork": "class/",
-                "Normalizer": "class/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "(Apache-2.0 or GPL-2.0)"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "Extensive, portable and performant handling of UTF-8 and grapheme clusters for PHP",
-        "homepage": "https://github.com/nicolas-grekas/Patchwork-UTF8",
-        "keywords": [
-            "i18n",
-            "unicode",
-            "utf-8",
-            "utf8"
-        ]
-    },
-    {
         "name": "nikic/php-parser",
         "version": "v0.9.5",
         "version_normalized": "0.9.5.0",
@@ -1726,21 +1568,436 @@
         "homepage": "http://symfony.com"
     },
     {
+        "name": "patchwork/utf8",
+        "version": "v1.1.26",
+        "version_normalized": "1.1.26.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/tchwork/utf8.git",
+            "reference": "6b8e46603b49ee87ad6bceb314da94cc04ffcdce"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/tchwork/utf8/zipball/6b8e46603b49ee87ad6bceb314da94cc04ffcdce",
+            "reference": "6b8e46603b49ee87ad6bceb314da94cc04ffcdce",
+            "shasum": ""
+        },
+        "require": {
+            "lib-pcre": ">=7.3",
+            "php": ">=5.3.0"
+        },
+        "suggest": {
+            "ext-iconv": "Use iconv for best performance",
+            "ext-intl": "Use Intl for best performance",
+            "ext-mbstring": "Use Mbstring for best performance"
+        },
+        "time": "2014-11-08 10:13:25",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Patchwork": "class/",
+                "Normalizer": "class/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "(Apache-2.0 or GPL-2.0)"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            }
+        ],
+        "description": "Portable and performant UTF-8, Unicode and Grapheme Clusters for PHP",
+        "homepage": "https://github.com/tchwork/utf8",
+        "keywords": [
+            "grapheme",
+            "i18n",
+            "unicode",
+            "utf-8",
+            "utf8"
+        ]
+    },
+    {
+        "name": "phpseclib/phpseclib",
+        "version": "0.3.9",
+        "version_normalized": "0.3.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phpseclib/phpseclib.git",
+            "reference": "c6e88ca6e81bc5a2d7161658e16a95b7ef8d6ad1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/c6e88ca6e81bc5a2d7161658e16a95b7ef8d6ad1",
+            "reference": "c6e88ca6e81bc5a2d7161658e16a95b7ef8d6ad1",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.0.0"
+        },
+        "require-dev": {
+            "phing/phing": "2.7.*",
+            "phpunit/phpunit": "4.0.*",
+            "sami/sami": "1.*",
+            "squizlabs/php_codesniffer": "1.*"
+        },
+        "suggest": {
+            "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
+            "ext-mcrypt": "Install the Mcrypt extension in order to speed up a wide variety of cryptographic operations.",
+            "pear-pear/PHP_Compat": "Install PHP_Compat to get phpseclib working on PHP < 4.3.3."
+        },
+        "time": "2014-11-10 03:08:59",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Crypt": "phpseclib/",
+                "File": "phpseclib/",
+                "Math": "phpseclib/",
+                "Net": "phpseclib/",
+                "System": "phpseclib/"
+            },
+            "files": [
+                "phpseclib/Crypt/Random.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "include-path": [
+            "phpseclib/"
+        ],
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jim Wigginton",
+                "email": "terrafrost@php.net",
+                "role": "Lead Developer"
+            },
+            {
+                "name": "Patrick Monnerat",
+                "email": "pm@datasphere.ch",
+                "role": "Developer"
+            },
+            {
+                "name": "Andreas Fischer",
+                "email": "bantu@phpbb.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Hans-Jürgen Petrich",
+                "email": "petrich@tronic-media.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
+        "homepage": "http://phpseclib.sourceforge.net",
+        "keywords": [
+            "BigInteger",
+            "aes",
+            "asn.1",
+            "asn1",
+            "blowfish",
+            "crypto",
+            "cryptography",
+            "encryption",
+            "rsa",
+            "security",
+            "sftp",
+            "signature",
+            "signing",
+            "ssh",
+            "twofish",
+            "x.509",
+            "x509"
+        ]
+    },
+    {
+        "name": "hautelook/phpass",
+        "version": "0.3.0",
+        "version_normalized": "0.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/hautelook/phpass.git",
+            "reference": "da4c2c693aa4e1c616a350015c90af0da82a0fd8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/hautelook/phpass/zipball/da4c2c693aa4e1c616a350015c90af0da82a0fd8",
+            "reference": "da4c2c693aa4e1c616a350015c90af0da82a0fd8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "time": "2012-08-31 00:00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Hautelook": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Public Domain"
+        ],
+        "authors": [
+            {
+                "name": "Solar Designer",
+                "email": "solar@openwall.com",
+                "homepage": "http://openwall.com/phpass/"
+            }
+        ],
+        "description": "Portable PHP password hashing framework",
+        "homepage": "http://github.com/hautelook/phpass/",
+        "keywords": [
+            "blowfish",
+            "crypt",
+            "password",
+            "security"
+        ]
+    },
+    {
+        "name": "mikemclin/laravel-wp-password",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mikemclin/laravel-wp-password.git",
+            "reference": "535f14738477efc7e2ea00a93b96803f35bb6b32"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mikemclin/laravel-wp-password/zipball/535f14738477efc7e2ea00a93b96803f35bb6b32",
+            "reference": "535f14738477efc7e2ea00a93b96803f35bb6b32",
+            "shasum": ""
+        },
+        "require": {
+            "hautelook/phpass": "0.3.0",
+            "illuminate/support": "4.*",
+            "php": ">=5.3.0"
+        },
+        "replace": {
+            "mikemclin/wp-password": "self.version"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~4.0",
+            "satooshi/php-coveralls": "dev-master"
+        },
+        "time": "2014-08-15 04:48:18",
+        "type": "laravel-package",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/migrations"
+            ],
+            "psr-0": {
+                "MikeMcLin\\WpPassword\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mike McLin",
+                "email": "mike@mikemclin.com",
+                "homepage": "http://mikemclin.net"
+            }
+        ],
+        "description": "Laravel package that checks and creates WordPress password hashes",
+        "homepage": "https://github.com/mikemclin/laravel-wp-password",
+        "keywords": [
+            "hashing",
+            "laravel",
+            "password",
+            "wordpress"
+        ]
+    },
+    {
+        "name": "natxet/CssMin",
+        "version": "3.0.2",
+        "version_normalized": "3.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/natxet/CssMin.git",
+            "reference": "afdcdbdb5fc332313f47a79ae60346df3e69a572"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/natxet/CssMin/zipball/afdcdbdb5fc332313f47a79ae60346df3e69a572",
+            "reference": "afdcdbdb5fc332313f47a79ae60346df3e69a572",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.0"
+        },
+        "time": "2013-07-02 20:53:35",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Joe Scylla",
+                "email": "joe.scylla@gmail.com",
+                "homepage": "https://profiles.google.com/joe.scylla"
+            }
+        ],
+        "description": "Minifying CSS",
+        "homepage": "http://code.google.com/p/cssmin/",
+        "keywords": [
+            "css",
+            "minify"
+        ]
+    },
+    {
+        "name": "linkorb/jsmin-php",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/linkorb/jsmin-php.git",
+            "reference": "be85d87fc9c27730e7e9ced742b13010dafc1026"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/linkorb/jsmin-php/zipball/be85d87fc9c27730e7e9ced742b13010dafc1026",
+            "reference": "be85d87fc9c27730e7e9ced742b13010dafc1026",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.0.0"
+        },
+        "time": "2013-03-15 13:16:35",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Joost Faassen",
+                "email": "j.faassen@linkorb.com",
+                "role": "Packaging for composer"
+            },
+            {
+                "name": "Ryan Grove",
+                "email": "ryan@wonko.com",
+                "role": "PHP port"
+            },
+            {
+                "name": "Adam Gofort",
+                "email": "aag@adamgoforth.com",
+                "role": "Updates to the PHP port"
+            },
+            {
+                "name": "Douglas Crockford",
+                "email": "douglas@crockford.com"
+            }
+        ],
+        "description": "Unofficial package of jsmin-php",
+        "homepage": "http://www.github.com/linkorb/jsmin-php",
+        "keywords": [
+            "javascript",
+            "jsmin",
+            "minify"
+        ]
+    },
+    {
+        "name": "ceesvanegmond/minify",
+        "version": "2.0.7",
+        "version_normalized": "2.0.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ceesvanegmond/minify.git",
+            "reference": "04aa585ec5681de9fe12c9dde624efd9ec9988f1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ceesvanegmond/minify/zipball/04aa585ec5681de9fe12c9dde624efd9ec9988f1",
+            "reference": "04aa585ec5681de9fe12c9dde624efd9ec9988f1",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "~4.1",
+            "linkorb/jsmin-php": "1.*",
+            "natxet/cssmin": "3.*",
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "mikey179/vfsstream": "1.2.*",
+            "phpspec/phpspec": "2.0.0"
+        },
+        "time": "2014-06-03 07:11:52",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "CeesVanEgmond\\Minify": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Cees van Egmond",
+                "email": "cees@ceesvanegmond.com"
+            }
+        ],
+        "description": "A package for minifying styles and javascript ",
+        "keywords": [
+            "laravel",
+            "minify"
+        ]
+    },
+    {
         "name": "erusev/parsedown",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/erusev/parsedown.git",
-            "reference": "da5d75e97e1ed19e57bd54fa6cb595a6a0879a67"
+            "reference": "7000cbc2d29ba0ab303496300600d66fc2bc98ac"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/erusev/parsedown/zipball/da5d75e97e1ed19e57bd54fa6cb595a6a0879a67",
-            "reference": "da5d75e97e1ed19e57bd54fa6cb595a6a0879a67",
+            "url": "https://api.github.com/repos/erusev/parsedown/zipball/7000cbc2d29ba0ab303496300600d66fc2bc98ac",
+            "reference": "7000cbc2d29ba0ab303496300600d66fc2bc98ac",
             "shasum": ""
         },
-        "time": "2014-10-29 20:29:46",
+        "time": "2014-11-12 20:27:29",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1773,12 +2030,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/FrozenNode/Laravel-Administrator.git",
-            "reference": "a1d403c5aae803f6b20d519815e2789602291bb8"
+            "reference": "ae75e5ee066248bb9e65c99e436044821b227ce0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/FrozenNode/Laravel-Administrator/zipball/a1d403c5aae803f6b20d519815e2789602291bb8",
-            "reference": "a1d403c5aae803f6b20d519815e2789602291bb8",
+            "url": "https://api.github.com/repos/FrozenNode/Laravel-Administrator/zipball/ae75e5ee066248bb9e65c99e436044821b227ce0",
+            "reference": "ae75e5ee066248bb9e65c99e436044821b227ce0",
             "shasum": ""
         },
         "require": {
@@ -1787,9 +2044,9 @@
             "php": ">=5.3.0"
         },
         "require-dev": {
-            "mockery/mockery": "0.8.0"
+            "mockery/mockery": "~0.9"
         },
-        "time": "2014-11-05 01:44:18",
+        "time": "2014-11-17 03:31:59",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

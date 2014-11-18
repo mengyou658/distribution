@@ -7,7 +7,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"frozennode/administrator": "dev-master",
-		"erusev/parsedown": "dev-master"
+		"erusev/parsedown": "dev-master",
+		"ceesvanegmond/minify": "2.0.*",
+		"mikemclin/laravel-wp-password": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

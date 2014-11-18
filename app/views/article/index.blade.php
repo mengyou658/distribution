@@ -20,6 +20,7 @@
                 </div>
                 <p><a href="#">阅读全文</a> <a href="#comment">发表评论</a></p>
             </div>
+            <hr>
             @endforeach
 
             {{$articles->links()}}

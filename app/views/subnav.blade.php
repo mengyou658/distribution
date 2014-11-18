@@ -32,4 +32,5 @@
         <a href="/ask" class="btn btn-primary @if(Request::is('ask*')) active @endif">问答</a>
         <a href="/group" class="btn btn-primary @if(Request::is('group*')) active @endif">讨论</a>
         <a href="/event" class="btn btn-primary @if(Request::is('event*')) active @endif">活动</a>
+        <a href="/books" class="btn btn-primary @if(Request::is('books*')) active @endif">图书</a>
       </div>

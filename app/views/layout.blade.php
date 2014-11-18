@@ -94,7 +94,9 @@
               <ul class="nav nav-pills pull-left">
                   <li><a href="/about">关于我们</a></li>
                   <li><a href="/contact">联系我们</a></li>
+                  <!--
                   <li><a href="/terms">用户协议</a></li>
+                  -->
                   <li><a href="/policy">免责声明</a></li>
                   <li><a href="/help">帮助中心</a></li>
               </ul>

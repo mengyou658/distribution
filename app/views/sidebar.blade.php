@@ -3,9 +3,9 @@
 </div>
 <div class="">
     <ul>
-    <li>新浪微博<a href="http://weibo.com/cosname">@统计之都</a></li>
-    <li>人人网<a href="http://renren.com/cosname">@统计之都</a></li>
-    <li>Twitter<a href="http://twitter.com/cos_name">@cos_name</a></li>
+        <li>新浪微博<a href="http://weibo.com/cosname">@统计之都</a></li>
+        <li>人人网<a href="http://renren.com/cosname">@统计之都</a></li>
+        <li>Twitter<a href="http://twitter.com/cos_name">@cos_name</a></li>
     </ul>
 </div>
 
@@ -13,17 +13,63 @@
     <legend>微信公众平台</legend>
 </div>
 <div class="">
-<img src="/img/cos_qrcode.jpg" alt="" width="129" height="129" border="0">
-<p>微信号 CapStat</p>
-<p>我们将第一时间向您推送主站和论坛的精彩内容，以及统计之都的线下活动、竞赛、培训和会议信息。</p>
+    <img src="/img/cos_qrcode.jpg" alt="" width="129" height="129" border="0">
+    <p>微信号 CapStat</p>
+    <p>我们将第一时间向您推送主站和论坛的精彩内容，以及统计之都的线下活动、竞赛、培训和会议信息。</p>
 </div>
 
 <div class="page-header">
     <legend>讨论小组<small class="pull-right"><a href="#">所有小组...</a></small></legend>
 </div>
 
+<div class="row">
+    <div class="col-xs-2">
+        <img style="width:48px" src="/img/test_group.jpg">
+    </div>
+    <div class="col-xs-4">
+        <p><a href="">小组名字</a> </p>
+        <P>小组描述</P>
+    </div>
+    <div class="col-xs-2">
+        <img style="width:48px" src="/img/test_group.jpg">
+    </div>
+    <div class="col-xs-4">
+        <p><a href="">小组名字</a> </p>
+        <P>小组描述</P>
+    </div>
+    <div class="col-xs-2">
+        <img style="width:48px" src="/img/test_group.jpg">
+    </div>
+    <div class="col-xs-4">
+        <p><a href="">小组名字</a> </p>
+        <P>小组描述</P>
+    </div>
+    <div class="col-xs-2">
+        <img style="width:48px" src="/img/test_group.jpg">
+    </div>
+    <div class="col-xs-4">
+        <p><a href="">小组名字</a> </p>
+        <P>小组描述</P>
+    </div>
+</div>
+
 <div class="page-header">
     <legend>近期活动<small class="pull-right"><a href="#">所有活动...</a></small></legend>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <p><a href="">活动名字</a> <span>2014年11月11日</span></p>
+        <P>活动描述，活动描述，活动描述...</P>
+    </div>
+    <div class="col-xs-12">
+        <p><a href="">活动名字</a> <span>2014年11月11日</span></p>
+        <P>活动描述，活动描述，活动描述...</P>
+    </div>
+    <div class="col-xs-12">
+        <p><a href="">活动名字</a> <span>2014年11月11日</span></p>
+        <P>活动描述，活动描述，活动描述...</P>
+    </div>
 </div>
 
 <div class="page-header">

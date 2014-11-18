@@ -5,10 +5,12 @@
     <div class="col-sm-8">
 
         <div class="page-header">
-            <legend>文章<small class="pull-right"><a href="#">所有文章...</a></small></legend>
+            <legend>文章<small class="pull-right"><a href="{{action('ArticleController@getIndex')}}">所有文章...</a></small></legend>
         </div>
+
+
         <div class="home-widget">
-            <h3><a href="#">最新文章最新文章</a></h3>
+            <h3><a href="#">最新文章</a></h3>
             <div class="row">
                 <div class="col-sm-3">
                     <img style="width:100%;" src="http://cos.name/wp-content/uploads/2013/05/6th-china-r-bj-500x332.jpg">
@@ -38,26 +40,101 @@
         <hr>
 
         <div class="page-header">
-            <legend>快讯<small class="pull-right"><a href="#">所有文章...</a></small></legend>
+            <legend>快讯<small class="pull-right"><a href="{{action('NewsController@getIndex')}}">所有快讯...</a></small></legend>
         </div>
 
         <div class="home-widget">
             <div class="row">
-                <div class="col-sm-12">
-                    <h4><a href="">标题标题标题</a></h4>
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
                 </div>
 
-                <div class="col-sm-12">
-                    <h4><a href="">标题标题标题</a></h4>
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
                 </div>
 
-                <div class="col-sm-12">
-                    <h4><a href="">标题标题标题</a></h4>
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
                 </div>
             </div>
         </div>
         <hr>
 
+        <div class="page-header">
+            <legend>问答<small class="pull-right"><a href="{{action('AskController@getIndex')}}">更多问题...</a></small></legend>
+        </div>
+        <div class="home-widget">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="page-header">
+            <legend>讨论<small class="pull-right"><a href="{{action('GroupController@getIndex')}}">更多讨论...</a></small></legend>
+        </div>
+        <div class="home-widget">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+
+                <div class="col-sm-6">
+                    <h5><a href="">标题标题标题</a></h5>
+                </div>
+            </div>
+        </div>
+        <hr>
 
     </div>
     <div class="col-sm-4">

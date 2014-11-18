@@ -31,7 +31,6 @@ article
     user_id
 
     title
-    subtitle
     thumbnail
 
     abstract

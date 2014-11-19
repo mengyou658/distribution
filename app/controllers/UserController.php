@@ -162,23 +162,49 @@ class UserController extends BaseController {
     }
 
     public function postSettingProfile() {
-        // dd(Input::all());
-
-        // @todo: 其他的用户属性
-        // profession sex
 
         $user = Auth::user();
+
+        $nickname = Input::get('nickname');
+        $website = Input::get('website');
+        $sex = Input::get('sex');
         $descr = Input::get('descr');
 
-        $input = [];
-        $rules = [];
+        $input = [
+            'nickname' => $nickname,
+            'website' => $website,
+            'sex' => $sex,
+            'descr' => $descr,
+        ];
+        $rules = [
+            'website' => 'url',
+            'sex' => 'required|in:female,male,unknown'
+        ];
 
         $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
-            return Redirect::to('user/setting/profile')->with('msg', '信息填写错误');
+
+            $messages = $validator->messages();
+
+            $msg = '';
+            switch (true) {
+                case $messages->has('website'):
+                    $msg = '请填写正确的网址';
+                    break;
+                
+                default:
+                    $msg = '请填写正确的信息';
+                    break;
+            }
+
+            return Redirect::to('user/setting/profile')
+                           ->with('msg', $msg);
         }
 
+        $user->nickname = e($nickname);
+        $user->website = $website;
+        $user->sex = $sex;
         $user->descr = $descr;
         $user->save();
 
@@ -190,9 +216,43 @@ class UserController extends BaseController {
     }
 
     public function postSettingEmail() {
-        dd(Input::all());
 
+        $user = Auth::user();
         $email = Input::get('email');
+
+        $input = [
+            'email' => $email,
+        ];
+        $rules = [
+            'email' => 'required|email',
+        ];
+
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->fails()) {
+
+            $messages = $validator->messages();
+
+            $msg = '';
+            switch (true) {
+                case $messages->has('email'):
+                    $msg = '请填写正确的邮件地址';
+                    break;
+                
+                default:
+                    $msg = '请填写正确的信息';
+                    break;
+            }
+
+            return Redirect::to('user/setting/email')
+                           ->with('msg', $msg);
+        }
+
+        $user->email = $email;
+        $user->save();
+
+        return Redirect::to('user/setting/email')->with('msg', '修改成功');
+
     }
 
     public function getSettingAvatar() {
@@ -200,7 +260,55 @@ class UserController extends BaseController {
     }
 
     public function postSettingAvatar() {
-        dd(Input::all());
+
+        $user = Auth::user();
+        
+        if (!Input::hasFile('avatar')) {
+            return Redirect::to('user/setting/avatar')
+                           ->with('msg', '请上传头像图片文件');
+        }
+        
+        $file = Input::file('avatar');
+        $mime = $file->getMimeType();
+        
+        $validImageTypes = [
+            'image/png',
+            'image/jpeg',
+            'image/gif',
+            'image/bmp',
+        ];
+            
+        if (!in_array($mime, $validImageTypes)) {
+            return Redirect::to('user/setting/avatar')
+                           ->with('msg', '本站不支持您上传的图片格式');
+        }
+            
+            // 2M: 1024*1024*2 = 2097152
+        if ($file->getClientSize() > 2097152) {
+            return Redirect::to('user/setting/avatar')
+                           ->with('msg', '图片文件太大（本站最大支持 2M 头像图片文件上传）');
+        }
+            
+        $imageExts = [
+            'image/png' => 'png',
+            'image/jpeg' => 'jpg',
+            'image/gif' => 'gif',
+            'image/bmp' => 'bmp',
+        ];
+            
+
+        $fileName = $user->id.'.'.$imageExts[$mime];
+            
+        $publicAvatarPath = "/upload/avatar";
+        $desPath = public_path().$publicAvatarPath;
+            
+        $file->move($desPath, $fileName);   
+        $fileUri = $publicAvatarPath.'/'.$fileName;
+            
+        $user->avatar = $fileUri;
+        $user->save();
+        
+        return Redirect::to('user/setting/avatar')->with('msg', '修改头像成功');
     }
 
     public function getSettingPassword() {
@@ -208,6 +316,41 @@ class UserController extends BaseController {
     }
 
     public function postSettingPassword() {
-        dd(Input::all());
+
+        $user = Auth::user();
+        $curPassword = Input::get('cur_password');
+        $newPassword = Input::get('new_password');
+        $reenterNewPassword = Input::get('reenter_new_password');
+
+        if (!Hash::check($curPassword, $user->password)) {
+            return Redirect::to('user/setting/password')->with('msg', '原密码错误');
+        }
+
+        $input = [
+            'new_password' => $newPassword,
+            'reenter_new_password' => $reenterNewPassword,
+        ];
+        
+        $rules = [
+            'new_password' => 'required|min:4|max:32',
+            'reenter_new_password' => 'same:new_password',
+        ];
+        
+        $validator = Validator::make($input, $rules);
+        
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+        
+            if ($messages->has('reenter_new_password')) {
+                return Redirect::to('user/setting/password')->with('msg', '两次输入的新密码不一致');
+            }
+
+            return Redirect::to('user/setting/password')->with('msg', '密码过于简单');
+        }
+
+        $user->password = Hash::make($newPassword);
+        $user->save();
+
+        return Redirect::to('user/setting/password')->with('msg', '密码修改成功');
     }
 }

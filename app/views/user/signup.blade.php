@@ -27,7 +27,7 @@
     <div class="form-group">
         <label for="inputRepassword" class="col-sm-2 control-label">确认密码</label>
         <div class="col-sm-4">
-            <input type="password" class="form-control" id="inputRepassword" placeholder="RePassword" name="repassword">
+            <input type="password" class="form-control" id="inputRepassword" placeholder="Reenter Password" name="repassword">
         </div>
     </div>
     <div class="form-group">

@@ -42,7 +42,9 @@
             </li>
           </ul>
 
+          @if(Auth::check())
           <img class="nav-avatar img-circle pull-right" src="/img/default_avatar.png"><!-- @todo: fixme -->
+          @endif
           <ul class="nav navbar-nav navbar-right">
             @if(Auth::check())
             <li class="dropdown">

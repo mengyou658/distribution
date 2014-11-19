@@ -38,7 +38,7 @@ class NewsController extends BaseController {
         }
 
         // @todo: perPage num
-        $newses = $newses->paginate(3);
+        $newses = $newses->paginate(10);
         return View::make('news.index', compact('newses', 'orderBy'));
     }
 
@@ -52,7 +52,7 @@ class NewsController extends BaseController {
         $topic = $news->topic;
         $comments = $topic->comments()
                           ->orderBy('created_at', 'desc')
-                          ->paginate(3);
+                          ->paginate(8);
 
         $refer = action('NewsController@getDetail', $news->id);
 

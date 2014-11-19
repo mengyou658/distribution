@@ -15,15 +15,15 @@
 <table>
 <tbody>
 <tr>
-<td style="text-align: center;" width="30%"><img alt="R-in-Action" src="http://cos.name/wp-content/uploads/2013/03/r-in-action-small.jpg"><br>
-<a title="《R语言实战》" href="http://cos.name/2013/03/r-in-action/" target="_blank">《R语言实战》</a></td>
-<td style="text-align: center;" width="30%"><img alt="ggplot2" src="http://cos.name/wp-content/uploads/2013/05/ggplot2-212x300.jpg" width="150" height="188"><br>
-<a title="《ggplot2：数据分析与图形艺术》" href="http://cos.name/2013/05/ggplot2/" target="_blank">《ggplot2：数据分析与图形艺术》</a></td>
-<td style="text-align: center;" width="30%"><img alt="art-of-r-programming" src="http://cos.name/wp-content/uploads/2013/05/art-of-r-small.jpg" height="188"><br>
-<a title="《R语言编程艺术》" href="http://cos.name/2013/05/the-art-r-programming/" target="_blank">《R语言编程艺术》</a></td>
+<td style="text-align: center;" width="30%"><img alt="R-in-Action" src="/img/books/r-in-action.jpg"><br>
+<a title="《R语言实战》" href="http://book.douban.com/subject/20382244/" target="_blank">《R语言实战》</a></td>
+<td style="text-align: center;" width="30%"><img alt="ggplot2" src="/img/books/ggplot2.jpg" width="150" height="188"><br>
+<a title="《ggplot2：数据分析与图形艺术》" href="http://book.douban.com/subject/24527091/" target="_blank">《ggplot2：数据分析与图形艺术》</a></td>
+<td style="text-align: center;" width="30%"><img alt="art-of-r-programming" src="/img/books/art-of-r.jpg" height="188"><br>
+<a title="《R语言编程艺术》" href="http://book.douban.com/subject/24699632/" target="_blank">《R语言编程艺术》</a></td>
 </tr>
 <tr>
-<td style="text-align: center;" width="30%"><img alt="Dynamic-Documents-with-R-and-knitr" src="http://images.tandf.co.uk/common/jackets/crclarge/978148220/9781482203530.jpg" width="150" height="188"><br>
+<td style="text-align: center;" width="30%"><img alt="Dynamic-Documents-with-R-and-knitr" src="/img/books/knitr.jpg" width="150" height="188"><br>
 <a title="Dynamic Documents with R and knitr" href="http://www.crcpress.com/product/isbn/9781482203530" target="_blank">Dynamic Documents with R and knitr</a></td>
 <td style="text-align: center;" width="30%"></td>
 <td style="text-align: center;" width="30%"></td>

@@ -29,6 +29,7 @@
     </div>
 
     <div class="col-sm-4">
+        @include('article.sidebar.category')
         @include('sidebar')
     </div>
 </div>

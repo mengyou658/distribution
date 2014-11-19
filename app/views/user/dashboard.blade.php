@@ -4,13 +4,16 @@
 <div class="row">
     <div class="col-sm-3">
         <div class="page-header">
-            <legend>{{$user->name}}</hlegend2>
+            <legend>个人主页</legend>
         </div>
+
+        <h4>Hello, {{$user->name}} !</h4>
 
         <div>
             <!-- @todo: 样式分离 -->
-            <img style="width:256px;height:256px;" src="/img/test_avatar.png" alt="avatar" class="img-thumbnail">
+            <img style="width:256px;height:256px;" src="{{$user->avatar}}" alt="avatar" class="img-thumbnail">
         </div>
+        
     </div>
 
     <div class="col-sm-9">

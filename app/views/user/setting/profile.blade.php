@@ -11,7 +11,39 @@
             <legend>个人信息</legend>
         </div>
 
+
+
         <form class="form-horizontal" action="{{ action('UserController@postSettingProfile') }}" method="post">
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">昵称</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Nickname" name="nickname" value="{{Auth::user()->nickname}}">            
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">个人网站</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="URL" name="website" value="{{Auth::user()->website}}">            
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">性别</label>
+            <div class="col-sm-6">
+                <label class="radio-inline">
+                <input type="radio" name="sex" value="female" @if(Auth::user()->sex=='female') checked @endif >女
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="sex" value="male" @if(Auth::user()->sex=='male') checked @endif >男
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="sex" value="unknown" @if(Auth::user()->sex=='unknown') checked @endif >保密
+                </label>
+            </div>
+        </div>
+
         <div class="form-group">
             <label class="col-sm-2 control-label">个人简介</label>
             <div class="col-sm-8">

@@ -24,7 +24,7 @@
             </div>
         </div>
         
-        <hr>
+        <hr class="bold">
 
         @include('utils.comment', ['topic' => $topic, 'comments' => $comments])
 

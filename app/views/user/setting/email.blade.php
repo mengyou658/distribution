@@ -15,7 +15,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">邮箱地址</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" placeholder="E-mail" name="email" value="{{Auth::user()->email}}">            
+                <input type="text" class="form-control" placeholder="E-mail" name="email" value="{{Auth::user()->email}}">
             </div>
         </div>
 

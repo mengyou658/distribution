@@ -11,26 +11,26 @@
             <legend>修改密码</legend>
         </div>
 
-        <form class="form-horizontal" action="{{ action('UserController@postSettingEmail') }}" method="post">
+        <form class="form-horizontal" action="{{ action('UserController@postSettingPassword') }}" method="post">
 
         <div class="form-group">
             <label  class="col-sm-2 control-label">当前密码</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="Current Password" name="cur_password">
+                <input type="password" class="form-control" placeholder="Current Password" name="cur_password">
             </div>
         </div>
 
         <div class="form-group">
             <label  class="col-sm-2 control-label">新密码</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="New Password" name="new_password">
+                <input type="password" class="form-control" placeholder="New Password" name="new_password">
             </div>
         </div>
 
         <div class="form-group">
             <label  class="col-sm-2 control-label">确认新密码</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="Reenter New Password" name="reenter_new_password">
+                <input type="password" class="form-control" placeholder="Reenter New Password" name="reenter_new_password">
             </div>
         </div>
 

@@ -16,13 +16,13 @@
         </div>
 
         <!-- @todo: 抽离 css -->
-        <form class="form-horizontal" action="{{ action('UserController@postSettingAvatar') }}" method="post">
+        <form class="form-horizontal" action="{{ action('UserController@postSettingAvatar') }}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label class="col-sm-2 control-label">个人头像</label>
             <div class="col-sm-8">
                 <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail" style="width: 220px; height: 220px;">
-                    <img alt="" src="/img/test_avatar.png" style="height: 100%; width: 100%; display: block;">
+                    <img alt="" src="{{Auth::user()->avatar}}" style="height: 100%; width: 100%; display: block;">
                 </div>
                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 220px; max-height: 220px;"></div>
                 <div>

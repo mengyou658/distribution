@@ -44,6 +44,10 @@ pre {
     width: 70px;
 }
 
+hr.bold {
+    border-top: 2px solid #ecf0f1;
+}
+
 .subnav {
     margin-bottom: 22px;
 }

@@ -38,8 +38,10 @@ class ArticleController extends BaseController {
                            ->orderBy('published_at', 'desc')
                            ->paginate(self::$perPage);
 
+        $curCategoryId = $categoryId;
+
         // @todo: 考虑使用 自有 的模板
-        return View::make('article.index', compact('articles'));
+        return View::make('article.index', compact('articles', 'curCategoryId'));
     }
 
     public function getTag($tagId) {

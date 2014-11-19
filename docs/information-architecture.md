@@ -11,8 +11,14 @@ user
     name
     password
 
+    nickname
     avatar
     descr
+    website
+    sex
+        - unknow
+        - male
+        - female
     
     is_confirmed
 
@@ -20,7 +26,6 @@ user
         - member
         - editor
         - admin
-
 
 ```
 

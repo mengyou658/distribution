@@ -12,16 +12,18 @@ class TableSeeder extends Seeder {
             'email' => 'admin@cos.name',
             'name' => 'admin',
             'nickname' => 'COS管理员',
-            'password' => Hash::make('adminpw'),
+            'password' => Hash::make(isset($_ENV['admin_pw'])?$_ENV['admin_pw']:'admin'),
             'status' => 'admin',
+            'is_confirmed' => true,
         ]);
 
         User::create([
             'email' => 'editor@cos.name',
             'name' => 'editor',
             'nickname' => 'COS编辑',
-            'password' => Hash::make('editorpw'),
+            'password' => Hash::make(isset($_ENV['editor_pw'])?$_ENV['editor_pw']:'editor'),
             'status' => 'editor',
+            'is_confirmed' => true,
         ]);
 
 

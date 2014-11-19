@@ -41,7 +41,16 @@ if(Config::get('app.debug')) {
         // dd($discuss->group->name);
         //echo strpos('acdbcdecd', 'cd');
 
-        echo nl2p("abc\nefg");
+        //echo nl2p("abc\nefg");
+
+        $user = WpUser::whereUser_login('')->first();
+
+        $password = '';
+        if ( WpPassword::check($password, $user->user_pass) ) {
+            echo "success";
+        } else {
+            echo "failed";
+        }
     });
 
     Route::get('test/editor', function() {
@@ -52,50 +61,50 @@ if(Config::get('app.debug')) {
         dd(Input::all());
     });
 
-    Route::get('import-from-xml', function() {
-        set_time_limit(0); // prevent timeout
+    // Route::get('import-from-xml', function() {
+    //     set_time_limit(0); // prevent timeout
 
-        Schema::dropIfExists('import_article');
-        Schema::create('import_article', function($table) {
-            $table->increments('id');
+    //     Schema::dropIfExists('import_article');
+    //     Schema::create('import_article', function($table) {
+    //         $table->increments('id');
 
-            $table->integer('wp_post_id');
-            $table->string('title', 128);
-            $table->text('content');
-            $table->dateTime('published_at');
-            $table->string('status', 16);
-        });
+    //         $table->integer('wp_post_id');
+    //         $table->string('title', 128);
+    //         $table->text('content');
+    //         $table->dateTime('published_at');
+    //         $table->string('status', 16);
+    //     });
 
-        $xmlFilePath = 'D:/Dropbox/Docs/COS/wordpress.2014-11-18.xml';
-        $xmlObj = simplexml_load_file($xmlFilePath);
+    //     $xmlFilePath = 'wordpress.2014-11-18.xml';
+    //     $xmlObj = simplexml_load_file($xmlFilePath);
 
-        foreach ($xmlObj->channel->item as $item) {
+    //     foreach ($xmlObj->channel->item as $item) {
 
-            $wp = $item->children('http://wordpress.org/export/1.2/');
+    //         $wp = $item->children('http://wordpress.org/export/1.2/');
 
-            $status = 'published';
-            if ((string)$wp->status != 'publish' ) {
-                $status = 'draft';
-            }
+    //         $status = 'published';
+    //         if ((string)$wp->status != 'publish' ) {
+    //             $status = 'draft';
+    //         }
 
-            $wp_post_id = (int)$wp->post_id;
-            $published_at = (string)$wp->post_date;
+    //         $wp_post_id = (int)$wp->post_id;
+    //         $published_at = (string)$wp->post_date;
 
-            $title = (string)$item->title;
-            $content = (string)($item->children('http://purl.org/rss/1.0/modules/content/')->encoded);
+    //         $title = (string)$item->title;
+    //         $content = (string)($item->children('http://purl.org/rss/1.0/modules/content/')->encoded);
 
-            DB::table('import_article')->insert([
-                'wp_post_id' => $wp_post_id,
-                'title' => str_limit($title, 128),
-                'content' => $content,
-                'published_at' => $published_at,
-                'status' => $status,
-            ]);
+    //         DB::table('import_article')->insert([
+    //             'wp_post_id' => $wp_post_id,
+    //             'title' => str_limit($title, 128),
+    //             'content' => $content,
+    //             'published_at' => $published_at,
+    //             'status' => $status,
+    //         ]);
 
-        }
+    //     }
 
-        echo "done";
-    });
+    //     echo "done";
+    // });
 
     Route::get('import-article', function() {
         set_time_limit(0); // prevent timeout
@@ -133,7 +142,6 @@ if(Config::get('app.debug')) {
     });
 
     Route::get('schema/refresh', function(){
-        define('STDIN',fopen("php://stdin","r"));
         Artisan::call('migrate:refresh', ['--seed' => true, '--force' => true]);
         echo 'refreshed!';
     });

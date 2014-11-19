@@ -20,10 +20,11 @@ class CreateUserTable extends Migration {
             $table->string('name', 16);
             $table->string('password', 64);
 
-            $table->string('display_name', 16)->default('');
+            $table->string('nickname', 16)->default('');
             $table->string('avatar', 256)->default('');
             $table->string('descr', 512)->default('');
             $table->string('website', 256)->default('');
+            $table->string('sex', 16)->default('unknow');
             //$table->dateTime('registered_at');
 
             $table->boolean('is_confirmed')->default(false);

@@ -63,6 +63,17 @@ return array(
             'prefix'    => '',
         ),
 
+        'legacy' => array(
+            'driver'    => 'mysql',
+            'host'      => 'localhost',
+            'database'  => 'legacy',
+            'username'  => $_ENV['mysql_username'],
+            'password'  => $_ENV['mysql_password'],
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ),
+
         'pgsql' => array(
             'driver'   => 'pgsql',
             'host'     => 'localhost',

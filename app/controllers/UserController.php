@@ -81,20 +81,65 @@ class UserController extends BaseController {
         return View::make('user.login');
     }
 
+    // // origin
+    // public function postLogin() {
+
+    //     $input = array(
+    //         // 'email' => Input::get('email'),
+    //         'name' => Input::get('name'),
+    //         'password' => Input::get('password'),
+    //     );
+
+    //     if (Auth::attempt($input)) {
+    //         return Redirect::intended('/')->with('msg', '登录成功');
+    //     }
+
+    //     return Redirect::to('user/login')->with('msg', '输入账号信息错误，如需请重新注册');
+    // }
+
     public function postLogin() {
         //dd(Input::all());
 
-        $input = array(
-            // 'email' => Input::get('email'),
-            'name' => Input::get('name'),
-            'password' => Input::get('password'),
-        );
+        $name = Input::get('name');
+        $password = Input::get('password');
 
-        if (Auth::attempt($input)) {
-            return Redirect::intended('/')->with('msg', '登录成功');
+        $user = User::whereName($name)->first();
+
+        if ($user) {
+            if (Auth::attempt(['name' => $name, 'password' => $password])) {
+                return Redirect::intended('/')->with('msg', '登录成功');
+            }
+            else {
+                return Redirect::to('user/login')->with('msg', '输入密码错误');
+            }
         }
+        
+        $wpUser = WpUser::whereUser_login($name)->first();
+        if ($wpUser) {
+  
+            if(WpPassword::check($password, $wpUser->user_pass)) {
+                $newUser = User::create([
+                    'email' => $wpUser->user_email,
+                    'name' => $wpUser->user_login,
+                    'password' => Hash::make($password),
+                ]);
 
-        return Redirect::to('user/login')->with('msg', '账号信息错误');
+                // create 会直接使用默认值，所以需要另外写入
+                $newUser->nickname = $wpUser->display_name;
+                $newUser->website = $wpUser->user_url;
+                $newUser->created_at = $wpUser->user_registered;
+                $newUser->is_confirmed = true;
+                $newUser->save();
+
+                Auth::login($newUser);
+                return Redirect::intended('/')->with('msg', '登录成功');
+            }
+            else {
+                return Redirect::to('user/login')->with('msg', '输入密码错误');
+            }
+        }
+        
+        return Redirect::to('user/login')->with('msg', '无此账号信息错误，请重新注册');
     }
 
     public function getLogout() {
@@ -106,22 +151,6 @@ class UserController extends BaseController {
         $user = Auth::user();
         return View::make('user.dashboard', compact('user'));
     }
-
-
-    // @todo: 考虑如何用以前的库进行验证，和提取资料
-    /*
-    思路：
-        - 当旧站不再注册后，到处用户表到新站（用新库）
-        - 设置连接和模型
-        - 实现一个 hash 的验证方法
-
-        - 用户登录逻辑（这里有个问题，以前是 ID ，现在是 email，同步的问题，需要看以前的用户信息数据）
-            - 查新库，有 id 则验证，返回是否通过
-                - 没有通过，提示注册
-            - 没有 id 去老库找，验证
-                - 通过，将信息写入新库，包括密码的新hash
-                - 没有通过，提示注册
-    */
 
     public function getUserDetail($userId) {
         $user = User::find($userId);
@@ -136,7 +165,7 @@ class UserController extends BaseController {
         // dd(Input::all());
 
         // @todo: 其他的用户属性
-        // realname profession blog sex
+        // profession sex
 
         $user = Auth::user();
         $descr = Input::get('descr');

@@ -43,14 +43,17 @@ if(Config::get('app.debug')) {
 
         //echo nl2p("abc\nefg");
 
-        $user = WpUser::whereUser_login('')->first();
+        // @todo: test wp pw hash
+        // $user = WpUser::whereUser_login('')->first();
 
-        $password = '';
-        if ( WpPassword::check($password, $user->user_pass) ) {
-            echo "success";
-        } else {
-            echo "failed";
-        }
+        // $password = '';
+        // if ( WpPassword::check($password, $user->user_pass) ) {
+        //     echo "success";
+        // } else {
+        //     echo "failed";
+        // }
+
+        echo isset($_ENV['admin_pw'])?$_ENV['admin_pw']:'admin';
     });
 
     Route::get('test/editor', function() {
@@ -145,6 +148,56 @@ if(Config::get('app.debug')) {
         Artisan::call('migrate:refresh', ['--seed' => true, '--force' => true]);
         echo 'refreshed!';
     });
+
+    // // static host 
+    // Route::get('demo/{path?}', function($path=''){
+
+    //     $demoStaticPath = __DIR__.'/views/demo/';
+
+    //     if ($path == '') {
+    //         return Redirect::to('demo/index.html');
+    //     }
+
+    //     $filePath = $demoStaticPath.$path;
+
+    //     $mimeTypes = array(
+    //         'txt' => 'text/plain',
+    //         'htm' => 'text/html',
+    //         'html' => 'text/html',
+    //         'php' => 'text/html',
+    //         'css' => 'text/css',
+    //         'js' => 'application/javascript',
+    //         'json' => 'application/json',
+    //         'xml' => 'application/xml',
+    //         'swf' => 'application/x-shockwave-flash',
+    //         'flv' => 'video/x-flv',
+
+    //         // images
+    //         'png' => 'image/png',
+    //         'jpe' => 'image/jpeg',
+    //         'jpeg' => 'image/jpeg',
+    //         'jpg' => 'image/jpeg',
+    //         'gif' => 'image/gif',
+    //         'bmp' => 'image/bmp',
+    //         'ico' => 'image/vnd.microsoft.icon',
+    //         'tiff' => 'image/tiff',
+    //         'tif' => 'image/tiff',
+    //         'svg' => 'image/svg+xml',
+    //         'svgz' => 'image/svg+xml',
+
+    //         // archives
+    //         'zip' => 'application/zip',
+    //         'rar' => 'application/x-rar-compressed',
+    //     );
+
+    //     $fileInfo = pathinfo($filePath);
+    //     $mimeType = $mimeTypes[$fileInfo['extension']];
+
+    //     $response = Response::make(File::get($filePath), 200);
+    //     $response->header('Content-Type', $mimeType);
+
+    //     return $response;
+    // })->where('path', '.*');
 }
 
 

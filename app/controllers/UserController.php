@@ -31,22 +31,21 @@ class UserController extends BaseController {
     }
 
     public function postSignup() {
-        //dd(Input::all());
 
-        $input = array(
+        $input = [
             'email' => Input::get('email'),
             'name' => Input::get('name'),
             'password' => Input::get('password'),
             'repassword' => Input::get('repassword'),
-        );
+        ];
 
-        $rules = array(
+        $rules = [
             'email' => 'required|email|unique:user',
             //'name' => 'required|alpha_dash|min:4|max:16', // 英文 数字 下划线 中划线
             'name' => 'required|unique:user|min:2|max:16', // 允许中文用户名
             'password' => 'required|min:4|max:32',
             'repassword' => 'required|same:password',
-        );
+        ];
 
         $validator = Validator::make($input, $rules);
 
@@ -68,6 +67,9 @@ class UserController extends BaseController {
             return Redirect::to('user/signup')->with('msg', '输入信息错误');
         }
 
+        // escape
+        $input['name'] = e($input['name']);
+
         // hash password
         $input['password'] = Hash::make($input['password']);
 
@@ -78,7 +80,8 @@ class UserController extends BaseController {
     }
 
     public function getLogin() {
-        return View::make('user.login');
+        $refer = Input::get('refer', '');
+        return View::make('user.login', compact('refer'));
     }
 
     // // origin
@@ -98,16 +101,21 @@ class UserController extends BaseController {
     // }
 
     public function postLogin() {
-        //dd(Input::all());
 
         $name = Input::get('name');
         $password = Input::get('password');
+        $refer = Input::get('refer', '');
 
         $user = User::whereName($name)->first();
 
         if ($user) {
             if (Auth::attempt(['name' => $name, 'password' => $password])) {
-                return Redirect::intended('/')->with('msg', '登录成功');
+                if ($refer) {
+                    return Redirect::to($refer)->with('msg', '登录成功');
+                }
+                else {
+                    return Redirect::intended('/')->with('msg', '登录成功');
+                }
             }
             else {
                 return Redirect::to('user/login')->with('msg', '输入密码错误');
@@ -132,7 +140,12 @@ class UserController extends BaseController {
                 $newUser->save();
 
                 Auth::login($newUser);
-                return Redirect::intended('/')->with('msg', '登录成功');
+                if ($refer) {
+                    return Redirect::to($refer)->with('msg', '登录成功');
+                }
+                else {
+                    return Redirect::intended('/')->with('msg', '登录成功');
+                }
             }
             else {
                 return Redirect::to('user/login')->with('msg', '输入密码错误');
@@ -152,7 +165,7 @@ class UserController extends BaseController {
         return View::make('user.dashboard', compact('user'));
     }
 
-    public function getUserDetail($userId) {
+    public function getDetail($userId) {
         $user = User::find($userId);
         return View::make('user.dashboard', compact('user'));
     }
@@ -165,16 +178,27 @@ class UserController extends BaseController {
 
         $user = Auth::user();
 
-        $nickname = Input::get('nickname');
+        $nickname = e(Input::get('nickname'));
         $website = Input::get('website');
         $sex = Input::get('sex');
         $descr = Input::get('descr');
 
+        // check nickname
+        $duplicatedUser = User::whereNickname($nickname)->first();
+        if ($duplicatedUser) {
+            return Redirect::to('user/setting/profile')
+                           ->with('msg', '这个昵称已经被使用');
+        }
+
+        $duplicatedUser = WpUser::whereDisplay_name($nickname)->first();
+        if ($duplicatedUser) {
+            return Redirect::to('user/setting/profile')
+                           ->with('msg', '这个昵称已经被使用');
+        }
+
         $input = [
-            'nickname' => $nickname,
             'website' => $website,
             'sex' => $sex,
-            'descr' => $descr,
         ];
         $rules = [
             'website' => 'url',
@@ -202,7 +226,7 @@ class UserController extends BaseController {
                            ->with('msg', $msg);
         }
 
-        $user->nickname = e($nickname);
+        $user->nickname = $nickname;
         $user->website = $website;
         $user->sex = $sex;
         $user->descr = $descr;

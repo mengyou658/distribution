@@ -20,10 +20,10 @@ class CommentController extends BaseController {
     }
 
     public function postIndex() {
-        //dd(Input::all());
 
         $user = Auth::user();
         $refer = Input::get('refer', false);
+        $topicId = Input::get('topic_id');
 
         $input = [];
         if (Input::has('markdown')) {
@@ -31,7 +31,7 @@ class CommentController extends BaseController {
             $markdown = Input::get('markdown');
             $input = [
                 'user_id' => $user->id,
-                'topic_id' => Input::get('topic_id'),
+                'topic_id' => $topicId,
                 'markdown' => $markdown,
                 'content' => $parsedown->text($markdown),
             ];
@@ -40,7 +40,7 @@ class CommentController extends BaseController {
             $content = Input::get('content');
             $input = [
                 'user_id' => $user->id,
-                'topic_id' => Input::get('topic_id'),
+                'topic_id' => $topicId,
                 'content' => '<p>' . nl2br(e($content)) . '</p>', // @todo: 看看有没有更好的办法
             ];
         }
@@ -87,6 +87,34 @@ class CommentController extends BaseController {
 
         // @todo: 设置 hidden 字段
         return $comments->toJson();
+    }
+
+    public function postDigg() {
+        if (!Request::ajax()) {
+            App::abort(404);
+        }
+
+        $user = Auth::user();
+
+        $commentId = Input::get('comment_id');
+
+        $oldCommentDigg = CommentDigg::whereUser_id($user->id)
+                               ->whereComment_id($commentId)
+                               ->first();
+        if ($oldCommentDigg) {
+            return Response::json(['status'=>'error', 'msg'=>'already have'], 400);
+        }
+        
+        CommentDigg::create(array(
+            'user_id' => $user->id,
+            'comment_id' => $commentId,
+        ));
+        
+        $comment = Comment::find($commentId);
+        $comment->digg_count += 1;
+        $comment->save();
+        
+        return Response::json(['status'=>'ok']);
     }
 
 }

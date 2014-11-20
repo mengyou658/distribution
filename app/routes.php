@@ -39,9 +39,6 @@ if(Config::get('app.debug')) {
 
         // $discuss = Discuss::find(1);
         // dd($discuss->group->name);
-        //echo strpos('acdbcdecd', 'cd');
-
-        //echo nl2p("abc\nefg");
 
         // @todo: test wp pw hash
         // $user = WpUser::whereUser_login('')->first();
@@ -53,7 +50,6 @@ if(Config::get('app.debug')) {
         //     echo "failed";
         // }
 
-        echo isset($_ENV['admin_pw'])?$_ENV['admin_pw']:'admin';
     });
 
     Route::get('test/editor', function() {
@@ -64,52 +60,11 @@ if(Config::get('app.debug')) {
         dd(Input::all());
     });
 
-    // Route::get('import-from-xml', function() {
-    //     set_time_limit(0); // prevent timeout
-
-    //     Schema::dropIfExists('import_article');
-    //     Schema::create('import_article', function($table) {
-    //         $table->increments('id');
-
-    //         $table->integer('wp_post_id');
-    //         $table->string('title', 128);
-    //         $table->text('content');
-    //         $table->dateTime('published_at');
-    //         $table->string('status', 16);
-    //     });
-
-    //     $xmlFilePath = 'wordpress.2014-11-18.xml';
-    //     $xmlObj = simplexml_load_file($xmlFilePath);
-
-    //     foreach ($xmlObj->channel->item as $item) {
-
-    //         $wp = $item->children('http://wordpress.org/export/1.2/');
-
-    //         $status = 'published';
-    //         if ((string)$wp->status != 'publish' ) {
-    //             $status = 'draft';
-    //         }
-
-    //         $wp_post_id = (int)$wp->post_id;
-    //         $published_at = (string)$wp->post_date;
-
-    //         $title = (string)$item->title;
-    //         $content = (string)($item->children('http://purl.org/rss/1.0/modules/content/')->encoded);
-
-    //         DB::table('import_article')->insert([
-    //             'wp_post_id' => $wp_post_id,
-    //             'title' => str_limit($title, 128),
-    //             'content' => $content,
-    //             'published_at' => $published_at,
-    //             'status' => $status,
-    //         ]);
-
-    //     }
-
-    //     echo "done";
-    // });
-
     Route::get('import-article', function() {
+        if (!Auth::check() or Auth::user()->status != 'admin') {
+            return;
+        }
+
         set_time_limit(0); // prevent timeout
 
         DB::statement('truncate table article');
@@ -135,6 +90,11 @@ if(Config::get('app.debug')) {
     });
 
     Route::get('schema/up', function() {
+        Artisan::call('migrate', ['--force' => true]);
+        echo 'migrated!';
+    });
+
+    Route::get('schema/up/seed', function() {
         Artisan::call('migrate', ['--seed' => true, '--force' => true]);
         echo 'migrated!';
     });
@@ -143,65 +103,10 @@ if(Config::get('app.debug')) {
         Artisan::call('migrate:reset', ['--force' => true]);
         echo 'reseted!';
     });
-
-    Route::get('schema/refresh', function(){
-        Artisan::call('migrate:refresh', ['--seed' => true, '--force' => true]);
-        echo 'refreshed!';
-    });
-
-    // // static host 
-    // Route::get('demo/{path?}', function($path=''){
-
-    //     $demoStaticPath = __DIR__.'/views/demo/';
-
-    //     if ($path == '') {
-    //         return Redirect::to('demo/index.html');
-    //     }
-
-    //     $filePath = $demoStaticPath.$path;
-
-    //     $mimeTypes = array(
-    //         'txt' => 'text/plain',
-    //         'htm' => 'text/html',
-    //         'html' => 'text/html',
-    //         'php' => 'text/html',
-    //         'css' => 'text/css',
-    //         'js' => 'application/javascript',
-    //         'json' => 'application/json',
-    //         'xml' => 'application/xml',
-    //         'swf' => 'application/x-shockwave-flash',
-    //         'flv' => 'video/x-flv',
-
-    //         // images
-    //         'png' => 'image/png',
-    //         'jpe' => 'image/jpeg',
-    //         'jpeg' => 'image/jpeg',
-    //         'jpg' => 'image/jpeg',
-    //         'gif' => 'image/gif',
-    //         'bmp' => 'image/bmp',
-    //         'ico' => 'image/vnd.microsoft.icon',
-    //         'tiff' => 'image/tiff',
-    //         'tif' => 'image/tiff',
-    //         'svg' => 'image/svg+xml',
-    //         'svgz' => 'image/svg+xml',
-
-    //         // archives
-    //         'zip' => 'application/zip',
-    //         'rar' => 'application/x-rar-compressed',
-    //     );
-
-    //     $fileInfo = pathinfo($filePath);
-    //     $mimeType = $mimeTypes[$fileInfo['extension']];
-
-    //     $response = Response::make(File::get($filePath), 200);
-    //     $response->header('Content-Type', $mimeType);
-
-    //     return $response;
-    // })->where('path', '.*');
 }
 
 
-// @todo: args patten
+Route::pattern('id', '[0-9]+');
 
 /*
 |--------------------------------------------------------------------------
@@ -209,13 +114,6 @@ if(Config::get('app.debug')) {
 |--------------------------------------------------------------------------
 |
 */
-
-// catch all and for 404
-// App::missing(function($exception) {
-//     return View::make('index');
-// });
-
-// @todo: for 500
 
 Route::get('/', 'HomeController@getIndex');
 
@@ -229,8 +127,6 @@ Route::get('help', 'HomeController@getHelp');
 Route::get('books', 'HomeController@getBooks');
 Route::get('project', 'HomeController@getProject');
 
-// @todo: 图书资料、视频教程、R 语言会议（数据科学会议），讲座与培训，招聘信息
-
 /*
 |--------------------------------------------------------------------------
 | User Routes
@@ -240,25 +136,19 @@ Route::get('project', 'HomeController@getProject');
 
 Route::get('user/signup', 'UserController@getSignup');
 Route::post('user/signup', 'UserController@postSignup');
-
 Route::get('user/login', 'UserController@getLogin');
 Route::post('user/login', 'UserController@postLogin');
-
 Route::get('user/logout', 'UserController@getLogout');
 
 Route::get('user/dashboard', 'UserController@getDashboard');
-
-Route::get('user/detail/{user_id}.html', 'UserController@getUserDetail');
+Route::get('user/detail/{id}.html', 'UserController@getDetail');
 
 Route::get('user/setting/profile', 'UserController@getSettingProfile');
 Route::post('user/setting/profile', 'UserController@postSettingProfile');
-
 Route::get('user/setting/email', 'UserController@getSettingEmail');
 Route::post('user/setting/email', 'UserController@postSettingEmail');
-
 Route::get('user/setting/avatar', 'UserController@getSettingAvatar');
 Route::post('user/setting/avatar', 'UserController@postSettingAvatar');
-
 Route::get('user/setting/password', 'UserController@getSettingPassword');
 Route::post('user/setting/password', 'UserController@postSettingPassword');
 
@@ -274,8 +164,6 @@ Route::get('article', 'ArticleController@getIndex');
 Route::get('article/category/{id}.html', 'ArticleController@getCategory');
 Route::get('article/tag/{id}.html', 'ArticleController@getTag');
 Route::get('article/detail/{id}.html', 'ArticleController@getDetail');
-
-// @todo: index by tag
 
 /*
 |--------------------------------------------------------------------------
@@ -338,7 +226,7 @@ Route::get('group/detail/{id}.html', 'GroupController@getDetail');
 // Route::get('group/{id}/join', 'GroupController@getJoin');
 // Route::get('group/{id}/quit', 'GroupController@getQuit');
 
-Route::get('group/post/detail/{post_id}.html', 'GroupController@getPostDetail');
+Route::get('group/post/detail/{id}.html', 'GroupController@getPostDetail');
 
 Route::get('group/{id}/new_post', 'GroupController@getNewPost');
 Route::post('group/{id}/new_post', 'GroupController@postNewPost');
@@ -373,4 +261,14 @@ Route::post('comment', 'CommentController@postIndex');
 // ajax
 Route::get('comment/topic/{id}', 'CommentController@getTopic');
 
-// @todo: digg?
+Route::post('comment/digg', 'CommentController@postDigg');
+
+
+/*
+|--------------------------------------------------------------------------
+| Munin Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::get('munin/{uri?}', 'MuninController@getUri')->where('uri', '.*');

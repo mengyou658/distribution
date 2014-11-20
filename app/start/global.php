@@ -25,13 +25,23 @@ ClassLoader::addDirectories([
 | Application Error Logger
 |--------------------------------------------------------------------------
 |
-| Here we will configure the error logger setup for the application which
-| is built on top of the wonderful Monolog library. By default we will
-| build a basic log file setup which creates a single file for logs.
 |
 */
 
 Log::useDailyFiles(storage_path().'/logs/laravel.log');
+
+/*
+|--------------------------------------------------------------------------
+| Application 404 Handler
+|--------------------------------------------------------------------------
+|
+*/
+
+// App::missing(function($exception) {
+//     if(!Config::get('app.debug')) {
+//         return View::make('error.404');
+//     }
+// });
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +58,16 @@ Log::useDailyFiles(storage_path().'/logs/laravel.log');
 
 App::error(function(Exception $exception, $code) {
     Log::error($exception);
-    // @todo: 500 页面
+
+    if (!Config::get('app.debug')) {
+        if ($code == 404) {
+            return View::make('error.404');
+        }
+        else {
+            return View::make('error.500');
+        }
+    }
+
 });
 
 /*
@@ -63,15 +82,13 @@ App::error(function(Exception $exception, $code) {
 */
 
 App::down(function() {
-    // @todo: 系统维护页面
-    return Response::make("Be right back!", 503);
+    return View::make('error.maintaining');
 });
 
 /*
 |--------------------------------------------------------------------------
 | Custom Helper Functions
 |--------------------------------------------------------------------------
-|
 |
 */
 
@@ -81,7 +98,6 @@ require app_path().'/helpers.php';
 |--------------------------------------------------------------------------
 | Custom IoC
 |--------------------------------------------------------------------------
-|
 |
 */
 
@@ -93,7 +109,6 @@ require app_path().'/iocs.php';
 | Require The Filters File
 |--------------------------------------------------------------------------
 |
-|
 */
 
 require app_path().'/filters.php';
@@ -103,7 +118,6 @@ require app_path().'/filters.php';
 |--------------------------------------------------------------------------
 | Custom View Composers
 |--------------------------------------------------------------------------
-|
 |
 */
 

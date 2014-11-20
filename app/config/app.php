@@ -78,8 +78,7 @@ return array(
     |
     */
 
-    // @todo: update before deploy
-    'key' => 'kxpnwjhskhkjxvdopdxiwvgqwbcfetig',
+    'key' => $_ENV['app_key'],
 
     'cipher' => MCRYPT_RIJNDAEL_128,
 

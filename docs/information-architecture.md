@@ -128,8 +128,8 @@ comment
     content
     markdown
 
-    // @todo floor
-    // @todo digg_count
+    floor
+    digg_count
 ```
 
 ### 群组

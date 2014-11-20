@@ -22,6 +22,9 @@ class CreateCommentTable extends Migration {
             $table->text('content');
             $table->text('markdown');
 
+            $table->integer('floor');
+            $table->integer('digg_count')->default(0);
+
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

@@ -17,6 +17,7 @@ class CreateTopicTable extends Migration {
             $table->increments('id');
 
             $table->string('title', 64)->default('');
+            $table->integer('floor_count')->default(0);
 
             $table->timestamps();
             $table->engine = 'InnoDB';

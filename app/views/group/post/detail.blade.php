@@ -44,7 +44,7 @@
 <script src="/js/libs/to-markdown.js"></script>
 <script src="/js/bootstrap-markdown.js"></script>
 <script src="/js/bootstrap-markdown.zh.js"></script>
-<script src="/js/tagmanager.js"></script>
+<script src="/js/comment.js"></script>
 <script>
 $(function(){
     // code hightlight

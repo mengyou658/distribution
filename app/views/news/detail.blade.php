@@ -19,14 +19,16 @@
                     <blockquote>
                         {{$news->content}}
                     </blockquote>
-                    <p><a href="{{action('NewsController@getDetail', $news->id)}}#comment"> 发表评论 </a> / <a href="javascript:;">{{$news->user->name}}</a> @ {{$news->created_at}} </p>
+                    <p>
+                    <a href="{{action('NewsController@getDetail', $news->id)}}#comment"> 发表评论 </a> / 
+                    <a href="{{action('UserController@getDetail', $news->user->id)}}">{{$news->user->name}}</a> @ {{$news->created_at}} </p>
                 </div>
             </div>
         </div>
         
         <hr class="bold">
 
-        @include('utils.comment', ['topic' => $topic, 'comments' => $comments])
+        @include('utils.comment')
 
     </div>
 
@@ -37,6 +39,7 @@
 @stop
 
 @section('js')
+<script src="/js/comment.js"></script>
 <script>
 $(function(){
     

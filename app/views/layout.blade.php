@@ -112,7 +112,15 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/js/libs/ie10-viewport-bug-workaround.js"></script>
 
+    @if(Auth::check())
+    <script>cur_user={ id: {{Auth::user()->id}} };</script>
+    @else
+    <script>cur_user={id:0};</script>
+    @endif
+
     <script src="/js/main.js"></script>
     @yield('js')
+
+    <!-- @todo: GA -->
   </body>
 </html>

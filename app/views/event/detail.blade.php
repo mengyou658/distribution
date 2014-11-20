@@ -24,7 +24,7 @@
         </div>
         
         <hr>
-        @include('utils.comment', ['topic' => $topic, 'comments' => $comments, 'refer' => $refer])
+        @include('utils.comment')
 
     </div>
 

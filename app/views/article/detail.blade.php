@@ -17,7 +17,7 @@
         
         <hr class="bold">
 
-        @include('utils.comment', ['topic' => $topic, 'comments' => $comments, 'refer' => $refer])
+        @include('utils.comment')
 
     </div>
 
@@ -25,4 +25,8 @@
         @include('sidebar')
     </div>
 </div>
+@stop
+
+@section('js')
+<script src="/js/comment.js"></script>
 @stop

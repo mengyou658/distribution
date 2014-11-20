@@ -11,11 +11,10 @@ class Post extends Eloquent {
     public static function boot() {
         parent::boot();
         
-        static::created(function($post) {
+        static::creating(function($post) {
         
             $topic = Topic::create([]);
             $post->topic_id = $topic->id;
-            $post->save();
             
         });
     }

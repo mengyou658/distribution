@@ -11,11 +11,10 @@ class News extends Eloquent {
     public static function boot() {
         parent::boot();
         
-        static::created(function($news) {
+        static::creating(function($news) {
         
             $topic = Topic::create([]);
             $news->topic_id = $topic->id;
-            $news->save();
             
         });
     }

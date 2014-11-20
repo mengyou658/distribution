@@ -11,11 +11,10 @@ class Question extends Eloquent {
     public static function boot() {
         parent::boot();
         
-        static::created(function($question) {
+        static::creating(function($question) {
         
             $topic = Topic::create([]);
             $question->topic_id = $topic->id;
-            $question->save();
             
         });
     }

@@ -8,6 +8,19 @@ class Comment extends Eloquent {
         'id',
     );
 
+    public static function boot() {
+        parent::boot();
+        
+        static::creating(function($comment) {
+        
+            $topic = Topic::find($comment->topic_id);
+            $topic->floor_count += 1;
+            $topic->save();
+
+            $comment->floor = $topic->floor_count;
+
+        });
+    }
 
     // relation: user
 

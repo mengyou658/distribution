@@ -12,11 +12,10 @@ class Activity extends Eloquent {
     public static function boot() {
         parent::boot();
         
-        static::created(function($activity) {
+        static::creating(function($activity) {
         
             $topic = Topic::create([]);
             $activity->topic_id = $topic->id;
-            $activity->save();
             
         });
     }

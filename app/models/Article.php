@@ -14,11 +14,10 @@ class Article extends Eloquent {
     public static function boot() {
         parent::boot();
         
-        static::created(function($article) {
+        static::creating(function($article) {
         
             $topic = Topic::create([]);
             $article->topic_id = $topic->id;
-            $article->save();
             
         });
 

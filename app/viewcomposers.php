@@ -38,6 +38,28 @@ View::composer('news.index', function($view) {
     }
 });
 
+View::composer(['article.detail', 'news.detail', 'group.post.detail'], function($view) {
+    if (Auth::check()) {
+        $user = Auth::user();
+        $commentsCollection = $view->comments->getCollection();
+
+        if(!$commentsCollection->isEmpty()) {
+            $ids = $commentsCollection->lists('id');
+            
+            $checks = CommentDigg::whereUser_id($user->id)
+                                 ->whereIn('comment_id', $ids)
+                                 ->get();
+            
+            $isDuggs = [];
+            foreach ($checks as $check) {
+                $isDuggs[$check->comment_id] = $check->user_id;
+            }
+            
+            $view->with('isDuggs', $isDuggs);
+        }
+    }
+});
+
 // View::composer('event.index', function($view) {
 
 //     if (Auth::check()) {

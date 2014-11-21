@@ -4,21 +4,17 @@ return [
 
     'title' => '附件',
     'single' => '附件',
-    'model' => 'Media',
+    'model' => 'Attachment',
     'columns' => [
         'id',
-
-        'url' => [
-            'title' => 'URL',
+        
+        'uri' => [
+            'title' => 'URI',
         ],
         
-        'name' => [
-            'title' => '文件夹名',
+        'created_at' => [
+            'title' => '上传时间',
         ],
-        
-        'created_at' => array(
-            'title' => '发布时间',
-        ),
         
     ],
 
@@ -36,7 +32,7 @@ return [
         'name' => array(
             'title' => '文件',
             'type' => 'file',
-            'location' => public_path() . '/upload/',
+            'location' => public_path() . '/upload/' . date('%Y/%m/%d'), // 按时间分割
             'naming' => 'random',
             'length' => 10,
             'size_limit' => 2,

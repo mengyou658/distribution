@@ -4,14 +4,14 @@ return [
 
     'title' => '文章',
     'single' => '文章',
-    'model' => 'Post',
+    'model' => 'Article',
     'columns' => [
         'id',
         
         'title' => [
             'title' => '标题',
         ],
-        
+
         'created_at' => [
             'title' => '发布时间',
         ],
@@ -34,7 +34,7 @@ return [
 
         'abstract' => array(
             'title' => '摘要',
-            'type' => 'wysiwyg',
+            'type' => 'textarea',
         ),
         
         'content' => array(

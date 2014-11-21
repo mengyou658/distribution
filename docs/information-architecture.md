@@ -225,8 +225,8 @@ feedback
 ```
 attachment
 
-    uri
-
+    name
+    
 ```
 
 

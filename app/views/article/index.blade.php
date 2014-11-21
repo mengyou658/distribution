@@ -16,7 +16,7 @@
                     <img src="">
                 </div>
                 <div>
-                    {{$article->abstract}}
+                    {{$article->show_abstract}}
                 </div>
                 <p><a href="#">阅读全文</a> <a href="#comment">发表评论</a></p>
             </div>

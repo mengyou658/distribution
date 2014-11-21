@@ -11,6 +11,10 @@ class Article extends Eloquent {
         //'status',
     );
 
+    // protected $appends = [
+    //     'abstract',
+    // ];
+
     public static function boot() {
         parent::boot();
         
@@ -35,16 +39,14 @@ class Article extends Eloquent {
     //     return $commentCount;
     // }
 
-    // attr: abstract
-    public function getAbstractAttribute() {
-
+    // attr: show_abstract
+    public function getShowAbstractAttribute() {
         if ($this->attributes['abstract']) {
             return $this->attributes['abstract'];
         }
         else {
             return substr($this->attributes['content'], 0, strpos($this->attributes['content'], '<!--more-->'));
         }
-
     }
 
     // scope

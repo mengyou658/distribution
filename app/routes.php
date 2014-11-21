@@ -50,6 +50,8 @@ if(Config::get('app.debug')) {
         //     echo "failed";
         // }
 
+        echo sha1(uniqid('', true).str_random(25).microtime(true));
+
     });
 
     Route::get('test/editor', function() {
@@ -67,9 +69,9 @@ if(Config::get('app.debug')) {
 
         set_time_limit(0); // prevent timeout
 
-        DB::statement('truncate table article');
+        //DB::statement('truncate table article');
 
-        $oldArticles = DB::table('import_article')->get();
+        $oldArticles = DB::connection('legacy')->table('import_article')->get();
 
         foreach ($oldArticles as $oldArticle) {
             Article::create([

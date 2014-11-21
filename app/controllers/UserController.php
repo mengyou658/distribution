@@ -307,7 +307,7 @@ class UserController extends BaseController {
                            ->with('msg', '本站不支持您上传的图片格式');
         }
             
-            // 2M: 1024*1024*2 = 2097152
+        // 2M: 1024*1024*2 = 2097152
         if ($file->getClientSize() > 2097152) {
             return Redirect::to('user/setting/avatar')
                            ->with('msg', '图片文件太大（本站最大支持 2M 头像图片文件上传）');
@@ -328,10 +328,16 @@ class UserController extends BaseController {
             
         $file->move($desPath, $fileName);   
         $fileUri = $publicAvatarPath.'/'.$fileName;
-            
+        
+        $oldAvatarPath = public_path().$user->avatar;
         $user->avatar = $fileUri;
         $user->save();
-        
+
+        // delete old avatar
+        if (File::exists($oldAvatarPath)) {
+            File::delete($oldAvatarPath);
+        }
+
         return Redirect::to('user/setting/avatar')->with('msg', '修改头像成功');
     }
 

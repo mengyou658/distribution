@@ -116,7 +116,7 @@ answer
 topic
     title
 
-    // @todo floor_count
+    floor_count
 ```
 
 ### 评论
@@ -219,6 +219,16 @@ feedback
     email
     content
 ```
+
+### 附件
+
+```
+attachment
+
+    uri
+
+```
+
 
 ## 关系
 

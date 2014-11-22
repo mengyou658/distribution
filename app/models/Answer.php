@@ -15,6 +15,10 @@ class Answer extends Eloquent {
         
             $topic = Topic::create([]);
             $answer->topic_id = $topic->id;
+
+            $question = Question::find($answer->question_id);
+            $question->answer_count += 1;
+            $question->save();
             
         });
     }

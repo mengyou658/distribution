@@ -8,6 +8,19 @@ class Topic extends Eloquent {
         'id',
     );
 
+    public static function boot() {
+        parent::boot();
+        
+        // static::creating(function($topic) {
+        // });
+
+        static::deleting(function($topic) {
+        
+            Comment::whereTopic_id($topic->id)->get()->delete();
+
+        });
+
+    }
 
     // relation: comments 
     public function comments() {

@@ -8,4 +8,25 @@ class QuestionDigg extends Eloquent {
         'id',
     );
 
+    public static function boot() {
+        parent::boot();
+        
+        static::creating(function($questionDigg) {
+        
+            $question = Question::find($questionDigg->question_id);
+            $question->digg_count += 1;
+            $question->save();
+
+        });
+
+        static::deleting(function($questionDigg) {
+        
+            $question = Question::find($questionDigg->question_id);
+            $question->digg_count -= 1;
+            $question->save();
+
+        });
+
+    }
+
 }

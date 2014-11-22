@@ -50,7 +50,7 @@ if(Config::get('app.debug')) {
         //     echo "failed";
         // }
 
-        echo sha1(uniqid('', true).str_random(25).microtime(true));
+        echo Carbon\Carbon::now();
 
     });
 

@@ -8,6 +8,9 @@ class Activity extends Eloquent {
         'id',
     );
 
+    public function getDates() {
+        return ['began_at', 'ended_at', 'created_at', 'updated_at'];
+    }
 
     public static function boot() {
         parent::boot();
@@ -18,6 +21,12 @@ class Activity extends Eloquent {
             $activity->topic_id = $topic->id;
             
         });
+
+        // static::deleting(function($activity) {
+        
+        //     // @todo: delete topic
+            
+        // });
     }
 
     // relation: user

@@ -17,7 +17,9 @@ class Article extends Eloquent {
 
     public static function boot() {
         parent::boot();
-        
+
+        //static::addGlobalScope(new ArticleDefaultScope);
+
         static::creating(function($article) {
         
             $topic = Topic::create([]);
@@ -75,7 +77,30 @@ class Article extends Eloquent {
         return $this->belongsTo('Category', 'category_id');
     }
 
-
-
-    
 }
+
+// use Illuminate\Database\Eloquent\ScopeInterface;
+// use Illuminate\Database\Eloquent\Builder;
+
+// class ArticleDefaultScope implements ScopeInterface {
+//     public function apply(Builder $builder) {
+//         $builder->where('status','=', 'published');
+//     }
+
+//     public function remove(Builder $builder) {
+//         $query = $builder->getQuery();
+
+//         foreach ((array) $query->wheres as $key => $where) {
+
+//             if ($where['column'] == 'status' 
+//              && $where['operator'] == '=' 
+//              && $where['value'] == 'published') {
+
+//                 unset($query->wheres[$key]);
+//                 $query->wheres = array_values($query->wheres);
+
+//             }
+//         }
+
+//     }
+// }

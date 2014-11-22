@@ -20,6 +20,7 @@ class CreateGroupTable extends Migration {
             $table->string('name', 16);
             $table->string('thumbnail', 256);
 
+            $table->string('short_descr', 32);
             $table->text('descr')->default('');
 
             $table->integer('order')->default(0);

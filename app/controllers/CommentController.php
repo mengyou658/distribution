@@ -110,10 +110,6 @@ class CommentController extends BaseController {
             'comment_id' => $commentId,
         ));
         
-        $comment = Comment::find($commentId);
-        $comment->digg_count += 1;
-        $comment->save();
-        
         return Response::json(['status'=>'ok']);
     }
 

@@ -139,6 +139,7 @@ group
     name
     thumbnail
 
+    short_descr
     descr
 
     order

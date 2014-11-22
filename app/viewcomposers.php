@@ -60,6 +60,29 @@ View::composer(['article.detail', 'news.detail', 'group.post.detail'], function(
     }
 });
 
+View::composer('ask.question.detail', function($view) {
+    if (Auth::check()) {
+        $user = Auth::user();
+        $answersCollection = $view->answers->getCollection();
+
+        if(!$answersCollection->isEmpty()) {
+            $ids = $answersCollection->lists('id');
+            
+            $checks = AnswerAttitude::whereUser_id($user->id)
+                                    ->whereIn('answer_id', $ids)
+                                    ->get();
+            
+            $attitudes = [];
+            foreach ($checks as $check) {
+                $attitudes[$check->answer_id] = $check->type;
+            }
+            
+            $view->with('attitudes', $attitudes);
+        }
+        
+    }
+});
+
 // View::composer('event.index', function($view) {
 
 //     if (Auth::check()) {

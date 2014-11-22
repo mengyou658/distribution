@@ -19,57 +19,49 @@
 </div>
 
 <div class="page-header">
-    <legend>讨论小组<small class="pull-right"><a href="#">所有小组...</a></small></legend>
+    <legend>讨论小组<small class="pull-right"><a href="{{action('GroupController@getIndex')}}">所有小组...</a></small></legend>
 </div>
 
+<?php
+    // $sidebarGroups = Cache::remember('sidebar:groups', 60, function() {
+    //     return Group::orderByRaw("RAND()")->take(4)->get();
+    // });
+    $sidebarGroups = Group::orderByRaw("RAND()")->take(4)->get();
+?>
+
 <div class="row">
+    @foreach($sidebarGroups as $group)
     <div class="col-xs-2">
-        <img style="width:48px" src="/img/test_group.jpg">
+        <a href="{{action('GroupController@getDetail', $group->id)}}">
+        <img style="width:48px" src="/img/test_group.jpg"><!-- @todo: fixme -->
+        </a>
     </div>
     <div class="col-xs-4">
-        <p><a href="">小组名字</a> </p>
-        <P>小组描述</P>
+        <p><a href="{{action('GroupController@getDetail', $group->id)}}">{{$group->name}}</a></p>
+        <P>{{$group->short_descr}}</P>
     </div>
-    <div class="col-xs-2">
-        <img style="width:48px" src="/img/test_group.jpg">
-    </div>
-    <div class="col-xs-4">
-        <p><a href="">小组名字</a> </p>
-        <P>小组描述</P>
-    </div>
-    <div class="col-xs-2">
-        <img style="width:48px" src="/img/test_group.jpg">
-    </div>
-    <div class="col-xs-4">
-        <p><a href="">小组名字</a> </p>
-        <P>小组描述</P>
-    </div>
-    <div class="col-xs-2">
-        <img style="width:48px" src="/img/test_group.jpg">
-    </div>
-    <div class="col-xs-4">
-        <p><a href="">小组名字</a> </p>
-        <P>小组描述</P>
-    </div>
+    @endforeach
 </div>
 
 <div class="page-header">
-    <legend>近期活动<small class="pull-right"><a href="#">所有活动...</a></small></legend>
+    <legend>近期活动<small class="pull-right"><a href="{{action('ActivityController@getIndex')}}">所有活动...</a></small></legend>
 </div>
 
+<?php
+    // $sidebarActivities = Cache::remember('sidebar:activities', 60, function() {
+    //     return Activity::orderByRaw("RAND()")->take(3)->get();
+    // });
+    $sidebarActivities = Activity::orderByRaw("RAND()")->take(3)->get();
+?>
+
 <div class="row">
+    @foreach($sidebarActivities as $activity)
     <div class="col-xs-12">
-        <p><a href="">活动名字</a> <span>2014年11月11日</span></p>
-        <P>活动描述，活动描述，活动描述...</P>
+        <p><a href="{{action('ActivityController@getDetail', $activity->id)}}">{{$activity->title}}</a> 
+        <span class="pull-right">{{$activity->began_at->format('Y年m月d日')}}</span></p>
+        <P>{{$activity->abstract}}</P>
     </div>
-    <div class="col-xs-12">
-        <p><a href="">活动名字</a> <span>2014年11月11日</span></p>
-        <P>活动描述，活动描述，活动描述...</P>
-    </div>
-    <div class="col-xs-12">
-        <p><a href="">活动名字</a> <span>2014年11月11日</span></p>
-        <P>活动描述，活动描述，活动描述...</P>
-    </div>
+    @endforeach
 </div>
 
 <div class="page-header">

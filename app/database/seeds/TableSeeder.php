@@ -27,19 +27,19 @@ class TableSeeder extends Seeder {
         ]);
 
 
-        // DB::table('article')->delete();
+        DB::table('article')->delete();
 
-        // for ($i = 1; $i <= 5; $i++) {
-        //     Article::create([
+        for ($i = 1; $i <= 5; $i++) {
+            Article::create([
 
-        //         'user_id' => 1,
-        //         'title' => "测试文章标题$i",
-        //         'content' => "测试文章内容，测试文章内容，测试文章内容，测试文章内容，测试文章内容，测试文章内容，",
-        //         'status' => 'published',
-        //         'published_at' => date("Y-m-d H:i:s"),
+                'user_id' => 1,
+                'title' => "测试文章标题$i",
+                'content' => "测试文章内容，测试文章内容，测试文章内容，测试文章内容，测试文章内容，测试文章内容，",
+                'status' => 'published',
+                'published_at' => date("Y-m-d H:i:s"),
 
-        //     ]);
-        // }
+            ]);
+        }
 
         DB::table('category')->delete();
 
@@ -110,30 +110,35 @@ class TableSeeder extends Seeder {
         Group::create([
             'name' => '网站事务',
             'thumbnail' => '/img/test_group.jpg',
+            'short_descr' => '网站事务小组',
             'order' => 10,
         ]);
 
         Group::create([
             'name' => '统计学',
             'thumbnail' => '/img/test_group.jpg',
+            'short_descr' => '统计学小组',
             'order' => 20,
         ]);
 
         Group::create([
             'name' => 'R语言',
             'thumbnail' => '/img/test_group.jpg',
+            'short_descr' => 'R语言小组',
             'order' => 30,
         ]);
 
         Group::create([
             'name' => '统计软件',
             'thumbnail' => '/img/test_group.jpg',
+            'short_descr' => '统计软件小组',
             'order' => 40,
         ]);
 
         Group::create([
             'name' => '灌水区',
             'thumbnail' => '/img/test_group.jpg',
+            'short_descr' => '灌水小组',
             'order' => 100,
         ]);
 

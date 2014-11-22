@@ -11,9 +11,9 @@
 
         <div>
             <!-- @todo: 样式分离 -->
-            <img style="width:256px;height:256px;" src="{{$user->avatar}}" alt="avatar" class="img-thumbnail">
+            <img style="width:256px;height:256px;" src="{{$user->show_avatar}}" alt="avatar" class="img-thumbnail">
         </div>
-        
+
     </div>
 
     <div class="col-sm-9">

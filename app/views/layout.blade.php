@@ -43,7 +43,7 @@
           </ul>
 
           @if(Auth::check())
-          <img class="nav-avatar img-circle pull-right" src="{{ Auth::user()->avatar }}"><!-- @todo: fixme -->
+          <img class="nav-avatar img-circle pull-right" src="{{ Auth::user()->show_avatar }}">
           @endif
           <ul class="nav navbar-nav navbar-right">
             @if(Auth::check())

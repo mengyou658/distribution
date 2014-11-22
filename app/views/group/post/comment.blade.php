@@ -12,7 +12,7 @@
         <div id="comment-{{$comment->id}}" class="comment-item row">
             <div class="comment-avatar col-xs-2">
                 <a href="{{action('UserController@getDetail', $comment->user->id)}}">
-                <img style="width:100%" class="" src="{{$comment->user->avatar}}">
+                <img style="width:100%" class="" src="{{$comment->user->show_avatar}}">
                 </a>
             </div>
 

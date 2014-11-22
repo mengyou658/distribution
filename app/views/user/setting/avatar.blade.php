@@ -22,7 +22,7 @@
             <div class="col-sm-8">
                 <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail" style="width: 220px; height: 220px;">
-                    <img alt="" src="{{Auth::user()->avatar}}" style="height: 100%; width: 100%; display: block;">
+                    <img alt="" src="{{Auth::user()->show_avatar}}" style="height: 100%; width: 100%; display: block;">
                 </div>
                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 220px; max-height: 220px;"></div>
                 <div>

@@ -44,11 +44,10 @@ class AskController extends BaseController {
 
     public function getPending() {
 
-        // @todo: perPage
         $pendingQuestions = Question::whereStatus('published')
                                     ->where('answer_count', '<=', 3)
                                     ->orderBy('created_at', 'desc')
-                                    ->paginate(3);
+                                    ->paginate(8);
 
         return View::make('ask.pending', compact('pendingQuestions'));
     }
@@ -58,7 +57,7 @@ class AskController extends BaseController {
         $hottestQuestions = Question::whereStatus('published')
                                     //->where('answer_count', '<=', 3)
                                     ->orderBy('created_at', 'desc')
-                                    ->paginate(3);
+                                    ->paginate(8);
         
         return View::make('ask.hottest', compact('hottestQuestions'));
     }
@@ -70,20 +69,35 @@ class AskController extends BaseController {
     public function getQuestionDetail($questionId) {
 
         $question = Question::find($questionId);
-        $answers = $question->answers()->paginate(3);
+        $answers = $question->answers()->paginate(8);
 
         return View::make('ask.question.detail', compact('question', 'answers'));
     }
 
     public function postQuestionDigg() {
-        dd(Input::all());
+        //dd(Input::all());
 
         if (!Request::ajax()) {
             App::abort(404);
         }
 
-        // @todo
+        $user = Auth::user();
 
+        $questionId = Input::get('question_id');
+
+        $oldQuestionDigg = QuestionDigg::whereUser_id($user->id)
+                                       ->whereQuestion_id($questionId)
+                                       ->first();
+        if ($oldQuestionDigg) {
+            return Response::json(['status'=>'error', 'msg'=>'already have'], 400);
+        }
+        
+        QuestionDigg::create(array(
+            'user_id' => $user->id,
+            'question_id' => $questionId,
+        ));
+        
+        return Response::json(['status'=>'ok']);
     }
 
     public function getAsk() {
@@ -197,7 +211,7 @@ class AskController extends BaseController {
                 $answer->vote_count += 2;
                 $answer->save();
                 
-                return Response::json(['status'=>'ok']);
+                return Response::json(['vote_count'=>$answer->vote_count]);
             }
 
         }
@@ -212,7 +226,7 @@ class AskController extends BaseController {
             $answer->vote_count += 1;
             $answer->save();
 
-            return Response::json(['status'=>'ok']);
+            return Response::json(['vote_count'=>$answer->vote_count]);
         }
 
     }
@@ -245,7 +259,7 @@ class AskController extends BaseController {
                 $answer->vote_count -= 2;
                 $answer->save();
                 
-                return Response::json(['status'=>'ok']);
+                return Response::json(['vote_count'=>$answer->vote_count]);
             }
 
         }
@@ -260,7 +274,7 @@ class AskController extends BaseController {
             $answer->vote_count -= 1;
             $answer->save();
 
-            return Response::json(['status'=>'ok']);
+            return Response::json(['vote_count'=>$answer->vote_count]);
         }
     }
 

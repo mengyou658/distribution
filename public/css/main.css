@@ -143,6 +143,27 @@ span.tm-tag {
 
 /* ask */
 
+.answer-digg {
+}
+
+.answer-digg a {
+    margin-top: 0;
+    padding: 3px 9px;
+}
+
+.answer-digg a i {
+    font-size: 30px;
+}
+
+.answer-digg p {
+    margin-top: 10px;
+}
+
+.answer-digg p span {
+    font-weight: bold;
+    font-size: 22px;
+}
+
 /* group */
 
 /* event */

@@ -24,8 +24,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return ($this->attributes['nickname'] != '')?$this->attributes['nickname']:$this->attributes['name'];
     }
 
-    // attr: avatar
-    public function getAvatarAttribute() {
+    // attr: show_avatar
+    public function getShowAvatarAttribute() {
         return ($this->attributes['avatar'] != '')?$this->attributes['avatar']:'/img/default_avatar.png';
     }
 

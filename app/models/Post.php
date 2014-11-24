@@ -19,6 +19,21 @@ class Post extends Eloquent {
         });
     }
 
+    public function getGroupNameAttribute() {
+        $group = $this->discuss->group;
+        if ($group) {
+            return $group->name;
+        }
+        return '';
+    }
+
+    // setter: markdown
+    public function setMarkdownAttribute($value) {
+        $parsedown = App::make('parsedown');
+        $this->attributes['markdown'] = $value;
+        $this->attributes['content'] = $parsedown->text($value);
+    }
+
     // relation: discuss
     public function discuss() {
         return $this->belongsTo('Discuss', 'discuss_id');

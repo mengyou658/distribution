@@ -22,8 +22,14 @@ class Comment extends Eloquent {
         });
     }
 
-    // relation: user
+    // setter: markdown
+    public function setMarkdownAttribute($value) {
+        $parsedown = App::make('parsedown');
+        $this->attributes['markdown'] = $value;
+        $this->attributes['content'] = $parsedown->text($value);
+    }
 
+    // relation: user
     public function user() {
         return $this->belongsTo('User', 'user_id');
     }

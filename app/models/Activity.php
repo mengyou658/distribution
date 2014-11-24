@@ -43,4 +43,9 @@ class Activity extends Eloquent {
     public function series() {
         return $this->belongsTo('Series', 'series_id');
     }
+
+    // relation: tags
+    public function tags() {
+        return $this->belongsToMany('Tag', 'activity_tag', 'activity_id', 'tag_id');
+    }
 }

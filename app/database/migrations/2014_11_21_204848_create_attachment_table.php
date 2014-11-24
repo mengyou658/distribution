@@ -16,7 +16,8 @@ class CreateAttachmentTable extends Migration {
 		{
 			$table->increments('id');
 
-			$table->string('uri', 256);
+			$table->string('name', 64);
+			$table->string('uri', 128);
 
 			$table->timestamps();
 			$table->engine = 'InnoDB';

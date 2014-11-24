@@ -26,6 +26,7 @@ class CreateQuestionTable extends Migration {
             $table->string('status', 16)->default('published');
 
             $table->integer('topic_id');
+            $table->integer('digg_count')->default(0);
 
             $table->timestamps();
             $table->engine = 'InnoDB';

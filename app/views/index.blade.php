@@ -35,7 +35,7 @@
                     <p>
                     {{$headlineArticle->show_abstract}}
                     </p>
-                    <p><a href="{{action('ArticleController@getDetail', $headlineArticle->id)}}">阅读全文</a> <a href="{{action('ArticleController@getDetail', $headlineArticle->id)}}#comment">评论</a> <span class="pull-right">{{$headlineArticle->published_at}}</span></p>
+                    <p><a href="{{action('ArticleController@getDetail', $headlineArticle->id)}}">阅读全文</a> <a href="{{action('ArticleController@getDetail', $headlineArticle->id)}}#comment">评论</a> <span class="pull-right">{{$headlineArticle->published_at->format('Y年m月d日')}}</span></p>
                 </div>
             </div>
 

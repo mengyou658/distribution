@@ -15,6 +15,10 @@ class Article extends Eloquent {
     //     'abstract',
     // ];
 
+    public function getDates() {
+        return ['published_at', 'created_at', 'updated_at'];
+    }
+
     public static function boot() {
         parent::boot();
 

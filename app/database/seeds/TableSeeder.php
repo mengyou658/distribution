@@ -29,14 +29,14 @@ class TableSeeder extends Seeder {
 
         DB::table('article')->delete();
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 1; $i++) {
             Article::create([
 
                 'user_id' => 1,
                 'title' => "测试文章标题$i",
                 'content' => "测试文章内容，测试文章内容，测试文章内容，测试文章内容，测试文章内容，测试文章内容，",
                 'status' => 'published',
-                'published_at' => date("Y-m-d H:i:s"),
+                'published_at' => "2000-04-01 11:11:11",
 
             ]);
         }

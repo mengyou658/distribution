@@ -10,7 +10,7 @@
         <div class="article-detail">
             <h2>{{$article->title}}</h2>
             <p>{{$article->published_at}}</p>
-            <div>
+            <div class="article-content">
                 {{$article->content}}
             </div>
         </div>

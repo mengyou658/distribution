@@ -49,7 +49,7 @@
                     <blockquote>
                         {{$news->content}}
                     </blockquote>
-                    <p><a href="{{action('NewsController@getDetail', $news->id)}}#comment"> 发表评论 </a> / <a href="javascript:;">{{$news->user->name}}</a> @ {{$news->created_at}} </p>
+                    <p><a href="{{action('NewsController@getDetail', $news->id)}}#comment"> 发表评论 </a> / <a href="javascript:;">{{$news->user->show_name}}</a> @ {{$news->created_at}} </p>
                 </div>
             </div>
             <hr>

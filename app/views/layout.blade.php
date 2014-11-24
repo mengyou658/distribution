@@ -48,7 +48,7 @@
           <ul class="nav navbar-nav navbar-right">
             @if(Auth::check())
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{{Auth::user()->name}}} <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{{Auth::user()->show_name}}} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="/user/dashboard">我的主页</a></li>
                 <li><a href="/user/setting/profile">个人设置</a></li>

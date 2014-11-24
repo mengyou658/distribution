@@ -18,7 +18,7 @@
 
             <div class="col-xs-10">
                 <div class="comment-meta">
-                <p class="text-muted"><a href="{{action('UserController@getDetail', $comment->user->id)}}"> {{$comment->user->name}} </a><span class="pull-right">{{$comment->created_at}}</span></p>
+                <p class="text-muted"><a href="{{action('UserController@getDetail', $comment->user->id)}}"> {{$comment->user->show_name}} </a><span class="pull-right">{{$comment->created_at}}</span></p>
                 </div>
 
                 <div class="comment-content">

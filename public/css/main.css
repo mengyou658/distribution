@@ -99,6 +99,9 @@ span.tm-tag {
 
 /* article */
 
+.article-content img {
+    max-width: 100%;
+}
 
 /* news */
 @media (min-width: 768px) {

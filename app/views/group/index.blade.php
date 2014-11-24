@@ -13,7 +13,7 @@
             <div class="post-item">
                 <h4>
                     <a href="{{action('GroupController@getPostDetail', $post->id)}}">{{{$post->title}}}</a>
-                    <small class="pull-right">{{$post->user->name}} @ {{$post->created_at}}</small>
+                    <small class="pull-right">{{$post->user->show_name}} @ {{$post->created_at}}</small>
                 </h4>
             </div>
             @endforeach

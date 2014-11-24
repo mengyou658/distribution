@@ -50,7 +50,9 @@ if(Config::get('app.debug')) {
         //     echo "failed";
         // }
 
-        echo Carbon\Carbon::now();
+        //echo Carbon\Carbon::now();
+
+        echo date('Y/m/');
 
     });
 

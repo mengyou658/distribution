@@ -20,10 +20,15 @@ return array(
      *    )
      */
     'menu' => [
-        'article',
-        'news',
-        'user',
-        '问答' => ['question', 'answer'],
+        '文章' => ['Article', 'Category'],
+        'News',
+        '问答' => ['Question', 'Answer'],
+        '讨论' => ['Group', 'Post'],
+        '活动' => ['Series', 'Activity'],
+        'Comment',
+        'Tag',
+        'User',
+        'Attachment',
     ],
 
     'permission'=> function() {
@@ -32,7 +37,7 @@ return array(
 
     'use_dashboard' => false,
     'dashboard_view' => '',
-    'home_page' => 'article',
+    'home_page' => 'Article',
     'back_to_site_path' => '/',
     'login_path' => 'user/login',
     'logout_path' => 'user/logout',

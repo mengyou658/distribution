@@ -76,6 +76,7 @@ news
         - dropped
 
     topic_id
+    digg_count
 ```
 
 ### 问题
@@ -88,11 +89,13 @@ question
     content
     markdown
 
+    answer_count
     status
         - published
         - dropped
 
     topic_id
+    digg_count
 ```
 
 ### 回答

@@ -10,7 +10,7 @@ class ArticleController extends BaseController {
     |
     */
 
-    public static $perPage = 3;
+    public static $perPage = 8;
 
     public function __construct(){
         $this->beforeFilter('auth', array('only' => array(

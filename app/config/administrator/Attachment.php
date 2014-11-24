@@ -32,10 +32,16 @@ return [
         'name' => array(
             'title' => '文件',
             'type' => 'file',
-            'location' => public_path() . '/upload/' . date('%Y/%m/%d'), // 按时间分割
-            'naming' => 'random',
+            'location' => public_path() . '/upload/temp/',
+            'naming' => 'keep',
             'length' => 10,
             'size_limit' => 2,
+            'editable' => function($model) {
+                return !$model->exists;
+            },
+            'visible' => function($model) {
+                return !$model->exists;
+            },
         ),
 
     ),

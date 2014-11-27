@@ -110,6 +110,10 @@ class UserController extends BaseController {
 
         if ($user) {
             if (Auth::attempt(['name' => $name, 'password' => $password])) {
+
+                // Auth::user()->last_login_at = new DateTime();
+                // Auth::user()->save();
+
                 if ($refer) {
                     return Redirect::to($refer)->with('msg', '登录成功');
                 }
@@ -137,6 +141,7 @@ class UserController extends BaseController {
                 $newUser->website = $wpUser->user_url;
                 $newUser->created_at = $wpUser->user_registered;
                 $newUser->is_confirmed = true;
+                //$newUser->last_login_at = new DateTime();
                 $newUser->save();
 
                 // delete

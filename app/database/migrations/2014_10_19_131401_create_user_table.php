@@ -25,10 +25,12 @@ class CreateUserTable extends Migration {
             $table->string('descr', 512)->default('');
             $table->string('website', 256)->default('');
             $table->string('sex', 16)->default('unknown');
-            //$table->dateTime('registered_at');
+            // $table->dateTime('registered_at'); // use created_at
 
             $table->boolean('is_confirmed')->default(false);
             $table->string('status', 16)->default('member');
+
+            // $table->dateTime('last_login_at');
 
             $table->rememberToken();
             $table->timestamps();

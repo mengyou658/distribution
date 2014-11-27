@@ -12,6 +12,12 @@ return [
             'title' => '标题',
         ],
 
+        'category_name' => array(
+            'title' => '分类',
+            'relationship' => 'category',
+            'select' => "(:table).name",
+        ),
+
         'created_at' => [
             'title' => '发布时间',
         ],
@@ -24,8 +30,15 @@ return [
 
     'filters' => array(
         'id',
+
         'title' => array(
             'title' => '标题',
+        ),
+
+        'category' => array(
+            'type' => 'relationship',
+            'title' => '分类',
+            'name_field' => 'name',
         ),
     ),
 

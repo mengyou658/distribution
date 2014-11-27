@@ -184,7 +184,8 @@ class UserController extends BaseController {
         $descr = Input::get('descr');
 
         // check nickname
-        $duplicatedUser = User::whereNickname($nickname)->first();
+        $duplicatedUser = User::whereNickname($nickname)
+                              ->where('id', '!=', $user->id)->first();
         if ($duplicatedUser) {
             return Redirect::to('user/setting/profile')
                            ->with('msg', '这个昵称已经被使用');

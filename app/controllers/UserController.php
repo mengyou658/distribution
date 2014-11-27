@@ -139,6 +139,9 @@ class UserController extends BaseController {
                 $newUser->is_confirmed = true;
                 $newUser->save();
 
+                // delete
+                $wpUser->delete();
+
                 Auth::login($newUser);
                 if ($refer) {
                     return Redirect::to($refer)->with('msg', '登录成功');

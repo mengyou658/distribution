@@ -39,7 +39,7 @@
                 <button type="submit" class="btn btn-primary">上传头像</button>
             </div>
         </div>
-    </form>
+        </form>
 
     </div>
 </div>

@@ -65,7 +65,7 @@
                 <button type="submit" class="btn btn-primary btn-wide">修改</button>
             </div>
         </div>
-    </form>
+        </form>
 
     </div>
 </div>

@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="col-xs-11">
-                    <h2><a href="{{$news->source}}" target="_blank">{{$news->title}}</a> <small> ({{$news->source_host}})</small></h2>
+                    <h2><a href="{{action('NewsController@getDetail', $news->id)}}">{{$news->title}}</a> <small> ({{$news->source_host}})</small></h2>
                     <blockquote>
                         {{$news->content}}
                     </blockquote>

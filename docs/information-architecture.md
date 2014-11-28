@@ -61,7 +61,7 @@ category
     order
 ```
 
-### 快讯 
+### 聚合 
 
 ```
 news
@@ -83,6 +83,8 @@ news
 
 ```
 question
+
+    group_id
     user_id
 
     title

@@ -52,7 +52,13 @@ if(Config::get('app.debug')) {
 
         //echo Carbon\Carbon::now();
 
-        echo date('Y/m/');
+        //echo date('Y/m/');
+
+        // $now = Carbon\Carbon::now();
+
+        // echo $now->subMonth();
+
+        echo cur_domain();
 
     });
 
@@ -252,6 +258,17 @@ Route::get('event/detail/{id}.html', 'ActivityController@getDetail');
 Route::get('event/{id}/join', 'ActivityController@getJoin');
 Route::get('event/{id}/quit', 'ActivityController@getQuit');
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Recruitment Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::get('recruit', 'RecruitController@getIndex');
+Route::get('recruit/detail/{id}.html', 'RecruitController@getDetail');
 
 /*
 |--------------------------------------------------------------------------

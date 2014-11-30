@@ -21,3 +21,9 @@ if ( ! function_exists('nl2p')) {
         return $paragraphs;
     }
 }
+
+if ( ! function_exists('cur_domain')) {
+    function cur_domain() {
+        return $_SERVER['SERVER_NAME'];
+    }
+}

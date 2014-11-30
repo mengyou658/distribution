@@ -17,7 +17,27 @@
         
         <hr class="bold">
 
-        @include('utils.comment')
+        {{-- @include('utils.comment') --}}
+
+
+        <div id="comment" class="ds-thread" data-thread-key="article-{{$article->id}}" data-title="{{$article->title}}" data-url="{{action('ArticleController@getDetail', $article->id)}}"></div>
+        <script type="text/javascript">
+        var duoshuoQuery = {
+            short_name:"cos",
+            // sso: { 
+            //     login: "http://{{cur_domain()}}/user/login/",
+            //     logout: "http://{{cur_domain()}}/user/logout/"
+            // }
+        };
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
 
     </div>
 
@@ -28,5 +48,5 @@
 @stop
 
 @section('js')
-<script src="/js/comment.js"></script>
+
 @stop

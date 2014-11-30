@@ -4,6 +4,10 @@
 <div class="row">
     <div class="col-sm-8">
         <div class="page-header">
+            <legend>问答</legend>
+        </div>
+
+        <div class="page-header">
             <legend>等待回答 <small class="pull-right"><a href="{{action('AskController@getPending')}}">全部...</a></small></legend>
         </div>
 

@@ -38,7 +38,7 @@ class GroupController extends BaseController {
 
         $posts = Post::whereStatus('published')
                      ->orderBy('created_at', 'desc')
-                     ->paginate(5);
+                     ->paginate(10);
 
         return View::make('group.post', compact('posts'));
     }

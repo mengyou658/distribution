@@ -217,7 +217,26 @@ tag
     name
 ```
 
-### 反馈
+
+### 招聘
+
+```
+recruit
+
+    user_id
+    
+    title
+    abstract
+    content
+    published_at
+    status
+        - published
+        - draft
+        - dropped
+
+```
+
+### 反馈 // @todo
 
 ```
 feedback

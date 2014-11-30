@@ -26,9 +26,28 @@ class NewsController extends BaseController {
         switch ($orderBy) {
             case 'created_at':
                 $newses = News::whereStatus('published')
-                             ->orderBy('created_at', 'desc');
+                              ->orderBy('created_at', 'desc');
                 break;
+            case 'last_week':
+                $lastWeek = Carbon\Carbon::now()->subWeek();
+                $newses = News::whereStatus('published')
+                              ->where('created_at', '>=', $lastWeek)
+                              ->orderBy('digg_count', 'desc');
+                break;
+            case 'last_month':
+                $lastMonth = Carbon\Carbon::now()->subMonth();
+                $newses = News::whereStatus('published')
+                              ->where('created_at', '>=', $lastMonth)
+                              ->orderBy('digg_count', 'desc');
 
+                break;
+            case 'last_year':
+                $lastYear = Carbon\Carbon::now()->subYear();
+                $newses = News::whereStatus('published')
+                              ->where('created_at', '>=', $lastYear)
+                              ->orderBy('digg_count', 'desc');
+
+                break;
             case 'digg_count':
                 $newses = News::whereStatus('published')
                              ->orderBy('digg_count', 'desc');

@@ -33,7 +33,10 @@
         -->
         <div class="btn-group">
             <a class="btn btn-primary @if($orderBy == 'created_at') active @endif" href="/news">最新</a>
-            <a class="btn btn-primary @if($orderBy == 'digg_count') active @endif" href="/news?order_by=digg_count">最热</a>
+            <a class="btn btn-primary @if($orderBy == 'last_week') active @endif" href="/news?order_by=last_week">本周</a>
+            <a class="btn btn-primary @if($orderBy == 'last_month') active @endif" href="/news?order_by=last_month">本月</a>
+            <a class="btn btn-primary @if($orderBy == 'last_year') active @endif" href="/news?order_by=last_year">本年</a>
+            <a class="btn btn-primary @if($orderBy == 'digg_count') active @endif" href="/news?order_by=digg_count">总计</a>
         </div>
 
         <div class="news-list">
@@ -49,7 +52,7 @@
                     <blockquote>
                         {{$news->content}}
                     </blockquote>
-                    <p><a href="{{action('NewsController@getDetail', $news->id)}}#comment"> 发表评论 </a> / <a href="javascript:;">{{$news->user->show_name}}</a> @ {{$news->created_at}} </p>
+                    <p><a href="{{action('NewsController@getDetail', $news->id)}}#comment"> 发表评论 </a> / <a href="{{action('UserController@getDetail', $news->user->id)}}">{{$news->user->show_name}}</a> @ {{$news->created_at}} </p>
                 </div>
             </div>
             <hr>
@@ -59,6 +62,15 @@
             switch ($orderBy) {
                 case 'created_at':
                     $links = $newses->links();
+                    break;
+                case 'last_week':
+                    $links = $newses->appends(array('order_by' => 'last_week'))->links();
+                    break;
+                case 'last_month':
+                    $links = $newses->appends(array('order_by' => 'last_month'))->links();
+                    break;
+                case 'last_year':
+                    $links = $newses->appends(array('order_by' => 'last_year'))->links();
                     break;
                 case 'digg_count':
                     $links = $newses->appends(array('order_by' => 'digg_count'))->links();

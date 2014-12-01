@@ -159,6 +159,8 @@ Route::get('user/setting/email', 'UserController@getSettingEmail');
 Route::post('user/setting/email', 'UserController@postSettingEmail');
 Route::get('user/setting/avatar', 'UserController@getSettingAvatar');
 Route::post('user/setting/avatar', 'UserController@postSettingAvatar');
+Route::get('user/setting/gavatar', 'UserController@getSettingGavatar');
+Route::post('user/setting/gavatar', 'UserController@postSettingGavatar');
 Route::get('user/setting/password', 'UserController@getSettingPassword');
 Route::post('user/setting/password', 'UserController@postSettingPassword');
 

@@ -17,6 +17,9 @@
             <div class="">
                 {{$question->content}}
             </div>
+
+            <a class="toggle-question-comment" href="javascript:;">展开评论</a>
+            <div id="question-comment" class=""></div>
         </div>
         
         <hr class="bold">
@@ -73,6 +76,9 @@
 
 @section('js')
 <script src="/js/libs/highlight.pack.js"></script>
+
+<script>var duoshuoQuery = {short_name:"cos"};</script>
+<script src="http://static.duoshuo.com/embed.js"></script>
 
 <script>
 $(function(){
@@ -139,6 +145,25 @@ $(function(){
         }
     });
 
+    // $('.toggle-question-comment').click(function(){
+    //     var _this = $(this);
+    //     var container = _this.next();
+        
+
+    //     if (!container.hasClass('loaded')) {
+    //         var el = document.createElement('div');
+    //         el.setAttribute('data-thread-key', '文章的本地ID');//必选参数
+    //         el.setAttribute('data-url', '你网页的网址');//必选参数
+    //         el.setAttribute('data-author-key', '作者的本地用户ID');//可选参数
+    //         DUOSHUO.EmbedThread(el);
+    //         container.append(el);
+    //         container.addClass('loaded');
+    //     }
+    //     else {
+    //         container.toggle();
+    //     }
+        
+    // });
 
 });
 </script>

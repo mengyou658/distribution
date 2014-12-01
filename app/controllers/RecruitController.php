@@ -25,4 +25,12 @@ class RecruitController extends BaseController {
         return View::make('recruit.detail', compact('recruit'));
     }
 
+    public function getNew() {
+        return View::make('recruit.new');
+    }
+
+    public function postNew() {
+        dd(Input::all());
+    }
+
 }

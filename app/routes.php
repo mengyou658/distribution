@@ -272,6 +272,9 @@ Route::get('event/{id}/quit', 'ActivityController@getQuit');
 Route::get('recruit', 'RecruitController@getIndex');
 Route::get('recruit/detail/{id}.html', 'RecruitController@getDetail');
 
+Route::get('recruit/new', 'RecruitController@getNew');
+Route::post('recruit/new', 'RecruitController@postNew');
+
 /*
 |--------------------------------------------------------------------------
 | Comment Routes

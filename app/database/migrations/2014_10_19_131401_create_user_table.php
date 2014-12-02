@@ -20,12 +20,15 @@ class CreateUserTable extends Migration {
             $table->string('name', 16);
             $table->string('password', 64);
 
-            $table->string('nickname', 16)->default('');
-            $table->string('avatar', 256)->default('');
-            $table->string('descr', 512)->default('');
-            $table->string('website', 256)->default('');
+            $table->string('nickname', 16);
+            $table->string('avatar', 256);
+            $table->string('gavatar', 64);
+            $table->string('descr', 512);
+            $table->string('website', 256);
             $table->string('sex', 16)->default('unknown');
             // $table->dateTime('registered_at'); // use created_at
+
+            $table->integer('reputation')->default(0);
 
             $table->boolean('is_confirmed')->default(false);
             $table->string('status', 16)->default('member');

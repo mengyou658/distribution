@@ -11,13 +11,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     protected $table = 'user';
 
-    protected $hidden = array('password', 'remember_token');
+    protected $guarded = [
+        'id',
+    ];
 
-    protected $fillable = array(
-        'email',
-        'name',
+    protected $hidden = [
         'password',
-    );
+        'remember_token'
+    ];
 
     // attr: show_name
     public function getShowNameAttribute() {

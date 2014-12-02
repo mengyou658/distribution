@@ -13,14 +13,17 @@ user
 
     nickname
     avatar
+    gavatar // gavatar email
     descr
     website
     sex
         - unknow
         - male
         - female
+
+    reputation    
     
-    is_confirmed
+    is_confirmed // 邮箱是否验证
 
     status
         - member

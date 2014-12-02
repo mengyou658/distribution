@@ -29,6 +29,11 @@ class Activity extends Eloquent {
         // });
     }
 
+    // relation: members
+    public function members() {
+        return $this->belongsToMany('User', 'activity_user', 'activity_id', 'user_id');
+    }
+
     // relation: user
     public function user() {
         return $this->belongsTo('User', 'user_id');

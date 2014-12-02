@@ -20,10 +20,20 @@ class UserController extends BaseController {
             'postSettingEmail',
             'getSettingAvatar',
             'postSettingAvatar',
+            'getSettingGavatar',
+            'postSettingGavatar',
             'getSettingPassword',
             'postSettingPassword',
 
         ]]);
+    }
+
+    public function gavatarUrl($email) {
+        // etc http://gravatar.com/avatar/f09663fd5fc04bad5e5b09daddb86fe6?s=80&d=monsterid&r=G
+        $email = strtolower($email);
+        $url = 'http://gravatar.com/avatar/';
+        $url = $url.md5($email).'?s=200&d=monsterid&r=G';
+        return $url;
     }
 
     public function getSignup() {
@@ -67,8 +77,20 @@ class UserController extends BaseController {
             return Redirect::to('user/signup')->with('msg', '输入信息错误');
         }
 
+        // remove repassword
+        unset($input['repassword']);
+
         // escape
         $input['name'] = e($input['name']);
+
+        // nickname 
+        $input['nickname'] = $input['name'];
+
+        // gavatar
+        $input['gavatar'] = $input['email'];
+
+        // avatar
+        $input['avatar'] = $this->gavatarUrl($input['email']);
 
         // hash password
         $input['password'] = Hash::make($input['password']);
@@ -132,20 +154,18 @@ class UserController extends BaseController {
             if(WpPassword::check($password, $wpUser->user_pass)) {
                 $newUser = User::create([
                     'email' => $wpUser->user_email,
+                    'gavatar' => $wpUser->user_email,
+                    'avatar' => $this->gavatarUrl($wpUser->user_email),
                     'name' => $wpUser->user_login,
                     'password' => Hash::make($password),
+                    'nickname' => $wpUser->display_name,
+                    'website' => $wpUser->user_url,
+                    'created_at' => $wpUser->user_registered,
+                    'is_confirmed' => true,
                 ]);
 
-                // create 会直接使用默认值，所以需要另外写入
-                $newUser->nickname = $wpUser->display_name;
-                $newUser->website = $wpUser->user_url;
-                $newUser->created_at = $wpUser->user_registered;
-                $newUser->is_confirmed = true;
-                //$newUser->last_login_at = new DateTime();
-                $newUser->save();
-
                 // delete
-                $wpUser->delete();
+                // $wpUser->delete();
 
                 Auth::login($newUser);
                 if ($refer) {
@@ -348,6 +368,17 @@ class UserController extends BaseController {
         }
 
         return Redirect::to('user/setting/avatar')->with('msg', '修改头像成功');
+    }
+
+    public function getSettingGavatar() {
+        return View::make('user.setting.gavatar');
+    }
+
+    public function postSettingGavatar() {
+        
+        dd(Input::all());
+
+
     }
 
     public function getSettingPassword() {

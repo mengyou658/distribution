@@ -60,9 +60,14 @@ if(Config::get('app.debug')) {
 
         //echo cur_domain();
 
-        $email = trim( "MyEmailAddress@example.com " );
-        $email = strtolower( $email ); 
-        echo md5( $email );
+        // $email = trim( "MyEmailAddress@example.com " );
+        // $email = strtolower( $email ); 
+        // echo md5( $email );
+
+        $answer = Answer::find(1);
+        $answerUser = $answer->user; // 这里不要调用方法
+        $answerUser->reputation += 3;
+        $answerUser->save();
 
     });
 

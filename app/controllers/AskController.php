@@ -178,6 +178,10 @@ class AskController extends BaseController {
 
         $answer = Answer::create($newAnswer);
 
+        // 回答+1
+        $user->reputation += 1;
+        $user->save();
+
         return Redirect::action('AskController@getQuestionDetail', $questionId)
                        ->with('msg', '提交回答成功');
     }
@@ -210,7 +214,12 @@ class AskController extends BaseController {
                 $answer = Answer::find($answerId);
                 $answer->vote_count += 2;
                 $answer->save();
-                
+
+                // 取消反对 +1 赞 +2 
+                $answerUser = $answer->user;
+                $answerUser->reputation += 3;
+                $answerUser->save();
+
                 return Response::json(['vote_count'=>$answer->vote_count]);
             }
 
@@ -225,6 +234,11 @@ class AskController extends BaseController {
             $answer = Answer::find($answerId);
             $answer->vote_count += 1;
             $answer->save();
+
+            // 赞 +2 
+            $answerUser = $answer->user;
+            $answerUser->reputation += 2;
+            $answerUser->save();
 
             return Response::json(['vote_count'=>$answer->vote_count]);
         }
@@ -258,6 +272,11 @@ class AskController extends BaseController {
                 $answer = Answer::find($answerId);
                 $answer->vote_count -= 2;
                 $answer->save();
+
+                // 取消赞 -2 反对 -1 
+                $answerUser = $answer->user;
+                $answerUser->reputation -= 3;
+                $answerUser->save();
                 
                 return Response::json(['vote_count'=>$answer->vote_count]);
             }
@@ -273,6 +292,11 @@ class AskController extends BaseController {
             $answer = Answer::find($answerId);
             $answer->vote_count -= 1;
             $answer->save();
+
+            // 反对 -1
+            $answerUser = $answer->user;
+            $answerUser->reputation -= 1;
+            $answerUser->save();
 
             return Response::json(['vote_count'=>$answer->vote_count]);
         }

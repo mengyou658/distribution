@@ -58,7 +58,11 @@ if(Config::get('app.debug')) {
 
         // echo $now->subMonth();
 
-        echo cur_domain();
+        //echo cur_domain();
+
+        $email = trim( "MyEmailAddress@example.com " );
+        $email = strtolower( $email ); 
+        echo md5( $email );
 
     });
 

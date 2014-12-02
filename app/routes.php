@@ -298,3 +298,16 @@ Route::post('comment/digg', 'CommentController@postDigg');
 */
 
 Route::get('munin/{uri?}', 'MuninController@getUri')->where('uri', '.*');
+
+
+/*
+|--------------------------------------------------------------------------
+| Redirect For Legacy BBS Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::get('cn/{uri}', function($uri) {
+    $url = 'http://old.cos.name/cn/' . $uri;
+    return Redirect::to($url, 301);
+})->where('uri', '.*');

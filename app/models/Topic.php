@@ -4,9 +4,9 @@ class Topic extends Eloquent {
 
     protected $table = 'topic';
 
-    protected $guarded = array(
+    protected $guarded = [
         'id',
-    );
+    ];
 
     public static function boot() {
         parent::boot();

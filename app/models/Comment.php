@@ -4,9 +4,13 @@ class Comment extends Eloquent {
 
     protected $table = 'comment';
 
-    protected $guarded = array(
+    protected $guarded = [
         'id',
-    );
+    ];
+
+    protected $hidden = [
+        'markdown',
+    ];
 
     public static function boot() {
         parent::boot();

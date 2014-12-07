@@ -12,7 +12,8 @@ class RecruitController extends BaseController {
 
     public function __construct(){
         $this->beforeFilter('auth', ['only' => [
-            // 'getDashboard',
+            'getNew',
+            'postNew',
         ]]);
     }
 
@@ -31,6 +32,14 @@ class RecruitController extends BaseController {
 
     public function postNew() {
         dd(Input::all());
+
+        $input = [
+
+        ];
+
+        $rules = [
+
+        ];
     }
 
 }

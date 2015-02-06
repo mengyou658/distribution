@@ -29,6 +29,7 @@ user
         - member
         - editor
         - admin
+        - banned
 
 ```
 
